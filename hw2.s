@@ -35,25 +35,22 @@ print_packet:                           # @print_packet
 	shl	ecx, 5
 	movzx	eax, byte ptr [rdi + 2]
 	mov	edi, eax
-	shr	dil, 3
-	movzx	edi, dil
+	shr	edi, 3
 	or	edi, ecx
-	mov	ecx, eax
-	shr	cl, 2
-	and	cl, 1
+	mov	r8d, eax
+	shr	r8d, 2
+	and	r8d, 1
 	mov	ebp, eax
-	shr	bpl
-	and	bpl, 1
-	and	al, 1
+	shr	ebp
+	and	ebp, 1
+	and	eax, 1
 	shr	esi, 2
 	movsx	r14d, dil
-	movzx	r8d, cl
-	movzx	r9d, bpl
-	movzx	eax, al
 	mov	dword ptr [rsp], eax
 	lea	rdi, [rip + .L.str]
                                         # kill: def $esi killed $esi killed $rsi
 	mov	ecx, r14d
+	mov	r9d, ebp
 	xor	eax, eax
 	call	printf@PLT
 	lea	rdi, [rip + .L.str.1]
@@ -67,17 +64,7 @@ print_packet:                           # @print_packet
 	mov	r12d, 3
 	lea	r15, [rip + .L.str.2]
 	test	bpl, bpl
-	jne	.LBB0_2
-	.p2align	4, 0x90
-.LBB0_3:                                # =>This Inner Loop Header: Depth=1
-	movbe	esi, dword ptr [rbx + r12]
-	mov	rdi, r15
-	xor	eax, eax
-	call	printf@PLT
-	add	r12, 4
-	cmp	r12, r14
-	jb	.LBB0_3
-	jmp	.LBB0_4
+	je	.LBB0_3
 	.p2align	4, 0x90
 .LBB0_2:                                # =>This Inner Loop Header: Depth=1
 	mov	esi, dword ptr [rbx + r12]
@@ -87,6 +74,16 @@ print_packet:                           # @print_packet
 	add	r12, 4
 	cmp	r12, r14
 	jb	.LBB0_2
+	jmp	.LBB0_4
+	.p2align	4, 0x90
+.LBB0_3:                                # =>This Inner Loop Header: Depth=1
+	movbe	esi, dword ptr [rbx + r12]
+	mov	rdi, r15
+	xor	eax, eax
+	call	printf@PLT
+	add	r12, 4
+	cmp	r12, r14
+	jb	.LBB0_3
 .LBB0_4:
 	mov	edi, 10
 	add	rsp, 16
@@ -915,8 +912,8 @@ sbu_decrypt:                            # @sbu_decrypt
 
 	.type	.L.str.2,@object                # @.str.2
 .L.str.2:
-	.asciz	"%08x "
-	.size	.L.str.2, 6
+	.asciz	"%x "
+	.size	.L.str.2, 4
 
 	.type	table,@object                   # @table
 	.data

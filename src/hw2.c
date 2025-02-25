@@ -10,8 +10,11 @@
 #include <sys/mman.h>
 #include <sys/stat.h>
 
-#define HEADER_LEN 3
+#ifdef HW2_USE_INTRINSICS
+#include <immintrin.h>
+#endif
 
+#define HEADER_LEN 3
 
 static inline uint64_t bitmask(uint8_t m, uint8_t n);
 static inline uint8_t bit(uint64_t val, uint8_t n);
@@ -25,7 +28,7 @@ int32_t i32_from_le_bytes(uint8_t b[4]);
 // Packet Code:
 
 typedef struct {
-  uint16_t hdr[3];
+  uint8_t hdr[3];
   uint8_t data[];
 } AflentPkt;
 
@@ -45,11 +48,9 @@ void print_packet(unsigned char packet[]) {
   int dp = HEADER_LEN;
 
   while (dp < HEADER_LEN + (length * 4)) {
-    uint8_t bytes[4];
-    memcpy(bytes, packet + dp, 4);
-    int32_t data =
-        endian == 0 ? i32_from_be_bytes(bytes) : i32_from_le_bytes(bytes);
-    printf("%08x ", data);
+    int32_t data = endian == 0 ? i32_from_be_bytes(packet + dp)
+                               : i32_from_le_bytes(packet + dp);
+    printf("%x ", data);
     dp += 4;
   }
   printf("\n");
@@ -232,31 +233,48 @@ static inline uint64_t bitsel(uint64_t val, uint8_t m, uint8_t n) {
 // Parallel bits EXTract
 // https://www.felixcloutier.com/x86/pext
 uint64_t pext(uint64_t val, uint64_t mask) {
-  uint64_t res = 0;
-  for (uint64_t bit = 1; mask; bit += bit) {
-    if (val & mask & -mask) // if ls1b of mask set in val
-      res |= bit;
-    mask &= mask - 1; // clear ls1b
+#ifdef HW2_USE_INTRINSICS
+  if (!__builtin_cpu_supports("bmi2")) {
+#endif
+    uint64_t res = 0;
+    for (uint64_t bit = 1; mask; bit += bit) {
+      if (val & mask & -mask) // if ls1b of mask set in val
+        res |= bit;
+      mask &= mask - 1; // clear ls1b
+    }
+    return res;
+#ifdef HW2_USE_INTRINSICS
   }
-  return res;
+  return _pext_u64(val, mask);
+#endif
 }
 
 // Parallel bits DEPosit
 // https://www.felixcloutier.com/x86/pdep
 uint64_t pdep(uint64_t val, uint64_t mask) {
-  uint64_t res = 0;
-  for (uint64_t bit = 1; mask; bit += bit) {
-    if (val & bit)
-      res |= mask & -mask; // set ls1b of mask in res
-    mask &= mask - 1;      // clear ls1b
+#ifdef HW2_USE_INTRINSICS
+  if (!__builtin_cpu_supports("bmi2")) {
+#endif
+    // this compiles to a huge simd-vectorized loop :(
+    uint64_t res = 0;
+    for (uint64_t bit = 1; mask; bit += bit) {
+      if (val & bit)
+        res |= mask & -mask; // set ls1b of mask in res
+      mask &= mask - 1;      // clear ls1b
+    }
+    return res;
+#ifdef HW2_USE_INTRINSICS
   }
-  return res;
+  return _pdep_u64(val, mask);
+#endif
 }
 
+// network?
 int32_t i32_from_be_bytes(uint8_t b[4]) {
   return (b[0] << 24) | (b[1] << 16) | (b[2] << 8) | b[3];
 }
 
+// host/native?
 int32_t i32_from_le_bytes(uint8_t b[4]) {
   return (b[3] << 24) | (b[2] << 16) | (b[1] << 8) | b[0];
 }

@@ -7,6 +7,9 @@ include_directories(include test/inputs)
 
 # set(CMAKE_C_CLANG_TIDY clang-tidy)
 
+# clang -masm=intel -march=native -ftree-vectorize -S -O3 -I include src/hw2.c -o hw2.s
+# clang -masm=intel -march=native -ftree-vectorize -S -O3 -I include -DHW2_USE_INTRINSICS src/hw2.c -o hw2-intrin.s
+
 add_executable(hw2_main src/hw2.c src/hw2_main.c)
 target_compile_options(hw2_main PUBLIC -Wall -Wextra -Wshadow -Wpedantic -Wdouble-promotion -Wformat=2 -Wundef -Werror -Wcast-align=strict)
 target_link_libraries(hw2_main PUBLIC m)
