@@ -22,8 +22,12 @@ static inline uint64_t bitsel(uint64_t val, uint8_t m, uint8_t n);
 uint64_t pext(uint64_t val, uint64_t mask);
 uint64_t pdep(uint64_t val, uint64_t mask);
 
-int32_t i32_from_be_bytes(uint8_t b[4]);
-int32_t i32_from_le_bytes(uint8_t b[4]);
+int32_t i32_from_be_bytes(const uint8_t b[4]);
+int32_t i32_from_le_bytes(const uint8_t b[4]);
+void i32_to_be_bytes(uint8_t b[4], int32_t i);
+void i32_to_le_bytes(uint8_t b[4], int32_t i);
+
+uint8_t mod(int8_t a, uint8_t b);
 
 // Packet Code:
 
@@ -107,20 +111,24 @@ block_t table[] = {
 // ----------------- Bitwise Functions ----------------- //
 
 uint8_t rotl(uint8_t x, uint8_t shamt) {
-  (void)x;
-  (void)shamt;
-  return 0;
+  return (x << (shamt % 8)) | (x >> (8 - (shamt % 8)));
 }
 
 uint8_t rotr(uint8_t x, uint8_t shamt) {
-  (void)x;
-  (void)shamt;
-  return 0;
+  return (x >> (shamt % 8)) | (x << (8 - (shamt % 8)));
 }
 
 block_t reverse(block_t x) {
-  (void)x;
-  return 0;
+  // loop (compiles to 4 instructions)
+
+  // it's probably possible to do this only using masks but it's not worth the
+  // effort for me
+  block_t res = 0;
+  for (int i = 0; i < 32; i++) {
+    res |= (x & 1) << (31 - i);
+    x >>= 1;
+  }
+  return res;
 }
 
 block_t shuffle4(block_t x) {
@@ -146,7 +154,9 @@ block_t unshuffle1(block_t x) {
   return pext(x, 0xAAAAAAAAUL) << 16 | pext(x, 0x55555555UL);
 }
 
-uint8_t nth_byte(block_t x, uint8_t n) { return bitsel(x, 8 * n, 8 * (n + 1)); }
+uint8_t nth_byte(block_t x, uint8_t n) {
+  return bitsel(x, 8 * n % 4, 8 * (n % 4 + 1));
+}
 
 // ----------------- Encryption Functions ----------------- //
 
@@ -270,11 +280,28 @@ uint64_t pdep(uint64_t val, uint64_t mask) {
 }
 
 // network?
-int32_t i32_from_be_bytes(uint8_t b[4]) {
+int32_t i32_from_be_bytes(const uint8_t b[4]) {
   return (b[0] << 24) | (b[1] << 16) | (b[2] << 8) | b[3];
 }
 
+void i32_to_be_bytes(uint8_t b[4], int32_t i) {
+  b[0] = (i >> 24) & 0xFFU;
+  b[1] = (i >> 16) & 0xFFU;
+  b[2] = (i >> 8) & 0xFFU;
+  b[3] = i & 0xFFU;
+}
+
 // host/native?
-int32_t i32_from_le_bytes(uint8_t b[4]) {
+int32_t i32_from_le_bytes(const uint8_t b[4]) {
   return (b[3] << 24) | (b[2] << 16) | (b[1] << 8) | b[0];
 }
+
+void i32_to_le_bytes(uint8_t b[4], int32_t i) {
+  b[0] = i & 0xFFU;
+  b[1] = (i >> 8) & 0xFFU;
+  b[2] = (i >> 16) & 0xFFU;
+  b[3] = (i >> 24) & 0xFFU;
+}
+
+// positive modulo of a and b
+uint8_t mod(int8_t a, uint8_t b) { return ((a % (int8_t)b) + b) % b; }

@@ -157,7 +157,11 @@ create_arrays:                          # @create_arrays
 rotl:                                   # @rotl
 	.cfi_startproc
 # %bb.0:
-	xor	eax, eax
+	mov	ecx, esi
+	mov	eax, edi
+                                        # kill: def $cl killed $cl killed $ecx
+	rol	al, cl
+                                        # kill: def $al killed $al killed $eax
 	ret
 .Lfunc_end5:
 	.size	rotl, .Lfunc_end5-rotl
@@ -169,19 +173,46 @@ rotl:                                   # @rotl
 rotr:                                   # @rotr
 	.cfi_startproc
 # %bb.0:
-	xor	eax, eax
+	mov	ecx, esi
+	mov	eax, edi
+                                        # kill: def $cl killed $cl killed $ecx
+	ror	al, cl
+                                        # kill: def $al killed $al killed $eax
 	ret
 .Lfunc_end6:
 	.size	rotr, .Lfunc_end6-rotr
 	.cfi_endproc
                                         # -- End function
-	.globl	reverse                         # -- Begin function reverse
+	.section	.rodata.cst16,"aM",@progbits,16
+	.p2align	4, 0x0                          # -- Begin function reverse
+.LCPI7_0:
+	.byte	1                               # 0x1
+	.byte	2                               # 0x2
+	.byte	4                               # 0x4
+	.byte	8                               # 0x8
+	.byte	16                              # 0x10
+	.byte	32                              # 0x20
+	.byte	64                              # 0x40
+	.byte	128                             # 0x80
+	.byte	1                               # 0x1
+	.byte	2                               # 0x2
+	.byte	4                               # 0x4
+	.byte	8                               # 0x8
+	.byte	16                              # 0x10
+	.byte	32                              # 0x20
+	.byte	64                              # 0x40
+	.byte	128                             # 0x80
+	.text
+	.globl	reverse
 	.p2align	4, 0x90
 	.type	reverse,@function
 reverse:                                # @reverse
 	.cfi_startproc
 # %bb.0:
-	xor	eax, eax
+	vmovd	xmm0, edi
+	vgf2p8affineqb	xmm0, xmm0, xmmword ptr [rip + .LCPI7_0], 0
+	vmovd	eax, xmm0
+	bswap	eax
 	ret
 .Lfunc_end7:
 	.size	reverse, .Lfunc_end7-reverse
@@ -844,17 +875,11 @@ unshuffle1:                             # @unshuffle1
 nth_byte:                               # @nth_byte
 	.cfi_startproc
 # %bb.0:
-                                        # kill: def $esi killed $esi def $rsi
 	shl	sil, 3
-	mov	eax, esi
-	add	al, 8
-	mov	rcx, -1
-	shlx	rdx, rcx, rsi
-	shlx	rax, rcx, rax
-	xor	eax, edx
-	and	eax, edi
-	shrx	rax, rax, rsi
-                                        # kill: def $al killed $al killed $rax
+	and	sil, 24
+	add	sil, 8
+	bzhi	eax, edi, esi
+                                        # kill: def $al killed $al killed $eax
 	ret
 .Lfunc_end14:
 	.size	nth_byte, .Lfunc_end14-nth_byte
@@ -963,6 +988,54 @@ sbu_decrypt:                            # @sbu_decrypt
 	ret
 .Lfunc_end23:
 	.size	sbu_decrypt, .Lfunc_end23-sbu_decrypt
+	.cfi_endproc
+                                        # -- End function
+	.globl	i32_to_be_bytes                 # -- Begin function i32_to_be_bytes
+	.p2align	4, 0x90
+	.type	i32_to_be_bytes,@function
+i32_to_be_bytes:                        # @i32_to_be_bytes
+	.cfi_startproc
+# %bb.0:
+	movbe	dword ptr [rdi], esi
+	ret
+.Lfunc_end24:
+	.size	i32_to_be_bytes, .Lfunc_end24-i32_to_be_bytes
+	.cfi_endproc
+                                        # -- End function
+	.globl	i32_to_le_bytes                 # -- Begin function i32_to_le_bytes
+	.p2align	4, 0x90
+	.type	i32_to_le_bytes,@function
+i32_to_le_bytes:                        # @i32_to_le_bytes
+	.cfi_startproc
+# %bb.0:
+	mov	dword ptr [rdi], esi
+	ret
+.Lfunc_end25:
+	.size	i32_to_le_bytes, .Lfunc_end25-i32_to_le_bytes
+	.cfi_endproc
+                                        # -- End function
+	.globl	mod                             # -- Begin function mod
+	.p2align	4, 0x90
+	.type	mod,@function
+mod:                                    # @mod
+	.cfi_startproc
+# %bb.0:
+                                        # kill: def $esi killed $esi def $rsi
+	mov	eax, edi
+                                        # kill: def $ax killed $ax killed $eax
+	cwd
+	movsx	ecx, sil
+	idiv	cx
+                                        # kill: def $dx killed $dx def $rdx
+	lea	eax, [rdx + rsi]
+                                        # kill: def $ax killed $ax killed $eax
+	cwd
+	idiv	si
+	mov	eax, edx
+                                        # kill: def $al killed $al killed $ax
+	ret
+.Lfunc_end26:
+	.size	mod, .Lfunc_end26-mod
 	.cfi_endproc
                                         # -- End function
 	.type	.L.str,@object                  # @.str
