@@ -42,5 +42,13 @@
             "cwd": "${workspaceFolder}",
             "preLaunchTask": "Build"
         },
+        {
+            "type": "cppdbg",
+            "request": "launch",
+            "name": "expand key tests",
+            "program": "${workspaceRoot}/build/expand_key_test",
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "Build"
+        }
     ],
 }

@@ -22,10 +22,11 @@ static inline uint64_t bitsel(uint64_t val, uint8_t m, uint8_t n);
 uint64_t pext(uint64_t val, uint64_t mask);
 uint64_t pdep(uint64_t val, uint64_t mask);
 
-int32_t i32_from_be_bytes(const uint8_t b[4]);
-int32_t i32_from_le_bytes(const uint8_t b[4]);
-void i32_to_be_bytes(uint8_t b[4], int32_t i);
-void i32_to_le_bytes(uint8_t b[4], int32_t i);
+uint32_t byteswap(uint32_t i);
+uint32_t u32_from_be_bytes(const uint8_t b[4]);
+uint32_t u32_from_le_bytes(const uint8_t b[4]);
+void u32_to_be_bytes(uint8_t b[4], uint32_t i);
+void u32_to_le_bytes(uint8_t b[4], uint32_t i);
 
 uint8_t mod(int8_t a, uint8_t b);
 
@@ -37,11 +38,11 @@ typedef struct {
 } AflentPkt;
 
 void print_packet(unsigned char packet[]) {
-  int8_t arrn = bitsel(packet[0], 2, 8);
-  int8_t fragn = bitsel(packet[0], 0, 2) << 2 | bitsel(packet[1], 5, 8);
-  int8_t length = bitsel(packet[1], 0, 5) << 5 | bitsel(packet[2], 3, 8);
-  int8_t encrypt = bit(packet[2], 2), endian = bit(packet[2], 1),
-         last = bit(packet[2], 0);
+  uint8_t arrn = bitsel(packet[0], 2, 8);
+  uint8_t fragn = bitsel(packet[0], 0, 2) << 2 | bitsel(packet[1], 5, 8);
+  uint8_t length = bitsel(packet[1], 0, 5) << 5 | bitsel(packet[2], 3, 8);
+  uint8_t encrypt = bit(packet[2], 2), endian = bit(packet[2], 1),
+          last = bit(packet[2], 0);
 
   printf("Array Number: %d\nFragment Number: %d\nLength: %d\nEncrypted: "
          "%d\nEndianness: %d\nLast: %d\n",
@@ -52,8 +53,8 @@ void print_packet(unsigned char packet[]) {
   int dp = HEADER_LEN;
 
   while (dp < HEADER_LEN + (length * 4)) {
-    int32_t data = endian == 0 ? i32_from_be_bytes(packet + dp)
-                               : i32_from_le_bytes(packet + dp);
+    uint32_t data = endian == 0 ? u32_from_be_bytes(packet + dp)
+                                : u32_from_le_bytes(packet + dp);
     printf("%x ", data);
     dp += 4;
   }
@@ -161,8 +162,31 @@ uint8_t nth_byte(block_t x, uint8_t n) {
 // ----------------- Encryption Functions ----------------- //
 
 void sbu_expand_keys(sbu_key_t key, block_t *expanded_keys) {
-  (void)key;
-  (void)expanded_keys;
+  // load. works!
+  expanded_keys[0] = bitsel(key, 0, 32);
+  expanded_keys[1] = bitsel(key, 32, 64);
+
+  printf("key : %016lx\n", key);
+  printf("S[0]: %16x\n", expanded_keys[0]);
+  printf("S[1]: %08x\n", expanded_keys[1]);
+
+  // generate forward. doesn't work! no idea why
+  for (int i = 2; i <= 32 /* this was in the pseudocode, probably wrong */; i++) {
+    expanded_keys[i] =
+        table[(expanded_keys[i - 1] ^ expanded_keys[i - 2]) % 32] ^
+        expanded_keys[i - 1];
+  }
+
+  // S[31:30] is constant at this point
+  printf("S[30]: %08x\n", expanded_keys[30]);
+  printf("S[31]: %08x\n", expanded_keys[31]);
+
+  // generate backward. no idea if this works
+  for (int i = 29; i >= 0; i--) {
+    expanded_keys[i] =
+        table[(expanded_keys[i + 1] ^ expanded_keys[i + 2]) % 32] ^
+        expanded_keys[i];
+  }
 }
 
 block_t scramble(block_t x, block_t *keys, uint32_t round, permute_func_t op) {
@@ -230,7 +254,7 @@ void sbu_decrypt(block_t *encrypted_input, char *plaintext_output,
 
 // mask from bit m to bit n, exclusive (Lsb0 order)
 static inline uint64_t bitmask(uint8_t m, uint8_t n) {
-  return (-1UL << m) ^ (-1UL << n);
+  return ~(-1UL << (n - m)) << m;
 }
 
 static inline uint8_t bit(uint64_t val, uint8_t n) { return (val >> n) & 1; }
@@ -280,11 +304,16 @@ uint64_t pdep(uint64_t val, uint64_t mask) {
 }
 
 // network?
-int32_t i32_from_be_bytes(const uint8_t b[4]) {
+uint32_t u32_from_be_bytes(const uint8_t b[4]) {
   return (b[0] << 24) | (b[1] << 16) | (b[2] << 8) | b[3];
 }
 
-void i32_to_be_bytes(uint8_t b[4], int32_t i) {
+uint32_t byteswap(uint32_t i) {
+  return bitsel(i, 0, 8) << 24 | bitsel(i, 8, 16) << 16 |
+         bitsel(i, 16, 24) << 8 | bitsel(i, 24, 32);
+}
+
+void u32_to_be_bytes(uint8_t b[4], uint32_t i) {
   b[0] = (i >> 24) & 0xFFU;
   b[1] = (i >> 16) & 0xFFU;
   b[2] = (i >> 8) & 0xFFU;
@@ -292,11 +321,11 @@ void i32_to_be_bytes(uint8_t b[4], int32_t i) {
 }
 
 // host/native?
-int32_t i32_from_le_bytes(const uint8_t b[4]) {
+uint32_t u32_from_le_bytes(const uint8_t b[4]) {
   return (b[3] << 24) | (b[2] << 16) | (b[1] << 8) | b[0];
 }
 
-void i32_to_le_bytes(uint8_t b[4], int32_t i) {
+void u32_to_le_bytes(uint8_t b[4], uint32_t i) {
   b[0] = i & 0xFFU;
   b[1] = (i >> 8) & 0xFFU;
   b[2] = (i >> 16) & 0xFFU;

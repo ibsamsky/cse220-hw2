@@ -25,8 +25,10 @@ print_packet:                           # @print_packet
 	.cfi_offset r15, -24
 	.cfi_offset rbp, -16
 	mov	rbx, rdi
-	movzx	esi, byte ptr [rdi]
-	lea	eax, [4*rsi]
+	movzx	eax, byte ptr [rdi]
+	mov	esi, eax
+	shr	esi, 2
+	shl	eax, 2
 	and	eax, 12
 	movzx	ecx, byte ptr [rdi + 1]
 	mov	edx, ecx
@@ -34,9 +36,9 @@ print_packet:                           # @print_packet
 	or	edx, eax
 	shl	ecx, 5
 	movzx	eax, byte ptr [rdi + 2]
-	mov	edi, eax
-	shr	edi, 3
-	or	edi, ecx
+	mov	r14d, eax
+	shr	r14d, 3
+	or	r14d, ecx
 	mov	r8d, eax
 	shr	r8d, 2
 	and	r8d, 1
@@ -44,45 +46,42 @@ print_packet:                           # @print_packet
 	shr	ebp
 	and	ebp, 1
 	and	eax, 1
-	shr	esi, 2
-	movsx	r14d, dil
 	mov	dword ptr [rsp], eax
 	lea	rdi, [rip + .L.str]
-                                        # kill: def $esi killed $esi killed $rsi
 	mov	ecx, r14d
+	and	ecx, 255
 	mov	r9d, ebp
 	xor	eax, eax
 	call	printf@PLT
 	lea	rdi, [rip + .L.str.1]
 	xor	eax, eax
 	call	printf@PLT
-	shl	r14d, 2
-	test	r14d, r14d
-	jle	.LBB0_4
+	and	r14d, 255
+	je	.LBB0_4
 # %bb.1:
-	or	r14d, 3
+	lea	r15d, [4*r14 + 3]
 	mov	r12d, 3
-	lea	r15, [rip + .L.str.2]
+	lea	r14, [rip + .L.str.2]
 	test	bpl, bpl
 	je	.LBB0_3
 	.p2align	4, 0x90
 .LBB0_2:                                # =>This Inner Loop Header: Depth=1
 	mov	esi, dword ptr [rbx + r12]
-	mov	rdi, r15
+	mov	rdi, r14
 	xor	eax, eax
 	call	printf@PLT
 	add	r12, 4
-	cmp	r12, r14
+	cmp	r12, r15
 	jb	.LBB0_2
 	jmp	.LBB0_4
 	.p2align	4, 0x90
 .LBB0_3:                                # =>This Inner Loop Header: Depth=1
 	movbe	esi, dword ptr [rbx + r12]
-	mov	rdi, r15
+	mov	rdi, r14
 	xor	eax, eax
 	call	printf@PLT
 	add	r12, 4
-	cmp	r12, r14
+	cmp	r12, r15
 	jb	.LBB0_3
 .LBB0_4:
 	mov	edi, 10
@@ -103,28 +102,28 @@ print_packet:                           # @print_packet
 	.size	print_packet, .Lfunc_end0-print_packet
 	.cfi_endproc
                                         # -- End function
-	.globl	i32_from_be_bytes               # -- Begin function i32_from_be_bytes
+	.globl	u32_from_be_bytes               # -- Begin function u32_from_be_bytes
 	.p2align	4, 0x90
-	.type	i32_from_be_bytes,@function
-i32_from_be_bytes:                      # @i32_from_be_bytes
+	.type	u32_from_be_bytes,@function
+u32_from_be_bytes:                      # @u32_from_be_bytes
 	.cfi_startproc
 # %bb.0:
 	movbe	eax, dword ptr [rdi]
 	ret
 .Lfunc_end1:
-	.size	i32_from_be_bytes, .Lfunc_end1-i32_from_be_bytes
+	.size	u32_from_be_bytes, .Lfunc_end1-u32_from_be_bytes
 	.cfi_endproc
                                         # -- End function
-	.globl	i32_from_le_bytes               # -- Begin function i32_from_le_bytes
+	.globl	u32_from_le_bytes               # -- Begin function u32_from_le_bytes
 	.p2align	4, 0x90
-	.type	i32_from_le_bytes,@function
-i32_from_le_bytes:                      # @i32_from_le_bytes
+	.type	u32_from_le_bytes,@function
+u32_from_le_bytes:                      # @u32_from_le_bytes
 	.cfi_startproc
 # %bb.0:
 	mov	eax, dword ptr [rdi]
 	ret
 .Lfunc_end2:
-	.size	i32_from_le_bytes, .Lfunc_end2-i32_from_le_bytes
+	.size	u32_from_le_bytes, .Lfunc_end2-u32_from_le_bytes
 	.cfi_endproc
                                         # -- End function
 	.globl	build_packets                   # -- Begin function build_packets
@@ -876,16 +875,18 @@ nth_byte:                               # @nth_byte
 	.cfi_startproc
 # %bb.0:
 	shl	sil, 3
-	mov	eax, -1
+	mov	eax, esi
+	and	al, 24
+	movzx	ecx, al
+	add	al, 8
+	movzx	eax, al
+	sub	eax, ecx
+	mov	rdx, -1
+	shlx	rax, rdx, rax
+	not	eax
 	shlx	eax, eax, esi
-	mov	ecx, esi
-	and	cl, 24
-	lea	edx, [rcx + 8]
-	mov	rsi, -1
-	shlx	rdx, rsi, rdx
-	xor	edx, eax
-	and	edx, edi
-	shrx	rax, rdx, rcx
+	and	eax, edi
+	shrx	rax, rax, rcx
                                         # kill: def $al killed $al killed $rax
 	ret
 .Lfunc_end14:
@@ -898,6 +899,111 @@ nth_byte:                               # @nth_byte
 sbu_expand_keys:                        # @sbu_expand_keys
 	.cfi_startproc
 # %bb.0:
+	push	r15
+	.cfi_def_cfa_offset 16
+	push	r14
+	.cfi_def_cfa_offset 24
+	push	rbx
+	.cfi_def_cfa_offset 32
+	.cfi_offset rbx, -32
+	.cfi_offset r14, -24
+	.cfi_offset r15, -16
+	mov	rbx, rsi
+	mov	rsi, rdi
+	mov	qword ptr [rbx], rdi
+	lea	rdi, [rip + .L.str.4]
+	xor	r15d, r15d
+	xor	eax, eax
+	call	printf@PLT
+	mov	esi, dword ptr [rbx]
+	lea	rdi, [rip + .L.str.5]
+	xor	eax, eax
+	call	printf@PLT
+	mov	esi, dword ptr [rbx + 4]
+	lea	rdi, [rip + .L.str.6]
+	xor	eax, eax
+	call	printf@PLT
+	lea	r14, [rip + table]
+	.p2align	4, 0x90
+.LBB15_1:                               # =>This Inner Loop Header: Depth=1
+	mov	eax, dword ptr [rbx + 4*r15 + 4]
+	mov	ecx, dword ptr [rbx + 4*r15]
+	xor	ecx, eax
+	and	ecx, 31
+	mov	ecx, dword ptr [r14 + 4*rcx]
+	xor	eax, ecx
+	mov	dword ptr [rbx + 4*r15 + 8], eax
+	and	ecx, 31
+	mov	ecx, dword ptr [r14 + 4*rcx]
+	xor	eax, ecx
+	mov	dword ptr [rbx + 4*r15 + 12], eax
+	and	ecx, 31
+	mov	ecx, dword ptr [r14 + 4*rcx]
+	xor	ecx, eax
+	mov	dword ptr [rbx + 4*r15 + 16], ecx
+	cmp	r15, 28
+	je	.LBB15_3
+# %bb.2:                                #   in Loop: Header=BB15_1 Depth=1
+	mov	ecx, dword ptr [rbx + 4*r15 + 16]
+	xor	eax, ecx
+	and	eax, 31
+	xor	ecx, dword ptr [r14 + 4*rax]
+	mov	dword ptr [rbx + 4*r15 + 20], ecx
+	add	r15, 4
+	jmp	.LBB15_1
+.LBB15_3:
+	mov	esi, dword ptr [rbx + 120]
+	lea	rdi, [rip + .L.str.7]
+	xor	eax, eax
+	call	printf@PLT
+	mov	esi, dword ptr [rbx + 124]
+	lea	rdi, [rip + .L.str.8]
+	xor	eax, eax
+	call	printf@PLT
+	mov	eax, 24
+	.p2align	4, 0x90
+.LBB15_4:                               # =>This Inner Loop Header: Depth=1
+	mov	ecx, dword ptr [rbx + 4*rax + 24]
+	mov	edx, dword ptr [rbx + 4*rax + 28]
+	xor	edx, ecx
+	and	edx, 31
+	mov	esi, dword ptr [rbx + 4*rax + 20]
+	xor	esi, dword ptr [r14 + 4*rdx]
+	mov	dword ptr [rbx + 4*rax + 20], esi
+	xor	ecx, esi
+	and	ecx, 31
+	mov	edx, dword ptr [rbx + 4*rax + 16]
+	xor	edx, dword ptr [r14 + 4*rcx]
+	mov	dword ptr [rbx + 4*rax + 16], edx
+	xor	esi, edx
+	and	esi, 31
+	mov	ecx, dword ptr [rbx + 4*rax + 12]
+	xor	ecx, dword ptr [r14 + 4*rsi]
+	mov	dword ptr [rbx + 4*rax + 12], ecx
+	xor	edx, ecx
+	and	edx, 31
+	mov	esi, dword ptr [rbx + 4*rax + 4]
+	mov	edi, dword ptr [rbx + 4*rax + 8]
+	xor	edi, dword ptr [r14 + 4*rdx]
+	mov	dword ptr [rbx + 4*rax + 8], edi
+	xor	ecx, edi
+	and	ecx, 31
+	xor	esi, dword ptr [r14 + 4*rcx]
+	mov	dword ptr [rbx + 4*rax + 4], esi
+	xor	esi, edi
+	and	esi, 31
+	mov	ecx, dword ptr [r14 + 4*rsi]
+	xor	dword ptr [rbx + 4*rax], ecx
+	add	rax, -6
+	cmp	rax, -6
+	jne	.LBB15_4
+# %bb.5:
+	pop	rbx
+	.cfi_def_cfa_offset 24
+	pop	r14
+	.cfi_def_cfa_offset 16
+	pop	r15
+	.cfi_def_cfa_offset 8
 	ret
 .Lfunc_end15:
 	.size	sbu_expand_keys, .Lfunc_end15-sbu_expand_keys
@@ -997,28 +1103,41 @@ sbu_decrypt:                            # @sbu_decrypt
 	.size	sbu_decrypt, .Lfunc_end23-sbu_decrypt
 	.cfi_endproc
                                         # -- End function
-	.globl	i32_to_be_bytes                 # -- Begin function i32_to_be_bytes
+	.globl	byteswap                        # -- Begin function byteswap
 	.p2align	4, 0x90
-	.type	i32_to_be_bytes,@function
-i32_to_be_bytes:                        # @i32_to_be_bytes
+	.type	byteswap,@function
+byteswap:                               # @byteswap
+	.cfi_startproc
+# %bb.0:
+	mov	eax, edi
+	bswap	eax
+	ret
+.Lfunc_end24:
+	.size	byteswap, .Lfunc_end24-byteswap
+	.cfi_endproc
+                                        # -- End function
+	.globl	u32_to_be_bytes                 # -- Begin function u32_to_be_bytes
+	.p2align	4, 0x90
+	.type	u32_to_be_bytes,@function
+u32_to_be_bytes:                        # @u32_to_be_bytes
 	.cfi_startproc
 # %bb.0:
 	movbe	dword ptr [rdi], esi
 	ret
-.Lfunc_end24:
-	.size	i32_to_be_bytes, .Lfunc_end24-i32_to_be_bytes
+.Lfunc_end25:
+	.size	u32_to_be_bytes, .Lfunc_end25-u32_to_be_bytes
 	.cfi_endproc
                                         # -- End function
-	.globl	i32_to_le_bytes                 # -- Begin function i32_to_le_bytes
+	.globl	u32_to_le_bytes                 # -- Begin function u32_to_le_bytes
 	.p2align	4, 0x90
-	.type	i32_to_le_bytes,@function
-i32_to_le_bytes:                        # @i32_to_le_bytes
+	.type	u32_to_le_bytes,@function
+u32_to_le_bytes:                        # @u32_to_le_bytes
 	.cfi_startproc
 # %bb.0:
 	mov	dword ptr [rdi], esi
 	ret
-.Lfunc_end25:
-	.size	i32_to_le_bytes, .Lfunc_end25-i32_to_le_bytes
+.Lfunc_end26:
+	.size	u32_to_le_bytes, .Lfunc_end26-u32_to_le_bytes
 	.cfi_endproc
                                         # -- End function
 	.globl	mod                             # -- Begin function mod
@@ -1041,8 +1160,8 @@ mod:                                    # @mod
 	mov	eax, edx
                                         # kill: def $al killed $al killed $ax
 	ret
-.Lfunc_end26:
-	.size	mod, .Lfunc_end26-mod
+.Lfunc_end27:
+	.size	mod, .Lfunc_end27-mod
 	.cfi_endproc
                                         # -- End function
 	.type	.L.str,@object                  # @.str
@@ -1131,6 +1250,32 @@ table:
 	.long	2239462381                      # 0x857b7bed
 	.long	2728129246                      # 0xa29bf2de
 	.size	table, 256
+
+	.type	.L.str.4,@object                # @.str.4
+	.section	.rodata.str1.1,"aMS",@progbits,1
+.L.str.4:
+	.asciz	"key : %016lx\n"
+	.size	.L.str.4, 14
+
+	.type	.L.str.5,@object                # @.str.5
+.L.str.5:
+	.asciz	"S[0]: %16x\n"
+	.size	.L.str.5, 12
+
+	.type	.L.str.6,@object                # @.str.6
+.L.str.6:
+	.asciz	"S[1]: %08x\n"
+	.size	.L.str.6, 12
+
+	.type	.L.str.7,@object                # @.str.7
+.L.str.7:
+	.asciz	"S[30]: %08x\n"
+	.size	.L.str.7, 13
+
+	.type	.L.str.8,@object                # @.str.8
+.L.str.8:
+	.asciz	"S[31]: %08x\n"
+	.size	.L.str.8, 13
 
 	.ident	"clang version 19.1.7"
 	.section	".note.GNU-stack","",@progbits
