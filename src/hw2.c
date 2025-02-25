@@ -155,7 +155,7 @@ block_t unshuffle1(block_t x) {
 }
 
 uint8_t nth_byte(block_t x, uint8_t n) {
-  return bitsel(x, 8 * n % 4, 8 * (n % 4 + 1));
+  return bitsel(x, 8 * (n % 4), 8 * ((n % 4) + 1));
 }
 
 // ----------------- Encryption Functions ----------------- //

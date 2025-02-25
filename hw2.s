@@ -810,10 +810,17 @@ nth_byte:                               # @nth_byte
 	.cfi_startproc
 # %bb.0:
 	shl	sil, 3
-	and	sil, 24
-	add	sil, 8
-	bzhi	eax, edi, esi
-                                        # kill: def $al killed $al killed $eax
+	mov	eax, -1
+	shlx	eax, eax, esi
+	mov	ecx, esi
+	and	cl, 24
+	lea	edx, [rcx + 8]
+	mov	rsi, -1
+	shlx	rdx, rsi, rdx
+	xor	edx, eax
+	and	edx, edi
+	shrx	rax, rdx, rcx
+                                        # kill: def $al killed $al killed $rax
 	ret
 .Lfunc_end14:
 	.size	nth_byte, .Lfunc_end14-nth_byte
