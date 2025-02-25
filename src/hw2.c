@@ -12,14 +12,17 @@
 
 #define HEADER_LEN 3
 
-// Packet Code:
 
 static inline uint64_t bitmask(uint8_t m, uint8_t n);
 static inline uint8_t bit(uint64_t val, uint8_t n);
 static inline uint64_t bitsel(uint64_t val, uint8_t m, uint8_t n);
+uint64_t pext(uint64_t val, uint64_t mask);
+uint64_t pdep(uint64_t val, uint64_t mask);
 
 int32_t i32_from_be_bytes(uint8_t b[4]);
 int32_t i32_from_le_bytes(uint8_t b[4]);
+
+// Packet Code:
 
 typedef struct {
   uint16_t hdr[3];
@@ -46,7 +49,7 @@ void print_packet(unsigned char packet[]) {
     memcpy(bytes, packet + dp, 4);
     int32_t data =
         endian == 0 ? i32_from_be_bytes(bytes) : i32_from_le_bytes(bytes);
-    printf("%d ", data);
+    printf("%08x ", data);
     dp += 4;
   }
   printf("\n");
@@ -120,30 +123,29 @@ block_t reverse(block_t x) {
 }
 
 block_t shuffle4(block_t x) {
-  (void)x;
-  return 0;
+  // aaaabbbbccccdddd eeeeffffgggghhhh
+  // 1   3   5   7    2   4   6   8
+  // high mask: F0F0F0F0
+  //  low mask: 0F0F0F0F
+
+  return pdep(bitsel(x, 0, 16), 0x0F0F0F0FUL) |
+         pdep(bitsel(x, 16, 32), 0xF0F0F0F0UL);
 }
 
 block_t unshuffle4(block_t x) {
-  (void)x;
-  return 0;
+  return pext(x, 0xF0F0F0F0UL) << 16 | pext(x, 0x0F0F0F0FUL);
 }
 
 block_t shuffle1(block_t x) {
-  (void)x;
-  return 0;
+  return pdep(bitsel(x, 0, 16), 0x55555555UL) |
+         pdep(bitsel(x, 16, 32), 0xAAAAAAAAUL);
 }
 
 block_t unshuffle1(block_t x) {
-  (void)x;
-  return 0;
+  return pext(x, 0xAAAAAAAAUL) << 16 | pext(x, 0x55555555UL);
 }
 
-uint8_t nth_byte(block_t x, uint8_t n) {
-  (void)x;
-  (void)n;
-  return 0;
-}
+uint8_t nth_byte(block_t x, uint8_t n) { return bitsel(x, 8 * n, 8 * (n + 1)); }
 
 // ----------------- Encryption Functions ----------------- //
 
