@@ -5,6 +5,7 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
 include_directories(include test/inputs)
 
+# set(CMAKE_C_CLANG_TIDY clang-tidy)
 
 add_executable(hw2_main src/hw2.c src/hw2_main.c)
 target_compile_options(hw2_main PUBLIC -Wall -Wextra -Wshadow -Wpedantic -Wdouble-promotion -Wformat=2 -Wundef -Werror -Wcast-align=strict)
