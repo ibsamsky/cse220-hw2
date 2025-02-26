@@ -899,111 +899,79 @@ nth_byte:                               # @nth_byte
 sbu_expand_keys:                        # @sbu_expand_keys
 	.cfi_startproc
 # %bb.0:
-	push	r15
-	.cfi_def_cfa_offset 16
-	push	r14
-	.cfi_def_cfa_offset 24
-	push	rbx
-	.cfi_def_cfa_offset 32
-	.cfi_offset rbx, -32
-	.cfi_offset r14, -24
-	.cfi_offset r15, -16
-	mov	rbx, rsi
-	mov	rsi, rdi
-	mov	qword ptr [rbx], rdi
-	lea	rdi, [rip + .L.str.4]
-	xor	r15d, r15d
-	xor	eax, eax
-	call	printf@PLT
-	mov	esi, dword ptr [rbx]
-	lea	rdi, [rip + .L.str.5]
-	xor	eax, eax
-	call	printf@PLT
-	mov	esi, dword ptr [rbx + 4]
-	lea	rdi, [rip + .L.str.6]
-	xor	eax, eax
-	call	printf@PLT
-	lea	r14, [rip + table]
+	mov	qword ptr [rsi], rdi
+	xor	ecx, ecx
+	lea	rax, [rip + table]
 	.p2align	4, 0x90
 .LBB15_1:                               # =>This Inner Loop Header: Depth=1
-	mov	eax, dword ptr [rbx + 4*r15 + 4]
-	mov	ecx, dword ptr [rbx + 4*r15]
-	xor	ecx, eax
-	and	ecx, 31
-	mov	ecx, dword ptr [r14 + 4*rcx]
-	xor	eax, ecx
-	mov	dword ptr [rbx + 4*r15 + 8], eax
-	and	ecx, 31
-	mov	ecx, dword ptr [r14 + 4*rcx]
-	xor	eax, ecx
-	mov	dword ptr [rbx + 4*r15 + 12], eax
-	and	ecx, 31
-	mov	ecx, dword ptr [r14 + 4*rcx]
-	xor	ecx, eax
-	mov	dword ptr [rbx + 4*r15 + 16], ecx
-	cmp	r15, 28
-	je	.LBB15_3
-# %bb.2:                                #   in Loop: Header=BB15_1 Depth=1
-	mov	ecx, dword ptr [rbx + 4*r15 + 16]
-	xor	eax, ecx
-	and	eax, 31
-	xor	ecx, dword ptr [r14 + 4*rax]
-	mov	dword ptr [rbx + 4*r15 + 20], ecx
-	add	r15, 4
-	jmp	.LBB15_1
-.LBB15_3:
-	mov	esi, dword ptr [rbx + 120]
-	lea	rdi, [rip + .L.str.7]
-	xor	eax, eax
-	call	printf@PLT
-	mov	esi, dword ptr [rbx + 124]
-	lea	rdi, [rip + .L.str.8]
-	xor	eax, eax
-	call	printf@PLT
-	mov	eax, 24
+	mov	edx, dword ptr [rsi + 4*rcx + 4]
+	mov	edi, dword ptr [rsi + 4*rcx]
+	xor	edi, edx
+	and	edi, 63
+	mov	edi, dword ptr [rax + 4*rdi]
+	xor	edx, edi
+	mov	dword ptr [rsi + 4*rcx + 8], edx
+	and	edi, 63
+	mov	edi, dword ptr [rax + 4*rdi]
+	xor	edx, edi
+	mov	dword ptr [rsi + 4*rcx + 12], edx
+	and	edi, 63
+	mov	edi, dword ptr [rax + 4*rdi]
+	xor	edx, edi
+	mov	dword ptr [rsi + 4*rcx + 16], edx
+	and	edi, 63
+	mov	edi, dword ptr [rax + 4*rdi]
+	xor	edx, edi
+	mov	dword ptr [rsi + 4*rcx + 20], edx
+	and	edi, 63
+	mov	edi, dword ptr [rax + 4*rdi]
+	xor	edx, edi
+	mov	dword ptr [rsi + 4*rcx + 24], edx
+	and	edi, 63
+	xor	edx, dword ptr [rax + 4*rdi]
+	mov	dword ptr [rsi + 4*rcx + 28], edx
+	add	rcx, 6
+	cmp	rcx, 30
+	jne	.LBB15_1
+# %bb.2:
+	mov	ecx, 24
 	.p2align	4, 0x90
-.LBB15_4:                               # =>This Inner Loop Header: Depth=1
-	mov	ecx, dword ptr [rbx + 4*rax + 24]
-	mov	edx, dword ptr [rbx + 4*rax + 28]
-	xor	edx, ecx
-	and	edx, 31
-	mov	esi, dword ptr [rbx + 4*rax + 20]
-	xor	esi, dword ptr [r14 + 4*rdx]
-	mov	dword ptr [rbx + 4*rax + 20], esi
-	xor	ecx, esi
-	and	ecx, 31
-	mov	edx, dword ptr [rbx + 4*rax + 16]
-	xor	edx, dword ptr [r14 + 4*rcx]
-	mov	dword ptr [rbx + 4*rax + 16], edx
-	xor	esi, edx
-	and	esi, 31
-	mov	ecx, dword ptr [rbx + 4*rax + 12]
-	xor	ecx, dword ptr [r14 + 4*rsi]
-	mov	dword ptr [rbx + 4*rax + 12], ecx
-	xor	edx, ecx
-	and	edx, 31
-	mov	esi, dword ptr [rbx + 4*rax + 4]
-	mov	edi, dword ptr [rbx + 4*rax + 8]
-	xor	edi, dword ptr [r14 + 4*rdx]
-	mov	dword ptr [rbx + 4*rax + 8], edi
-	xor	ecx, edi
-	and	ecx, 31
-	xor	esi, dword ptr [r14 + 4*rcx]
-	mov	dword ptr [rbx + 4*rax + 4], esi
-	xor	esi, edi
-	and	esi, 31
-	mov	ecx, dword ptr [r14 + 4*rsi]
-	xor	dword ptr [rbx + 4*rax], ecx
-	add	rax, -6
-	cmp	rax, -6
-	jne	.LBB15_4
-# %bb.5:
-	pop	rbx
-	.cfi_def_cfa_offset 24
-	pop	r14
-	.cfi_def_cfa_offset 16
-	pop	r15
-	.cfi_def_cfa_offset 8
+.LBB15_3:                               # =>This Inner Loop Header: Depth=1
+	mov	edx, dword ptr [rsi + 4*rcx + 24]
+	mov	edi, dword ptr [rsi + 4*rcx + 28]
+	xor	edi, edx
+	and	edi, 63
+	mov	r8d, dword ptr [rsi + 4*rcx + 20]
+	xor	r8d, dword ptr [rax + 4*rdi]
+	mov	dword ptr [rsi + 4*rcx + 20], r8d
+	xor	edx, r8d
+	and	edx, 63
+	mov	edi, dword ptr [rsi + 4*rcx + 16]
+	xor	edi, dword ptr [rax + 4*rdx]
+	mov	dword ptr [rsi + 4*rcx + 16], edi
+	xor	r8d, edi
+	and	r8d, 63
+	mov	edx, dword ptr [rsi + 4*rcx + 12]
+	xor	edx, dword ptr [rax + 4*r8]
+	mov	dword ptr [rsi + 4*rcx + 12], edx
+	xor	edi, edx
+	and	edi, 63
+	mov	r8d, dword ptr [rsi + 4*rcx + 4]
+	mov	r9d, dword ptr [rsi + 4*rcx + 8]
+	xor	r9d, dword ptr [rax + 4*rdi]
+	mov	dword ptr [rsi + 4*rcx + 8], r9d
+	xor	edx, r9d
+	and	edx, 63
+	xor	r8d, dword ptr [rax + 4*rdx]
+	mov	dword ptr [rsi + 4*rcx + 4], r8d
+	xor	r8d, r9d
+	and	r8d, 63
+	mov	edx, dword ptr [rax + 4*r8]
+	xor	dword ptr [rsi + 4*rcx], edx
+	add	rcx, -6
+	cmp	rcx, -6
+	jne	.LBB15_3
+# %bb.4:
 	ret
 .Lfunc_end15:
 	.size	sbu_expand_keys, .Lfunc_end15-sbu_expand_keys
@@ -1250,32 +1218,6 @@ table:
 	.long	2239462381                      # 0x857b7bed
 	.long	2728129246                      # 0xa29bf2de
 	.size	table, 256
-
-	.type	.L.str.4,@object                # @.str.4
-	.section	.rodata.str1.1,"aMS",@progbits,1
-.L.str.4:
-	.asciz	"key : %016lx\n"
-	.size	.L.str.4, 14
-
-	.type	.L.str.5,@object                # @.str.5
-.L.str.5:
-	.asciz	"S[0]: %16x\n"
-	.size	.L.str.5, 12
-
-	.type	.L.str.6,@object                # @.str.6
-.L.str.6:
-	.asciz	"S[1]: %08x\n"
-	.size	.L.str.6, 12
-
-	.type	.L.str.7,@object                # @.str.7
-.L.str.7:
-	.asciz	"S[30]: %08x\n"
-	.size	.L.str.7, 13
-
-	.type	.L.str.8,@object                # @.str.8
-.L.str.8:
-	.asciz	"S[31]: %08x\n"
-	.size	.L.str.8, 13
 
 	.ident	"clang version 19.1.7"
 	.section	".note.GNU-stack","",@progbits

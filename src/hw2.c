@@ -162,29 +162,26 @@ uint8_t nth_byte(block_t x, uint8_t n) {
 // ----------------- Encryption Functions ----------------- //
 
 void sbu_expand_keys(sbu_key_t key, block_t *expanded_keys) {
-  // load. works!
-  expanded_keys[0] = bitsel(key, 0, 32);
-  expanded_keys[1] = bitsel(key, 32, 64);
+  // load
+  // expanded_keys[0] = bitsel(key, 0, 32); // [31:0]
+  // expanded_keys[1] = bitsel(key, 32, 64); // [63:32]
 
-  printf("key : %016lx\n", key);
-  printf("S[0]: %16x\n", expanded_keys[0]);
-  printf("S[1]: %08x\n", expanded_keys[1]);
+  // same thing
+  memcpy(expanded_keys, &key, 8);
 
-  // generate forward. doesn't work! no idea why
-  for (int i = 2; i <= 32 /* this was in the pseudocode, probably wrong */; i++) {
+  // generate forward
+  for (int i = 2; i <= 31; i++) {
     expanded_keys[i] =
-        table[(expanded_keys[i - 1] ^ expanded_keys[i - 2]) % 32] ^
+        table[(expanded_keys[i - 1] ^ expanded_keys[i - 2]) % 64] ^
         expanded_keys[i - 1];
   }
 
   // S[31:30] is constant at this point
-  printf("S[30]: %08x\n", expanded_keys[30]);
-  printf("S[31]: %08x\n", expanded_keys[31]);
 
-  // generate backward. no idea if this works
+  // generate backward
   for (int i = 29; i >= 0; i--) {
     expanded_keys[i] =
-        table[(expanded_keys[i + 1] ^ expanded_keys[i + 2]) % 32] ^
+        table[(expanded_keys[i + 1] ^ expanded_keys[i + 2]) % 64] ^
         expanded_keys[i];
   }
 }
