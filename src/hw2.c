@@ -63,8 +63,6 @@ void print_packet(unsigned char packet[]) {
 
 unsigned char *build_packets(int data[], int data_length, int max_fragment_size,
                              int endianness, int array_number) {
-  (void)data; // This line is only here to avoid compiler issues. Once you
-  (void)max_fragment_size; // This line is only here to avoid compiler issues.
 
   const int BYTES_PER_DATA = sizeof(*data);
   int num_packets =
@@ -87,7 +85,7 @@ unsigned char *build_packets(int data[], int data_length, int max_fragment_size,
     size_t packet_start = (3 * p) + (BYTES_PER_DATA * data_written);
     uint8_t frag = p;
     uint8_t last = (p + 1 == num_packets) ? 1 : 0;
-    uint8_t length = data_written + data_per_packet > data_length
+    uint16_t length = data_written + data_per_packet > data_length
                          ? data_length - data_written
                          : data_per_packet;
 

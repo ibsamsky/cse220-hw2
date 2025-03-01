@@ -298,8 +298,8 @@ build_packets:                          # @build_packets
 	.cfi_def_cfa_offset 48
 	push	rbx
 	.cfi_def_cfa_offset 56
-	sub	rsp, 40
-	.cfi_def_cfa_offset 96
+	sub	rsp, 24
+	.cfi_def_cfa_offset 80
 	.cfi_offset rbx, -56
 	.cfi_offset r12, -48
 	.cfi_offset r13, -40
@@ -308,10 +308,9 @@ build_packets:                          # @build_packets
 	.cfi_offset rbp, -16
 	mov	r13d, r8d
 	mov	ebp, ecx
-                                        # kill: def $esi killed $esi def $rsi
-	mov	qword ptr [rsp + 8], rdi        # 8-byte Spill
-	mov	qword ptr [rsp + 16], rsi       # 8-byte Spill
-	lea	esi, [4*rsi]
+	mov	ebx, esi
+	mov	qword ptr [rsp], rdi            # 8-byte Spill
+	lea	esi, [4*rbx]
 	mov	r15d, 1
 	cmp	esi, edx
 	jle	.LBB3_2
@@ -323,8 +322,7 @@ build_packets:                          # @build_packets
 	idiv	ecx
 	mov	r15d, eax
 .LBB3_2:
-	mov	rax, qword ptr [rsp + 16]       # 8-byte Reload
-	add	eax, r15d
+	lea	eax, [rbx + r15]
 	dec	eax
 	cdq
 	idiv	r15d
@@ -338,13 +336,13 @@ build_packets:                          # @build_packets
 # %bb.3:
 	mov	ecx, r13d
 	shl	rcx, 2
-	mov	qword ptr [rsp + 24], rcx       # 8-byte Spill
+	mov	qword ptr [rsp + 8], rcx        # 8-byte Spill
 	test	ebp, ebp
 	je	.LBB3_5
 # %bb.4:
 	mov	ecx, ebp
 	add	rcx, rcx
-	mov	qword ptr [rsp + 32], rcx       # 8-byte Spill
+	mov	qword ptr [rsp + 16], rcx       # 8-byte Spill
 	mov	rsi, rax
 	add	rsi, 3
 	xor	edi, edi
@@ -361,37 +359,37 @@ build_packets:                          # @build_packets
 .LBB3_19:                               # =>This Loop Header: Depth=1
                                         #     Child Loop BB3_23 Depth 2
                                         #     Child Loop BB3_26 Depth 2
-	mov	r14d, r8d
-	lea	r13d, [r14 + 2*r14]
+	mov	r10d, r8d
+	lea	r13d, [r10 + 2*r10]
 	movsxd	r11, edi
 	lea	r9, [4*r11]
 	add	r13d, r9d
-	lea	r8d, [r14 + 1]
+	lea	r8d, [r10 + 1]
 	xor	ebp, ebp
 	cmp	r8d, r15d
 	sete	bpl
-	mov	rdx, qword ptr [rsp + 16]       # 8-byte Reload
-	mov	ecx, edx
-	sub	ecx, r11d
-	lea	r10d, [r11 + r12]
-	cmp	r10d, edx
-	cmovle	ecx, r12d
-	mov	ebx, r14d
-	shl	r14d, 5
-	movzx	r10d, cl
-	mov	edx, r10d
+	mov	r14d, ebx
+	sub	r14d, r11d
+	lea	ecx, [r11 + r12]
+	cmp	ecx, ebx
+	cmovle	r14d, r12d
+	mov	ecx, r10d
+	shl	r10d, 5
+	mov	edx, r14d
 	shr	edx, 5
-	or	edx, r14d
-	shl	ecx, 3
-	or	ebp, ecx
-	movsxd	rcx, r13d
-	shr	ebx, 3
-	and	ebx, 3
-	or	ebx, dword ptr [rsp + 24]       # 4-byte Folded Reload
-	mov	byte ptr [rax + rcx], bl
-	mov	byte ptr [rax + rcx + 1], dl
-	or	ebp, dword ptr [rsp + 32]       # 4-byte Folded Reload
-	mov	byte ptr [rax + rcx + 2], bpl
+	and	edx, 31
+	or	edx, r10d
+	movzx	r10d, r14w
+	shl	r14d, 3
+	or	ebp, r14d
+	movsxd	r14, r13d
+	shr	ecx, 3
+	and	ecx, 3
+	or	ecx, dword ptr [rsp + 8]        # 4-byte Folded Reload
+	mov	byte ptr [rax + r14], cl
+	mov	byte ptr [rax + r14 + 1], dl
+	or	ebp, dword ptr [rsp + 16]       # 4-byte Folded Reload
+	mov	byte ptr [rax + r14 + 2], bpl
 	test	r10d, r10d
 	je	.LBB3_18
 # %bb.20:                               #   in Loop: Header=BB3_19 Depth=1
@@ -406,17 +404,17 @@ build_packets:                          # @build_packets
 	mov	r13d, r10d
 	and	r13d, -8
 	lea	rdi, [r11 + r13]
-	mov	rcx, qword ptr [rsp + 8]        # 8-byte Reload
+	mov	rcx, qword ptr [rsp]            # 8-byte Reload
 	lea	r11, [rcx + 4*r11]
-	mov	r14, r9
-	add	r14, rsi
-	lea	ebp, [4*r10]
-	and	ebp, -32
-	xor	ecx, ecx
+	mov	rcx, r9
+	add	rcx, rsi
+	lea	r14d, [4*r10]
+	and	r14d, -32
+	xor	ebp, ebp
 	.p2align	4, 0x90
 .LBB3_23:                               #   Parent Loop BB3_19 Depth=1
                                         # =>  This Inner Loop Header: Depth=2
-	vmovdqu	ymm3, ymmword ptr [r11 + rcx]
+	vmovdqu	ymm3, ymmword ptr [r11 + rbp]
 	vpshufb	ymm4, ymm3, ymm0
 	vextracti128	xmm5, ymm4, 1
 	vpackuswb	xmm4, xmm4, xmm5
@@ -427,16 +425,16 @@ build_packets:                          # @build_packets
 	vpshufb	xmm3, xmm3, xmm2
 	vpunpcklwd	xmm5, xmm4, xmm3        # xmm5 = xmm4[0],xmm3[0],xmm4[1],xmm3[1],xmm4[2],xmm3[2],xmm4[3],xmm3[3]
 	vpunpckhwd	xmm3, xmm4, xmm3        # xmm3 = xmm4[4],xmm3[4],xmm4[5],xmm3[5],xmm4[6],xmm3[6],xmm4[7],xmm3[7]
-	vmovdqu	xmmword ptr [r14 + rcx + 16], xmm3
-	vmovdqu	xmmword ptr [r14 + rcx], xmm5
-	add	rcx, 32
-	cmp	rbp, rcx
+	vmovdqu	xmmword ptr [rcx + rbp + 16], xmm3
+	vmovdqu	xmmword ptr [rcx + rbp], xmm5
+	add	rbp, 32
+	cmp	r14, rbp
 	jne	.LBB3_23
 # %bb.24:                               #   in Loop: Header=BB3_19 Depth=1
 	cmp	r13d, r10d
 	je	.LBB3_18
 .LBB3_25:                               #   in Loop: Header=BB3_19 Depth=1
-	mov	rcx, qword ptr [rsp + 8]        # 8-byte Reload
+	mov	rcx, qword ptr [rsp]            # 8-byte Reload
 	lea	rcx, [rcx + 4*rdi]
 	sub	r10, r13
 	movsxd	rdx, r9d
@@ -471,36 +469,36 @@ build_packets:                          # @build_packets
 .LBB3_6:                                # =>This Loop Header: Depth=1
                                         #     Child Loop BB3_13 Depth 2
                                         #     Child Loop BB3_16 Depth 2
-	mov	r13d, edi
-	lea	r14d, [r13 + 2*r13]
+	mov	r9d, edi
+	lea	r13d, [r9 + 2*r9]
 	movsxd	r10, esi
 	lea	r8, [4*r10]
-	add	r14d, r8d
-	lea	edi, [r13 + 1]
+	add	r13d, r8d
+	lea	edi, [r9 + 1]
 	xor	r11d, r11d
 	cmp	edi, r15d
 	sete	r11b
-	mov	r9, qword ptr [rsp + 16]        # 8-byte Reload
-	mov	ebp, r9d
+	mov	ebp, ebx
 	sub	ebp, r10d
 	lea	ecx, [r10 + r12]
-	cmp	ecx, r9d
+	cmp	ecx, ebx
 	cmovle	ebp, r12d
-	mov	ecx, r13d
-	shl	r13d, 5
-	movzx	r9d, bpl
-	mov	ebx, r9d
-	shr	ebx, 5
-	or	ebx, r13d
-	movsxd	r14, r14d
+	mov	ecx, r9d
+	shl	r9d, 5
+	mov	r14d, ebp
+	shr	r14d, 5
+	and	r14d, 31
+	or	r14d, r9d
+	movsxd	r13, r13d
 	shr	ecx, 3
 	and	ecx, 3
-	or	ecx, dword ptr [rsp + 24]       # 4-byte Folded Reload
-	mov	byte ptr [rax + r14], cl
+	or	ecx, dword ptr [rsp + 8]        # 4-byte Folded Reload
+	mov	byte ptr [rax + r13], cl
+	movzx	r9d, bp
 	shl	ebp, 3
 	or	r11d, ebp
-	mov	byte ptr [rax + r14 + 1], bl
-	mov	byte ptr [rax + r14 + 2], r11b
+	mov	byte ptr [rax + r13 + 1], r14b
+	mov	byte ptr [rax + r13 + 2], r11b
 	test	r9d, r9d
 	je	.LBB3_10
 # %bb.7:                                #   in Loop: Header=BB3_6 Depth=1
@@ -515,17 +513,17 @@ build_packets:                          # @build_packets
 	mov	r11d, r9d
 	and	r11d, -8
 	lea	rsi, [r11 + r10]
-	mov	rcx, qword ptr [rsp + 8]        # 8-byte Reload
+	mov	rcx, qword ptr [rsp]            # 8-byte Reload
 	lea	r10, [rcx + 4*r10]
-	mov	r14, r8
-	add	r14, rdx
-	lea	r13d, [4*r9]
-	and	r13d, -32
-	xor	ebp, ebp
+	mov	rcx, r8
+	add	rcx, rdx
+	lea	r14d, [4*r9]
+	and	r14d, -32
+	xor	r13d, r13d
 	.p2align	4, 0x90
 .LBB3_13:                               #   Parent Loop BB3_6 Depth=1
                                         # =>  This Inner Loop Header: Depth=2
-	vmovdqu	ymm3, ymmword ptr [r10 + rbp]
+	vmovdqu	ymm3, ymmword ptr [r10 + r13]
 	vpshufb	ymm4, ymm3, ymm0
 	vextracti128	xmm5, ymm4, 1
 	vpackuswb	xmm4, xmm4, xmm5
@@ -536,16 +534,16 @@ build_packets:                          # @build_packets
 	vpshufb	xmm3, xmm3, xmm2
 	vpunpcklwd	xmm5, xmm4, xmm3        # xmm5 = xmm4[0],xmm3[0],xmm4[1],xmm3[1],xmm4[2],xmm3[2],xmm4[3],xmm3[3]
 	vpunpckhwd	xmm3, xmm4, xmm3        # xmm3 = xmm4[4],xmm3[4],xmm4[5],xmm3[5],xmm4[6],xmm3[6],xmm4[7],xmm3[7]
-	vmovdqu	xmmword ptr [r14 + rbp + 16], xmm3
-	vmovdqu	xmmword ptr [r14 + rbp], xmm5
-	add	rbp, 32
-	cmp	r13, rbp
+	vmovdqu	xmmword ptr [rcx + r13 + 16], xmm3
+	vmovdqu	xmmword ptr [rcx + r13], xmm5
+	add	r13, 32
+	cmp	r14, r13
 	jne	.LBB3_13
 # %bb.14:                               #   in Loop: Header=BB3_6 Depth=1
 	cmp	r11d, r9d
 	je	.LBB3_10
 .LBB3_15:                               #   in Loop: Header=BB3_6 Depth=1
-	mov	rcx, qword ptr [rsp + 8]        # 8-byte Reload
+	mov	rcx, qword ptr [rsp]            # 8-byte Reload
 	lea	rcx, [rcx + 4*rsi]
 	sub	r9, r11
 	movsxd	r8, r8d
@@ -564,7 +562,7 @@ build_packets:                          # @build_packets
 	add	rsi, r10
 	jmp	.LBB3_10
 .LBB3_11:
-	add	rsp, 40
+	add	rsp, 24
 	.cfi_def_cfa_offset 56
 	pop	rbx
 	.cfi_def_cfa_offset 48
