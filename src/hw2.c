@@ -239,35 +239,65 @@ block_t sbu_encrypt_block(block_t plain_text, block_t *expanded_keys) {
   return R19;
 }
 
+uint8_t r_scramble_op(block_t B, uint8_t i, block_t keyA, block_t keyB) {
+  // uint8_t B1 = nth_byte(B, i) ^ (nth_byte(B, i - 1) & nth_byte(B, i - 2)) ^
+  //              (~nth_byte(B, i - 1) & nth_byte(B, i - 3)) ^ nth_byte(keyA, i)
+  //              ^ nth_byte(keyB, i);
+  // return rotl(B1, i == 0 ? 2 : ((2 * i) + 1));
+  uint8_t B1 = rotr(nth_byte(B, i), i == 0 ? 2 : ((2 * i) + 1));
+  return B1 ^ (nth_byte(B, i - 1) & nth_byte(B, i - 2)) ^
+         (~nth_byte(B, i - 1) & nth_byte(B, i - 3)) ^ nth_byte(keyA, i) ^
+         nth_byte(keyB, i);
+}
+
 block_t r_scramble(block_t x, block_t *keys, uint32_t round,
                    permute_func_t op) {
-  (void)x;
-  (void)keys;
-  (void)round;
-  (void)op;
+  block_t keyA = keys[round], keyB = keys[31 - round];
 
-  return 0;
+  x = (x & ~bitmask(24, 32)) | (r_scramble_op(x, 3, keyA, keyB) << 24);
+  x = (x & ~bitmask(16, 24)) | (r_scramble_op(x, 2, keyA, keyB) << 16);
+  x = (x & ~bitmask(8, 16)) | (r_scramble_op(x, 1, keyA, keyB) << 8);
+  x = (x & ~bitmask(0, 8)) | r_scramble_op(x, 0, keyA, keyB);
+
+  x = op(x);
+  return x;
 }
 
 block_t r_mash(block_t x, block_t *keys) {
-  (void)x;
-  (void)keys;
-  return 0;
+  x = (x & ~bitmask(24, 32)) | (mash_op(x, 3, keys) << 24);
+  x = (x & ~bitmask(16, 24)) | (mash_op(x, 2, keys) << 16);
+  x = (x & ~bitmask(8, 16)) | (mash_op(x, 1, keys) << 8);
+  x = (x & ~bitmask(0, 8)) | mash_op(x, 0, keys);
+  return x;
 }
 
+block_t noop(block_t x, block_t *keys) { return r_mash(mash(x, keys), keys); }
+
 block_t sbu_decrypt_block(block_t cipher_text, block_t *expanded_keys) {
-  (void)cipher_text;
-  (void)expanded_keys;
-  return 0;
+  block_t R01 = r_scramble(cipher_text, expanded_keys, 15, reverse);
+  block_t R02 = r_scramble(R01, expanded_keys, 14, unshuffle4);
+  block_t R03 = r_scramble(R02, expanded_keys, 13, unshuffle1);
+  block_t R04 = r_scramble(R03, expanded_keys, 12, reverse);
+  block_t R05 = r_mash(R04, expanded_keys);
+  block_t R06 = r_scramble(R05, expanded_keys, 11, reverse);
+  block_t R07 = r_scramble(R06, expanded_keys, 10, unshuffle4);
+  block_t R08 = r_scramble(R07, expanded_keys, 9, unshuffle1);
+  block_t R09 = r_scramble(R08, expanded_keys, 8, reverse);
+  block_t R10 = r_mash(R09, expanded_keys);
+  block_t R11 = r_scramble(R10, expanded_keys, 7, reverse);
+  block_t R12 = r_scramble(R11, expanded_keys, 6, unshuffle4);
+  block_t R13 = r_scramble(R12, expanded_keys, 5, unshuffle1);
+  block_t R14 = r_scramble(R13, expanded_keys, 4, reverse);
+  block_t R15 = r_mash(R14, expanded_keys);
+  block_t R16 = r_scramble(R15, expanded_keys, 3, reverse);
+  block_t R17 = r_scramble(R16, expanded_keys, 2, unshuffle4);
+  block_t R18 = r_scramble(R17, expanded_keys, 1, unshuffle1);
+  block_t R19 = r_scramble(R18, expanded_keys, 0, reverse);
+  return R19;
 }
 
 void sbu_encrypt(uint8_t *plaintext_input, block_t *encrypted_output,
                  size_t pt_len, uint32_t *expanded_keys) {
-  (void)plaintext_input;
-  (void)encrypted_output;
-  (void)pt_len;
-  (void)expanded_keys;
-
   size_t tp = 0;
 
   while (tp < pt_len - 4) {
@@ -288,10 +318,25 @@ void sbu_encrypt(uint8_t *plaintext_input, block_t *encrypted_output,
 
 void sbu_decrypt(block_t *encrypted_input, char *plaintext_output,
                  size_t pt_len, uint32_t *expanded_keys) {
-  (void)encrypted_input;
-  (void)plaintext_output;
-  (void)pt_len;
-  (void)expanded_keys;
+  size_t ep = 0;
+
+  // round up to nearest multiple of 4
+  const size_t BYTES_PER_BLOCK = sizeof(*encrypted_input);
+  uint8_t *pt_out = malloc(((pt_len + BYTES_PER_BLOCK - 1) / BYTES_PER_BLOCK) *
+                           BYTES_PER_BLOCK);
+
+  while (ep * BYTES_PER_BLOCK < pt_len) {
+    block_t pt_block = sbu_decrypt_block(encrypted_input[ep], expanded_keys);
+    // copy next 4 bytes to output
+    u32_to_le_bytes(pt_out + (ep * BYTES_PER_BLOCK), pt_block);
+    // advance
+    ep++;
+  }
+
+  // copy pt_len bytes to output buffer
+  memcpy(plaintext_output, pt_out, pt_len);
+
+  free(pt_out);
 }
 
 // ----------------- Utility Functions ----------------- //

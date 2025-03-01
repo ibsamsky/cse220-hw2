@@ -2620,16 +2620,339 @@ sbu_encrypt_block:                      # @sbu_encrypt_block
 	.size	sbu_encrypt_block, .Lfunc_end21-sbu_encrypt_block
 	.cfi_endproc
                                         # -- End function
+	.section	.rodata.cst16,"aM",@progbits,16
+	.p2align	4, 0x0                          # -- Begin function r_scramble_op
+.LCPI22_0:
+	.byte	255                             # 0xff
+	.byte	254                             # 0xfe
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+.LCPI22_1:
+	.byte	3                               # 0x3
+	.byte	3                               # 0x3
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+.LCPI22_2:
+	.byte	252                             # 0xfc
+	.byte	252                             # 0xfc
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+.LCPI22_3:
+	.byte	251                             # 0xfb
+	.byte	251                             # 0xfb
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+.LCPI22_4:
+	.byte	16                              # 0x10
+	.byte	8                               # 0x8
+	.byte	4                               # 0x4
+	.byte	2                               # 0x2
+	.byte	1                               # 0x1
+	.byte	0                               # 0x0
+	.byte	0                               # 0x0
+	.byte	0                               # 0x0
+	.byte	16                              # 0x10
+	.byte	8                               # 0x8
+	.byte	4                               # 0x4
+	.byte	2                               # 0x2
+	.byte	1                               # 0x1
+	.byte	0                               # 0x0
+	.byte	0                               # 0x0
+	.byte	0                               # 0x0
+.LCPI22_5:
+	.byte	32                              # 0x20
+	.byte	32                              # 0x20
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+.LCPI22_6:
+	.byte	8                               # 0x8
+	.byte	8                               # 0x8
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.section	.rodata,"a",@progbits
+.LCPI22_7:
+	.byte	3                               # 0x3
+.LCPI22_8:
+	.byte	252                             # 0xfc
+.LCPI22_9:
+	.byte	251                             # 0xfb
+	.text
+	.globl	r_scramble_op
+	.p2align	4, 0x90
+	.type	r_scramble_op,@function
+r_scramble_op:                          # @r_scramble_op
+	.cfi_startproc
+# %bb.0:
+	push	rbp
+	.cfi_def_cfa_offset 16
+	push	r14
+	.cfi_def_cfa_offset 24
+	push	rbx
+	.cfi_def_cfa_offset 32
+	.cfi_offset rbx, -32
+	.cfi_offset r14, -24
+	.cfi_offset rbp, -16
+	mov	eax, ecx
+                                        # kill: def $edx killed $edx def $rdx
+                                        # kill: def $esi killed $esi def $rsi
+	mov	r8d, edi
+	lea	ecx, [rsi + rsi]
+	inc	cl
+	test	esi, esi
+	movzx	r9d, cl
+	mov	ecx, 2
+	cmovne	ecx, r9d
+	vmovd	xmm0, esi
+	vpbroadcastb	xmm0, xmm0
+	vpaddb	xmm0, xmm0, xmmword ptr [rip + .LCPI22_0]
+	vpxor	xmm1, xmm1, xmm1
+	vpcmpgtb	xmm3, xmm1, xmm0
+	vpbroadcastb	xmm2, byte ptr [rip + .LCPI22_7] # xmm2 = [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3]
+	vpand	xmm3, xmm3, xmm2
+	vpaddb	xmm4, xmm0, xmm3
+	vpbroadcastb	xmm3, byte ptr [rip + .LCPI22_8] # xmm3 = [252,252,252,252,252,252,252,252,252,252,252,252,252,252,252,252]
+	vpand	xmm4, xmm4, xmm3
+	vpsubb	xmm4, xmm0, xmm4
+	vpbroadcastb	xmm0, byte ptr [rip + .LCPI22_9] # xmm0 = [251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251]
+	vpminub	xmm5, xmm4, xmm0
+	vgf2p8affineqb	xmm6, xmm4, xmmword ptr [rip + .LCPI22_4], 0
+	vpcmpeqb	xmm4, xmm4, xmm5
+	vpandn	xmm4, xmm4, xmmword ptr [rip + .LCPI22_5]
+	vpaddb	xmm4, xmm6, xmm4
+	vpaddb	xmm5, xmm4, xmmword ptr [rip + .LCPI22_6]
+	vpmovzxbq	xmm5, xmm5              # xmm5 = xmm5[0],zero,zero,zero,zero,zero,zero,zero,xmm5[1],zero,zero,zero,zero,zero,zero,zero
+	vpmovzxbq	xmm6, xmm4              # xmm6 = xmm4[0],zero,zero,zero,zero,zero,zero,zero,xmm4[1],zero,zero,zero,zero,zero,zero,zero
+	vpsubq	xmm4, xmm5, xmm6
+	vpblendd	xmm5, xmm4, xmm1, 10            # xmm5 = xmm4[0],xmm1[1],xmm4[2],xmm1[3]
+	vpcmpeqd	xmm4, xmm4, xmm4
+	vpsllvq	xmm5, xmm4, xmm5
+	vpxor	xmm5, xmm5, xmm4
+	vpsllvq	xmm5, xmm5, xmm6
+	vmovq	xmm7, r8
+	vpbroadcastq	xmm7, xmm7
+	vpand	xmm5, xmm5, xmm7
+	vpsrlvq	xmm5, xmm5, xmm6
+	vmovq	r9, xmm5
+	vpextrd	r10d, xmm5, 2
+	mov	r8d, r9d
+	and	r8d, r10d
+	not	r9b
+	lea	r10d, [rsi - 3]
+	vmovd	xmm5, r10d
+	vpinsrb	xmm5, xmm5, esi, 1
+	vpcmpgtb	xmm1, xmm1, xmm5
+	vpand	xmm1, xmm1, xmm2
+	vpaddb	xmm1, xmm5, xmm1
+	vpand	xmm1, xmm1, xmm3
+	vpsubb	xmm1, xmm5, xmm1
+	vpextrb	esi, xmm1, 1
+	shl	sil, 3
+	vpminub	xmm0, xmm1, xmm0
+	vpcmpeqb	xmm0, xmm1, xmm0
+	vpxor	xmm0, xmm0, xmm4
+	vpmovsxbq	xmm0, xmm0
+	vmovmskpd	ebx, xmm0
+	movzx	r10d, sil
+	add	sil, 32
+	movzx	esi, sil
+	test	bl, 2
+	cmove	esi, r10d
+	lea	r10d, [rsi + 8]
+	movzx	r10d, r10b
+	sub	r10d, esi
+	mov	r14, -1
+	shlx	r10, r14, r10
+	not	r10d
+	shlx	r10, r10, rsi
+	mov	r11d, r10d
+	and	r11d, edi
+	shrx	r11, r11, rsi
+                                        # kill: def $cl killed $cl killed $ecx
+	ror	r11b, cl
+	vmovd	ecx, xmm1
+	shl	cl, 3
+	movzx	ebp, cl
+	add	cl, 32
+	movzx	ecx, cl
+	test	bl, 1
+	cmove	ecx, ebp
+	lea	ebx, [rcx + 8]
+	movzx	ebx, bl
+	sub	ebx, ecx
+	shlx	rbx, r14, rbx
+	not	ebx
+	shlx	rbx, rbx, rcx
+	and	ebx, edi
+	shrx	rcx, rbx, rcx
+	and	cl, r9b
+	xor	edx, eax
+	and	edx, r10d
+	shrx	rax, rdx, rsi
+	xor	al, r11b
+	xor	al, r8b
+	xor	al, cl
+                                        # kill: def $al killed $al killed $rax
+	pop	rbx
+	.cfi_def_cfa_offset 24
+	pop	r14
+	.cfi_def_cfa_offset 16
+	pop	rbp
+	.cfi_def_cfa_offset 8
+	ret
+.Lfunc_end22:
+	.size	r_scramble_op, .Lfunc_end22-r_scramble_op
+	.cfi_endproc
+                                        # -- End function
 	.globl	r_scramble                      # -- Begin function r_scramble
 	.p2align	4, 0x90
 	.type	r_scramble,@function
 r_scramble:                             # @r_scramble
 	.cfi_startproc
 # %bb.0:
-	xor	eax, eax
-	ret
-.Lfunc_end22:
-	.size	r_scramble, .Lfunc_end22-r_scramble
+	push	rbx
+	.cfi_def_cfa_offset 16
+	.cfi_offset rbx, -16
+	mov	r9d, edx
+	mov	eax, 31
+	sub	eax, edx
+	mov	r10d, edi
+	shr	r10d, 24
+	rol	r10b
+	mov	eax, dword ptr [rsi + 4*rax]
+	mov	r8d, edi
+	shr	r8d, 16
+	mov	edx, edi
+	shr	edx, 8
+	mov	r11d, r8d
+	and	r11d, edx
+	mov	ebx, r8d
+	not	bl
+	and	bl, dil
+	xor	eax, dword ptr [rsi + 4*r9]
+	mov	esi, eax
+	shr	esi, 24
+	xor	r11b, r10b
+	xor	r11b, bl
+	xor	r11b, sil
+	movzx	esi, r11b
+	mov	r9d, esi
+	shl	r9d, 24
+	rol	r8b, 3
+	mov	r10d, edi
+	and	r10d, edx
+	mov	r11d, edx
+	not	r11b
+	and	r11b, sil
+	mov	ebx, eax
+	shr	ebx, 16
+	xor	r10b, r8b
+	xor	r10b, bl
+	xor	r10b, r11b
+	movzx	r8d, r10b
+	mov	r10d, r8d
+	shl	r10d, 16
+	or	r10d, r9d
+	rol	dl, 5
+	mov	r9d, esi
+	and	r9b, dil
+	mov	r11d, edi
+	not	r11b
+	and	r11b, r8b
+	mov	ebx, eax
+	shr	ebx, 8
+	xor	bl, dl
+	xor	bl, r9b
+	xor	bl, r11b
+	movzx	edx, bl
+	mov	r9d, edx
+	shl	r9d, 8
+	or	r9d, r10d
+	rol	dil, 6
+	and	r8b, sil
+	not	sil
+	and	dl, sil
+	xor	al, dil
+	xor	al, r8b
+	xor	al, dl
+	movzx	edi, al
+	or	edi, r9d
+	pop	rbx
+	.cfi_def_cfa_offset 8
+	jmp	rcx                             # TAILCALL
+.Lfunc_end23:
+	.size	r_scramble, .Lfunc_end23-r_scramble
 	.cfi_endproc
                                         # -- End function
 	.globl	r_mash                          # -- Begin function r_mash
@@ -2638,22 +2961,1203 @@ r_scramble:                             # @r_scramble
 r_mash:                                 # @r_mash
 	.cfi_startproc
 # %bb.0:
-	xor	eax, eax
+	mov	eax, edi
+	shr	eax, 14
+	and	eax, 124
+	mov	eax, dword ptr [rsi + rax]
+	xor	eax, edi
+	mov	ecx, eax
+	and	ecx, -16777216
+	mov	edx, edi
+	shr	edx, 6
+	and	edx, 124
+	mov	edx, dword ptr [rsi + rdx]
+	xor	edx, edi
+	and	edx, 16711680
+	or	edx, ecx
+	mov	ecx, edi
+	and	ecx, 31
+	mov	ecx, dword ptr [rsi + 4*rcx]
+	xor	ecx, edi
+	and	ecx, 65280
+	shr	eax, 22
+	and	eax, 124
+	xor	edi, dword ptr [rsi + rax]
+	movzx	eax, dil
+	or	eax, ecx
+	or	eax, edx
 	ret
-.Lfunc_end23:
-	.size	r_mash, .Lfunc_end23-r_mash
+.Lfunc_end24:
+	.size	r_mash, .Lfunc_end24-r_mash
 	.cfi_endproc
                                         # -- End function
-	.globl	sbu_decrypt_block               # -- Begin function sbu_decrypt_block
+	.globl	noop                            # -- Begin function noop
+	.p2align	4, 0x90
+	.type	noop,@function
+noop:                                   # @noop
+	.cfi_startproc
+# %bb.0:
+	mov	eax, edi
+	shr	eax, 22
+	and	eax, 124
+	mov	eax, dword ptr [rsi + rax]
+	xor	eax, edi
+	movzx	edx, al
+	mov	ecx, eax
+	and	ecx, 31
+	mov	ecx, dword ptr [rsi + 4*rcx]
+	xor	ecx, edi
+	mov	r8d, ecx
+	and	r8d, 65280
+	or	r8d, edx
+	mov	edx, ecx
+	shr	edx, 6
+	and	edx, 124
+	mov	edx, dword ptr [rsi + rdx]
+	xor	edx, edi
+	mov	r9d, edx
+	and	r9d, 16711680
+	or	r9d, r8d
+	shr	edx, 14
+	and	edx, 124
+	mov	edx, dword ptr [rsi + rdx]
+	mov	r8d, edx
+	xor	r8d, edi
+	and	r8d, -16777216
+	or	r8d, r9d
+	xor	edx, r8d
+	mov	r9d, edx
+	and	r9d, -16777216
+	and	edi, 16711680
+	or	r9d, edi
+	and	r8d, 31
+	xor	ecx, dword ptr [rsi + 4*r8]
+	and	ecx, 65280
+	or	ecx, r9d
+	shr	edx, 22
+	and	edx, 124
+	xor	eax, dword ptr [rsi + rdx]
+	movzx	eax, al
+	or	eax, ecx
+	ret
+.Lfunc_end25:
+	.size	noop, .Lfunc_end25-noop
+	.cfi_endproc
+                                        # -- End function
+	.section	.rodata.cst8,"aM",@progbits,8
+	.p2align	3, 0x0                          # -- Begin function sbu_decrypt_block
+.LCPI26_0:
+	.byte	1                               # 0x1
+	.byte	2                               # 0x2
+	.byte	4                               # 0x4
+	.byte	8                               # 0x8
+	.byte	16                              # 0x10
+	.byte	32                              # 0x20
+	.byte	64                              # 0x40
+	.byte	128                             # 0x80
+	.text
+	.globl	sbu_decrypt_block
 	.p2align	4, 0x90
 	.type	sbu_decrypt_block,@function
 sbu_decrypt_block:                      # @sbu_decrypt_block
 	.cfi_startproc
 # %bb.0:
-	xor	eax, eax
+	push	rbp
+	.cfi_def_cfa_offset 16
+	push	rbx
+	.cfi_def_cfa_offset 24
+	sub	rsp, 24
+	.cfi_def_cfa_offset 48
+	.cfi_offset rbx, -24
+	.cfi_offset rbp, -16
+	mov	rbx, rsi
+	mov	edx, edi
+	shr	edx, 24
+	rol	dl
+	mov	esi, edi
+	shr	esi, 16
+	mov	ecx, edi
+	shr	ecx, 8
+	mov	r8d, esi
+	and	r8d, ecx
+	mov	r9d, esi
+	not	r9b
+	and	r9b, dil
+	mov	eax, dword ptr [rbx + 64]
+	xor	eax, dword ptr [rbx + 60]
+	mov	r10d, eax
+	shr	r10d, 24
+	xor	r8b, dl
+	xor	r8b, r9b
+	xor	r8b, r10b
+	movzx	edx, r8b
+	mov	r8d, edx
+	shl	r8d, 24
+	rol	sil, 3
+	mov	r9d, edi
+	and	r9d, ecx
+	mov	r10d, ecx
+	not	r10b
+	and	r10b, dl
+	mov	r11d, eax
+	shr	r11d, 16
+	xor	r9b, sil
+	xor	r9b, r11b
+	xor	r9b, r10b
+	movzx	esi, r9b
+	mov	r9d, esi
+	shl	r9d, 16
+	or	r9d, r8d
+	rol	cl, 5
+	mov	r8d, edx
+	and	r8b, dil
+	mov	r10d, edi
+	not	r10b
+	and	r10b, sil
+	mov	r11d, eax
+	shr	r11d, 8
+	xor	r11b, cl
+	xor	r11b, r8b
+	xor	r11b, r10b
+	movzx	ecx, r11b
+	mov	r8d, ecx
+	shl	r8d, 8
+	or	r8d, r9d
+	rol	dil, 6
+	and	sil, dl
+	not	dl
+	and	cl, dl
+	xor	al, dil
+	xor	al, sil
+	xor	al, cl
+	movzx	eax, al
+	or	eax, r8d
+	vmovd	xmm0, eax
+	vpbroadcastq	xmm1, qword ptr [rip + .LCPI26_0] # xmm1 = [1,2,4,8,16,32,64,128,1,2,4,8,16,32,64,128]
+	vmovdqa	xmmword ptr [rsp], xmm1         # 16-byte Spill
+	vgf2p8affineqb	xmm0, xmm0, xmm1, 0
+	vmovd	eax, xmm0
+	bswap	eax
+	mov	esi, eax
+	shr	esi, 24
+	rol	sil
+	mov	ecx, dword ptr [rbx + 68]
+	mov	edi, eax
+	shr	edi, 16
+	mov	edx, eax
+	shr	edx, 8
+	mov	r8d, edi
+	and	r8d, edx
+	mov	r9d, edi
+	not	r9b
+	and	r9b, al
+	xor	ecx, dword ptr [rbx + 56]
+	mov	r10d, ecx
+	shr	r10d, 24
+	xor	r10b, sil
+	xor	r10b, r8b
+	xor	r10b, r9b
+	movzx	esi, r10b
+	mov	r8d, esi
+	shl	r8d, 24
+	rol	dil, 3
+	mov	r9d, eax
+	and	r9d, edx
+	mov	r10d, edx
+	not	r10b
+	and	r10b, sil
+	mov	r11d, ecx
+	shr	r11d, 16
+	xor	r11b, dil
+	xor	r11b, r9b
+	xor	r11b, r10b
+	movzx	edi, r11b
+	mov	r9d, edi
+	shl	r9d, 16
+	or	r9d, r8d
+	rol	dl, 5
+	mov	r8d, esi
+	and	r8b, al
+	mov	r10d, eax
+	not	r10b
+	and	r10b, dil
+	mov	r11d, ecx
+	shr	r11d, 8
+	xor	r11b, dl
+	xor	r11b, r8b
+	xor	r11b, r10b
+	movzx	edx, r11b
+	mov	r8d, edx
+	shl	r8d, 8
+	or	r8d, r9d
+	rol	al, 6
+	and	dil, sil
+	not	sil
+	and	dl, sil
+	xor	cl, al
+	xor	cl, dil
+	xor	cl, dl
+	movzx	edi, cl
+	or	edi, r8d
+	call	unshuffle4
+	mov	esi, eax
+	shr	esi, 24
+	rol	sil
+	mov	ecx, dword ptr [rbx + 72]
+	mov	edi, eax
+	shr	edi, 16
+	mov	edx, eax
+	shr	edx, 8
+	mov	r8d, edi
+	and	r8d, edx
+	mov	r9d, edi
+	not	r9b
+	and	r9b, al
+	xor	ecx, dword ptr [rbx + 52]
+	mov	r10d, ecx
+	shr	r10d, 24
+	xor	r8b, sil
+	xor	r10b, r9b
+	xor	r10b, r8b
+	movzx	esi, r10b
+	mov	r8d, esi
+	shl	r8d, 24
+	rol	dil, 3
+	mov	r9d, eax
+	and	r9d, edx
+	mov	r10d, edx
+	not	r10b
+	and	r10b, sil
+	mov	r11d, ecx
+	shr	r11d, 16
+	xor	r11b, dil
+	xor	r11b, r9b
+	xor	r11b, r10b
+	movzx	edi, r11b
+	mov	r9d, edi
+	shl	r9d, 16
+	or	r9d, r8d
+	rol	dl, 5
+	mov	r8d, esi
+	and	r8b, al
+	mov	r10d, eax
+	not	r10b
+	and	r10b, dil
+	mov	r11d, ecx
+	shr	r11d, 8
+	xor	r11b, dl
+	xor	r11b, r8b
+	xor	r11b, r10b
+	movzx	edx, r11b
+	mov	r8d, edx
+	shl	r8d, 8
+	or	r8d, r9d
+	rol	al, 6
+	and	dil, sil
+	not	sil
+	and	dl, sil
+	xor	cl, al
+	xor	cl, dil
+	xor	cl, dl
+	movzx	edi, cl
+	or	edi, r8d
+	call	unshuffle1
+	mov	edi, eax
+	shr	edi, 24
+	rol	dil
+	mov	r8d, eax
+	shr	r8d, 16
+	mov	esi, eax
+	shr	esi, 8
+	mov	r9d, r8d
+	and	r9d, esi
+	mov	r10d, r8d
+	not	r10b
+	and	r10b, al
+	mov	edx, dword ptr [rbx + 76]
+	mov	ecx, dword ptr [rbx + 80]
+	xor	edx, dword ptr [rbx + 48]
+	mov	r11d, edx
+	shr	r11d, 24
+	xor	r9b, dil
+	xor	r11b, r10b
+	xor	r11b, r9b
+	movzx	edi, r11b
+	mov	r9d, edi
+	rol	r8b, 3
+	shl	r9d, 24
+	mov	r10d, eax
+	and	r10d, esi
+	mov	r11d, esi
+	not	r11b
+	and	r11b, dil
+	mov	ebp, edx
+	shr	ebp, 16
+	xor	bpl, r8b
+	xor	bpl, r10b
+	xor	bpl, r11b
+	movzx	r8d, bpl
+	mov	r10d, r8d
+	shl	r10d, 16
+	rol	sil, 5
+	or	r10d, r9d
+	mov	r9d, edi
+	and	r9b, al
+	mov	r11d, eax
+	not	r11b
+	and	r11b, r8b
+	mov	ebp, edx
+	shr	ebp, 8
+	xor	bpl, sil
+	xor	bpl, r9b
+	xor	bpl, r11b
+	movzx	esi, bpl
+	mov	r9d, esi
+	shl	r9d, 8
+	rol	al, 6
+	or	r9d, r10d
+	and	r8b, dil
+	not	dil
+	and	sil, dil
+	xor	dl, al
+	xor	dl, r8b
+	xor	dl, sil
+	movzx	eax, dl
+	or	eax, r9d
+	vmovd	xmm0, eax
+	vmovdqa	xmm1, xmmword ptr [rsp]         # 16-byte Reload
+	vgf2p8affineqb	xmm0, xmm0, xmm1, 0
+	vmovd	eax, xmm0
+	bswap	eax
+	mov	edx, eax
+	shr	edx, 14
+	and	edx, 124
+	mov	r10d, dword ptr [rbx + rdx]
+	xor	r10d, eax
+	mov	edx, eax
+	shr	edx, 6
+	and	edx, 124
+	mov	esi, dword ptr [rbx + rdx]
+	xor	esi, eax
+	mov	r8d, esi
+	and	r8d, 16711680
+	mov	edx, eax
+	and	edx, 31
+	mov	edx, dword ptr [rbx + 4*rdx]
+	xor	edx, eax
+	movzx	edi, dx
+	mov	r9d, r10d
+	shr	r10d, 22
+	and	r10d, 124
+	xor	eax, dword ptr [rbx + r10]
+	shr	r9d, 24
+	or	edi, r8d
+	rol	r9b
+	shr	r8d, 16
+	shr	edi, 8
+	mov	r10d, r8d
+	and	r10d, edi
+	not	r8b
+	and	r8b, al
+	xor	ecx, dword ptr [rbx + 44]
+	mov	r11d, ecx
+	shr	r11d, 24
+	xor	r11b, r9b
+	xor	r11b, r10b
+	xor	r11b, r8b
+	movzx	r8d, r11b
+	mov	r9d, r8d
+	shl	r9d, 24
+	shr	esi, 16
+	rol	sil, 3
+	mov	r10d, edi
+	and	r10d, eax
+	not	dil
+	and	dil, r8b
+	mov	r11d, ecx
+	shr	r11d, 16
+	xor	r11b, sil
+	xor	r11b, r10b
+	xor	r11b, dil
+	movzx	esi, r11b
+	mov	edi, esi
+	shl	edi, 16
+	or	edi, r9d
+	shr	edx, 8
+	rol	dl, 5
+	mov	r9d, r8d
+	and	r9b, al
+	mov	r10d, eax
+	not	r10b
+	and	r10b, sil
+	mov	r11d, ecx
+	shr	r11d, 8
+	xor	r11b, dl
+	xor	r11b, r9b
+	xor	r11b, r10b
+	movzx	edx, r11b
+	mov	r9d, edx
+	shl	r9d, 8
+	or	r9d, edi
+	rol	al, 6
+	and	sil, r8b
+	not	r8b
+	and	dl, r8b
+	xor	cl, al
+	xor	cl, sil
+	xor	cl, dl
+	movzx	eax, cl
+	or	eax, r9d
+	vmovd	xmm0, eax
+	vgf2p8affineqb	xmm0, xmm0, xmm1, 0
+	vmovd	eax, xmm0
+	bswap	eax
+	mov	esi, eax
+	shr	esi, 24
+	rol	sil
+	mov	ecx, dword ptr [rbx + 84]
+	mov	edi, eax
+	shr	edi, 16
+	mov	edx, eax
+	shr	edx, 8
+	mov	r8d, edi
+	and	r8d, edx
+	mov	r9d, edi
+	not	r9b
+	and	r9b, al
+	xor	ecx, dword ptr [rbx + 40]
+	mov	r10d, ecx
+	shr	r10d, 24
+	xor	r10b, sil
+	xor	r10b, r8b
+	xor	r10b, r9b
+	movzx	esi, r10b
+	mov	r8d, esi
+	shl	r8d, 24
+	rol	dil, 3
+	mov	r9d, eax
+	and	r9d, edx
+	mov	r10d, edx
+	not	r10b
+	and	r10b, sil
+	mov	r11d, ecx
+	shr	r11d, 16
+	xor	r11b, dil
+	xor	r11b, r9b
+	xor	r11b, r10b
+	movzx	edi, r11b
+	mov	r9d, edi
+	shl	r9d, 16
+	or	r9d, r8d
+	rol	dl, 5
+	mov	r8d, esi
+	and	r8b, al
+	mov	r10d, eax
+	not	r10b
+	and	r10b, dil
+	mov	r11d, ecx
+	shr	r11d, 8
+	xor	r11b, dl
+	xor	r11b, r8b
+	xor	r11b, r10b
+	movzx	edx, r11b
+	mov	r8d, edx
+	shl	r8d, 8
+	or	r8d, r9d
+	rol	al, 6
+	and	dil, sil
+	not	sil
+	and	dl, sil
+	xor	cl, al
+	xor	cl, dil
+	xor	cl, dl
+	movzx	edi, cl
+	or	edi, r8d
+	call	unshuffle4
+	mov	esi, eax
+	shr	esi, 24
+	rol	sil
+	mov	ecx, dword ptr [rbx + 88]
+	mov	edi, eax
+	shr	edi, 16
+	mov	edx, eax
+	shr	edx, 8
+	mov	r8d, edi
+	and	r8d, edx
+	mov	r9d, edi
+	not	r9b
+	and	r9b, al
+	xor	ecx, dword ptr [rbx + 36]
+	mov	r10d, ecx
+	shr	r10d, 24
+	xor	r8b, sil
+	xor	r10b, r9b
+	xor	r10b, r8b
+	movzx	esi, r10b
+	mov	r8d, esi
+	shl	r8d, 24
+	rol	dil, 3
+	mov	r9d, eax
+	and	r9d, edx
+	mov	r10d, edx
+	not	r10b
+	and	r10b, sil
+	mov	r11d, ecx
+	shr	r11d, 16
+	xor	r11b, dil
+	xor	r11b, r9b
+	xor	r11b, r10b
+	movzx	edi, r11b
+	mov	r9d, edi
+	shl	r9d, 16
+	or	r9d, r8d
+	rol	dl, 5
+	mov	r8d, esi
+	and	r8b, al
+	mov	r10d, eax
+	not	r10b
+	and	r10b, dil
+	mov	r11d, ecx
+	shr	r11d, 8
+	xor	r11b, dl
+	xor	r11b, r8b
+	xor	r11b, r10b
+	movzx	edx, r11b
+	mov	r8d, edx
+	shl	r8d, 8
+	or	r8d, r9d
+	rol	al, 6
+	and	dil, sil
+	not	sil
+	and	dl, sil
+	xor	cl, al
+	xor	cl, dil
+	xor	cl, dl
+	movzx	edi, cl
+	or	edi, r8d
+	call	unshuffle1
+	mov	edi, eax
+	shr	edi, 24
+	rol	dil
+	mov	r8d, eax
+	shr	r8d, 16
+	mov	esi, eax
+	shr	esi, 8
+	mov	r9d, r8d
+	and	r9d, esi
+	mov	r10d, r8d
+	not	r10b
+	and	r10b, al
+	mov	edx, dword ptr [rbx + 92]
+	mov	ecx, dword ptr [rbx + 96]
+	xor	edx, dword ptr [rbx + 32]
+	mov	r11d, edx
+	shr	r11d, 24
+	xor	r9b, dil
+	xor	r11b, r10b
+	xor	r11b, r9b
+	movzx	edi, r11b
+	mov	r9d, edi
+	rol	r8b, 3
+	shl	r9d, 24
+	mov	r10d, eax
+	and	r10d, esi
+	mov	r11d, esi
+	not	r11b
+	and	r11b, dil
+	mov	ebp, edx
+	shr	ebp, 16
+	xor	bpl, r8b
+	xor	bpl, r10b
+	xor	bpl, r11b
+	movzx	r8d, bpl
+	mov	r10d, r8d
+	shl	r10d, 16
+	rol	sil, 5
+	or	r10d, r9d
+	mov	r9d, edi
+	and	r9b, al
+	mov	r11d, eax
+	not	r11b
+	and	r11b, r8b
+	mov	ebp, edx
+	shr	ebp, 8
+	xor	bpl, sil
+	xor	bpl, r9b
+	xor	bpl, r11b
+	movzx	esi, bpl
+	mov	r9d, esi
+	shl	r9d, 8
+	rol	al, 6
+	or	r9d, r10d
+	and	r8b, dil
+	not	dil
+	and	sil, dil
+	xor	dl, al
+	xor	dl, r8b
+	xor	dl, sil
+	movzx	eax, dl
+	or	eax, r9d
+	vmovd	xmm0, eax
+	vmovdqa	xmm1, xmmword ptr [rsp]         # 16-byte Reload
+	vgf2p8affineqb	xmm0, xmm0, xmm1, 0
+	vmovd	eax, xmm0
+	bswap	eax
+	mov	edx, eax
+	shr	edx, 14
+	and	edx, 124
+	mov	r10d, dword ptr [rbx + rdx]
+	xor	r10d, eax
+	mov	edx, eax
+	shr	edx, 6
+	and	edx, 124
+	mov	esi, dword ptr [rbx + rdx]
+	xor	esi, eax
+	mov	r8d, esi
+	and	r8d, 16711680
+	mov	edx, eax
+	and	edx, 31
+	mov	edx, dword ptr [rbx + 4*rdx]
+	xor	edx, eax
+	movzx	edi, dx
+	mov	r9d, r10d
+	shr	r10d, 22
+	and	r10d, 124
+	xor	eax, dword ptr [rbx + r10]
+	shr	r9d, 24
+	or	edi, r8d
+	rol	r9b
+	shr	r8d, 16
+	shr	edi, 8
+	mov	r10d, r8d
+	and	r10d, edi
+	not	r8b
+	and	r8b, al
+	xor	ecx, dword ptr [rbx + 28]
+	mov	r11d, ecx
+	shr	r11d, 24
+	xor	r11b, r9b
+	xor	r11b, r10b
+	xor	r11b, r8b
+	movzx	r8d, r11b
+	mov	r9d, r8d
+	shl	r9d, 24
+	shr	esi, 16
+	rol	sil, 3
+	mov	r10d, edi
+	and	r10d, eax
+	not	dil
+	and	dil, r8b
+	mov	r11d, ecx
+	shr	r11d, 16
+	xor	r11b, sil
+	xor	r11b, r10b
+	xor	r11b, dil
+	movzx	esi, r11b
+	mov	edi, esi
+	shl	edi, 16
+	or	edi, r9d
+	shr	edx, 8
+	rol	dl, 5
+	mov	r9d, r8d
+	and	r9b, al
+	mov	r10d, eax
+	not	r10b
+	and	r10b, sil
+	mov	r11d, ecx
+	shr	r11d, 8
+	xor	r11b, dl
+	xor	r11b, r9b
+	xor	r11b, r10b
+	movzx	edx, r11b
+	mov	r9d, edx
+	shl	r9d, 8
+	or	r9d, edi
+	rol	al, 6
+	and	sil, r8b
+	not	r8b
+	and	dl, r8b
+	xor	cl, al
+	xor	cl, sil
+	xor	cl, dl
+	movzx	eax, cl
+	or	eax, r9d
+	vmovd	xmm0, eax
+	vgf2p8affineqb	xmm0, xmm0, xmm1, 0
+	vmovd	eax, xmm0
+	bswap	eax
+	mov	esi, eax
+	shr	esi, 24
+	rol	sil
+	mov	ecx, dword ptr [rbx + 100]
+	mov	edi, eax
+	shr	edi, 16
+	mov	edx, eax
+	shr	edx, 8
+	mov	r8d, edi
+	and	r8d, edx
+	mov	r9d, edi
+	not	r9b
+	and	r9b, al
+	xor	ecx, dword ptr [rbx + 24]
+	mov	r10d, ecx
+	shr	r10d, 24
+	xor	r10b, sil
+	xor	r10b, r8b
+	xor	r10b, r9b
+	movzx	esi, r10b
+	mov	r8d, esi
+	shl	r8d, 24
+	rol	dil, 3
+	mov	r9d, eax
+	and	r9d, edx
+	mov	r10d, edx
+	not	r10b
+	and	r10b, sil
+	mov	r11d, ecx
+	shr	r11d, 16
+	xor	r11b, dil
+	xor	r11b, r9b
+	xor	r11b, r10b
+	movzx	edi, r11b
+	mov	r9d, edi
+	shl	r9d, 16
+	or	r9d, r8d
+	rol	dl, 5
+	mov	r8d, esi
+	and	r8b, al
+	mov	r10d, eax
+	not	r10b
+	and	r10b, dil
+	mov	r11d, ecx
+	shr	r11d, 8
+	xor	r11b, dl
+	xor	r11b, r8b
+	xor	r11b, r10b
+	movzx	edx, r11b
+	mov	r8d, edx
+	shl	r8d, 8
+	or	r8d, r9d
+	rol	al, 6
+	and	dil, sil
+	not	sil
+	and	dl, sil
+	xor	cl, al
+	xor	cl, dil
+	xor	cl, dl
+	movzx	edi, cl
+	or	edi, r8d
+	call	unshuffle4
+	mov	esi, eax
+	shr	esi, 24
+	rol	sil
+	mov	ecx, dword ptr [rbx + 104]
+	mov	edi, eax
+	shr	edi, 16
+	mov	edx, eax
+	shr	edx, 8
+	mov	r8d, edi
+	and	r8d, edx
+	mov	r9d, edi
+	not	r9b
+	and	r9b, al
+	xor	ecx, dword ptr [rbx + 20]
+	mov	r10d, ecx
+	shr	r10d, 24
+	xor	r8b, sil
+	xor	r10b, r9b
+	xor	r10b, r8b
+	movzx	esi, r10b
+	mov	r8d, esi
+	shl	r8d, 24
+	rol	dil, 3
+	mov	r9d, eax
+	and	r9d, edx
+	mov	r10d, edx
+	not	r10b
+	and	r10b, sil
+	mov	r11d, ecx
+	shr	r11d, 16
+	xor	r11b, dil
+	xor	r11b, r9b
+	xor	r11b, r10b
+	movzx	edi, r11b
+	mov	r9d, edi
+	shl	r9d, 16
+	or	r9d, r8d
+	rol	dl, 5
+	mov	r8d, esi
+	and	r8b, al
+	mov	r10d, eax
+	not	r10b
+	and	r10b, dil
+	mov	r11d, ecx
+	shr	r11d, 8
+	xor	r11b, dl
+	xor	r11b, r8b
+	xor	r11b, r10b
+	movzx	edx, r11b
+	mov	r8d, edx
+	shl	r8d, 8
+	or	r8d, r9d
+	rol	al, 6
+	and	dil, sil
+	not	sil
+	and	dl, sil
+	xor	cl, al
+	xor	cl, dil
+	xor	cl, dl
+	movzx	edi, cl
+	or	edi, r8d
+	call	unshuffle1
+	mov	edi, eax
+	shr	edi, 24
+	rol	dil
+	mov	r8d, eax
+	shr	r8d, 16
+	mov	esi, eax
+	shr	esi, 8
+	mov	r9d, r8d
+	and	r9d, esi
+	mov	r10d, r8d
+	not	r10b
+	and	r10b, al
+	mov	edx, dword ptr [rbx + 108]
+	mov	ecx, dword ptr [rbx + 112]
+	xor	edx, dword ptr [rbx + 16]
+	mov	r11d, edx
+	shr	r11d, 24
+	xor	r9b, dil
+	xor	r11b, r10b
+	xor	r11b, r9b
+	movzx	edi, r11b
+	mov	r9d, edi
+	rol	r8b, 3
+	shl	r9d, 24
+	mov	r10d, eax
+	and	r10d, esi
+	mov	r11d, esi
+	not	r11b
+	and	r11b, dil
+	mov	ebp, edx
+	shr	ebp, 16
+	xor	bpl, r8b
+	xor	bpl, r10b
+	xor	bpl, r11b
+	movzx	r8d, bpl
+	mov	r10d, r8d
+	shl	r10d, 16
+	rol	sil, 5
+	or	r10d, r9d
+	mov	r9d, edi
+	and	r9b, al
+	mov	r11d, eax
+	not	r11b
+	and	r11b, r8b
+	mov	ebp, edx
+	shr	ebp, 8
+	xor	bpl, sil
+	xor	bpl, r9b
+	xor	bpl, r11b
+	movzx	esi, bpl
+	mov	r9d, esi
+	shl	r9d, 8
+	rol	al, 6
+	or	r9d, r10d
+	and	r8b, dil
+	not	dil
+	and	sil, dil
+	xor	dl, al
+	xor	dl, r8b
+	xor	dl, sil
+	movzx	eax, dl
+	or	eax, r9d
+	vmovd	xmm0, eax
+	vmovdqa	xmm1, xmmword ptr [rsp]         # 16-byte Reload
+	vgf2p8affineqb	xmm0, xmm0, xmm1, 0
+	vmovd	eax, xmm0
+	bswap	eax
+	mov	edx, eax
+	shr	edx, 14
+	and	edx, 124
+	mov	r10d, dword ptr [rbx + rdx]
+	xor	r10d, eax
+	mov	edx, eax
+	shr	edx, 6
+	and	edx, 124
+	mov	esi, dword ptr [rbx + rdx]
+	xor	esi, eax
+	mov	r8d, esi
+	and	r8d, 16711680
+	mov	edx, eax
+	and	edx, 31
+	mov	edx, dword ptr [rbx + 4*rdx]
+	xor	edx, eax
+	movzx	edi, dx
+	mov	r9d, r10d
+	shr	r10d, 22
+	and	r10d, 124
+	xor	eax, dword ptr [rbx + r10]
+	shr	r9d, 24
+	or	edi, r8d
+	rol	r9b
+	shr	r8d, 16
+	shr	edi, 8
+	mov	r10d, r8d
+	and	r10d, edi
+	not	r8b
+	and	r8b, al
+	xor	ecx, dword ptr [rbx + 12]
+	mov	r11d, ecx
+	shr	r11d, 24
+	xor	r11b, r9b
+	xor	r11b, r10b
+	xor	r11b, r8b
+	movzx	r8d, r11b
+	mov	r9d, r8d
+	shl	r9d, 24
+	shr	esi, 16
+	rol	sil, 3
+	mov	r10d, edi
+	and	r10d, eax
+	not	dil
+	and	dil, r8b
+	mov	r11d, ecx
+	shr	r11d, 16
+	xor	r11b, sil
+	xor	r11b, r10b
+	xor	r11b, dil
+	movzx	esi, r11b
+	mov	edi, esi
+	shl	edi, 16
+	or	edi, r9d
+	shr	edx, 8
+	rol	dl, 5
+	mov	r9d, r8d
+	and	r9b, al
+	mov	r10d, eax
+	not	r10b
+	and	r10b, sil
+	mov	r11d, ecx
+	shr	r11d, 8
+	xor	r11b, dl
+	xor	r11b, r9b
+	xor	r11b, r10b
+	movzx	edx, r11b
+	mov	r9d, edx
+	shl	r9d, 8
+	or	r9d, edi
+	rol	al, 6
+	and	sil, r8b
+	not	r8b
+	and	dl, r8b
+	xor	cl, al
+	xor	cl, sil
+	xor	cl, dl
+	movzx	eax, cl
+	or	eax, r9d
+	vmovd	xmm0, eax
+	vgf2p8affineqb	xmm0, xmm0, xmm1, 0
+	vmovd	eax, xmm0
+	bswap	eax
+	mov	esi, eax
+	shr	esi, 24
+	rol	sil
+	mov	ecx, dword ptr [rbx + 116]
+	mov	edi, eax
+	shr	edi, 16
+	mov	edx, eax
+	shr	edx, 8
+	mov	r8d, edi
+	and	r8d, edx
+	mov	r9d, edi
+	not	r9b
+	and	r9b, al
+	xor	ecx, dword ptr [rbx + 8]
+	mov	r10d, ecx
+	shr	r10d, 24
+	xor	r10b, sil
+	xor	r10b, r8b
+	xor	r10b, r9b
+	movzx	esi, r10b
+	mov	r8d, esi
+	shl	r8d, 24
+	rol	dil, 3
+	mov	r9d, eax
+	and	r9d, edx
+	mov	r10d, edx
+	not	r10b
+	and	r10b, sil
+	mov	r11d, ecx
+	shr	r11d, 16
+	xor	r11b, dil
+	xor	r11b, r9b
+	xor	r11b, r10b
+	movzx	edi, r11b
+	mov	r9d, edi
+	shl	r9d, 16
+	or	r9d, r8d
+	rol	dl, 5
+	mov	r8d, esi
+	and	r8b, al
+	mov	r10d, eax
+	not	r10b
+	and	r10b, dil
+	mov	r11d, ecx
+	shr	r11d, 8
+	xor	r11b, dl
+	xor	r11b, r8b
+	xor	r11b, r10b
+	movzx	edx, r11b
+	mov	r8d, edx
+	shl	r8d, 8
+	or	r8d, r9d
+	rol	al, 6
+	and	dil, sil
+	not	sil
+	and	dl, sil
+	xor	cl, al
+	xor	cl, dil
+	xor	cl, dl
+	movzx	edi, cl
+	or	edi, r8d
+	call	unshuffle4
+	mov	esi, eax
+	shr	esi, 24
+	rol	sil
+	mov	ecx, dword ptr [rbx + 120]
+	mov	edi, eax
+	shr	edi, 16
+	mov	edx, eax
+	shr	edx, 8
+	mov	r8d, edi
+	and	r8d, edx
+	mov	r9d, edi
+	not	r9b
+	and	r9b, al
+	xor	ecx, dword ptr [rbx + 4]
+	mov	r10d, ecx
+	shr	r10d, 24
+	xor	r8b, sil
+	xor	r10b, r9b
+	xor	r10b, r8b
+	movzx	esi, r10b
+	mov	r8d, esi
+	shl	r8d, 24
+	rol	dil, 3
+	mov	r9d, eax
+	and	r9d, edx
+	mov	r10d, edx
+	not	r10b
+	and	r10b, sil
+	mov	r11d, ecx
+	shr	r11d, 16
+	xor	r11b, dil
+	xor	r11b, r9b
+	xor	r11b, r10b
+	movzx	edi, r11b
+	mov	r9d, edi
+	shl	r9d, 16
+	or	r9d, r8d
+	rol	dl, 5
+	mov	r8d, esi
+	and	r8b, al
+	mov	r10d, eax
+	not	r10b
+	and	r10b, dil
+	mov	r11d, ecx
+	shr	r11d, 8
+	xor	r11b, dl
+	xor	r11b, r8b
+	xor	r11b, r10b
+	movzx	edx, r11b
+	mov	r8d, edx
+	shl	r8d, 8
+	or	r8d, r9d
+	rol	al, 6
+	and	dil, sil
+	not	sil
+	and	dl, sil
+	xor	cl, al
+	xor	cl, dil
+	xor	cl, dl
+	movzx	edi, cl
+	or	edi, r8d
+	call	unshuffle1
+	mov	ecx, dword ptr [rbx + 124]
+	mov	esi, eax
+	shr	esi, 24
+	rol	sil
+	mov	edi, eax
+	shr	edi, 16
+	mov	edx, eax
+	shr	edx, 8
+	mov	r8d, edi
+	and	r8d, edx
+	mov	r9d, edi
+	not	r9b
+	and	r9b, al
+	xor	ecx, dword ptr [rbx]
+	mov	r10d, ecx
+	shr	r10d, 24
+	xor	r8b, sil
+	xor	r10b, r9b
+	xor	r10b, r8b
+	movzx	esi, r10b
+	mov	r8d, esi
+	shl	r8d, 24
+	rol	dil, 3
+	mov	r9d, eax
+	and	r9d, edx
+	mov	r10d, edx
+	not	r10b
+	and	r10b, sil
+	mov	r11d, ecx
+	shr	r11d, 16
+	xor	r11b, dil
+	xor	r11b, r9b
+	xor	r11b, r10b
+	movzx	edi, r11b
+	mov	r9d, edi
+	shl	r9d, 16
+	or	r9d, r8d
+	rol	dl, 5
+	mov	r8d, esi
+	and	r8b, al
+	mov	r10d, eax
+	not	r10b
+	and	r10b, dil
+	mov	r11d, ecx
+	shr	r11d, 8
+	xor	r11b, dl
+	xor	r11b, r8b
+	xor	r11b, r10b
+	movzx	edx, r11b
+	mov	r8d, edx
+	shl	r8d, 8
+	or	r8d, r9d
+	rol	al, 6
+	and	dil, sil
+	not	sil
+	and	dl, sil
+	xor	cl, al
+	xor	cl, dil
+	xor	cl, dl
+	movzx	eax, cl
+	or	eax, r8d
+	vmovd	xmm0, eax
+	vgf2p8affineqb	xmm0, xmm0, xmmword ptr [rsp], 0 # 16-byte Folded Reload
+	vmovd	eax, xmm0
+	bswap	eax
+	add	rsp, 24
+	.cfi_def_cfa_offset 24
+	pop	rbx
+	.cfi_def_cfa_offset 16
+	pop	rbp
+	.cfi_def_cfa_offset 8
 	ret
-.Lfunc_end24:
-	.size	sbu_decrypt_block, .Lfunc_end24-sbu_decrypt_block
+.Lfunc_end26:
+	.size	sbu_decrypt_block, .Lfunc_end26-sbu_decrypt_block
 	.cfi_endproc
                                         # -- End function
 	.globl	sbu_encrypt                     # -- Begin function sbu_encrypt
@@ -2691,17 +4195,17 @@ sbu_encrypt:                            # @sbu_encrypt
 	mov	rbp, rdx
 	xor	r13d, r13d
 	add	rbp, -4
-	je	.LBB25_2
+	je	.LBB27_2
 	.p2align	4, 0x90
-.LBB25_1:                               # =>This Inner Loop Header: Depth=1
+.LBB27_1:                               # =>This Inner Loop Header: Depth=1
 	mov	edi, dword ptr [r12 + r13]
 	mov	rsi, r14
 	call	sbu_encrypt_block
 	mov	dword ptr [rbx + r13], eax
 	add	r13, 4
 	cmp	r13, rbp
-	jb	.LBB25_1
-.LBB25_2:
+	jb	.LBB27_1
+.LBB27_2:
 	mov	dword ptr [rsp + 12], 0
 	add	r12, r13
 	sub	r15, r13
@@ -2715,7 +4219,7 @@ sbu_encrypt:                            # @sbu_encrypt
 	mov	dword ptr [rbx + r13], eax
 	mov	rax, qword ptr fs:[40]
 	cmp	rax, qword ptr [rsp + 16]
-	jne	.LBB25_4
+	jne	.LBB27_4
 # %bb.3:
 	add	rsp, 24
 	.cfi_def_cfa_offset 56
@@ -2732,11 +4236,11 @@ sbu_encrypt:                            # @sbu_encrypt
 	pop	rbp
 	.cfi_def_cfa_offset 8
 	ret
-.LBB25_4:
+.LBB27_4:
 	.cfi_def_cfa_offset 80
 	call	__stack_chk_fail@PLT
-.Lfunc_end25:
-	.size	sbu_encrypt, .Lfunc_end25-sbu_encrypt
+.Lfunc_end27:
+	.size	sbu_encrypt, .Lfunc_end27-sbu_encrypt
 	.cfi_endproc
                                         # -- End function
 	.globl	sbu_decrypt                     # -- Begin function sbu_decrypt
@@ -2745,34 +4249,73 @@ sbu_encrypt:                            # @sbu_encrypt
 sbu_decrypt:                            # @sbu_decrypt
 	.cfi_startproc
 # %bb.0:
-	ret
-.Lfunc_end26:
-	.size	sbu_decrypt, .Lfunc_end26-sbu_decrypt
-	.cfi_endproc
-                                        # -- End function
-	.globl	byteswap                        # -- Begin function byteswap
+	push	rbp
+	.cfi_def_cfa_offset 16
+	push	r15
+	.cfi_def_cfa_offset 24
+	push	r14
+	.cfi_def_cfa_offset 32
+	push	r13
+	.cfi_def_cfa_offset 40
+	push	r12
+	.cfi_def_cfa_offset 48
+	push	rbx
+	.cfi_def_cfa_offset 56
+	push	rax
+	.cfi_def_cfa_offset 64
+	.cfi_offset rbx, -56
+	.cfi_offset r12, -48
+	.cfi_offset r13, -40
+	.cfi_offset r14, -32
+	.cfi_offset r15, -24
+	.cfi_offset rbp, -16
+	mov	r15, rcx
+	mov	rbx, rdx
+	mov	qword ptr [rsp], rsi            # 8-byte Spill
+	mov	r12, rdi
+	lea	rdi, [rdx + 3]
+	and	rdi, -4
+	call	malloc@PLT
+	mov	r13, rax
+	test	rbx, rbx
+	je	.LBB28_3
+# %bb.1:
+	lea	rbp, [rbx - 1]
+	shr	rbp, 2
+	inc	rbp
+	xor	r14d, r14d
 	.p2align	4, 0x90
-	.type	byteswap,@function
-byteswap:                               # @byteswap
-	.cfi_startproc
-# %bb.0:
-	mov	eax, edi
-	bswap	eax
-	ret
-.Lfunc_end27:
-	.size	byteswap, .Lfunc_end27-byteswap
-	.cfi_endproc
-                                        # -- End function
-	.globl	u32_to_be_bytes                 # -- Begin function u32_to_be_bytes
-	.p2align	4, 0x90
-	.type	u32_to_be_bytes,@function
-u32_to_be_bytes:                        # @u32_to_be_bytes
-	.cfi_startproc
-# %bb.0:
-	movbe	dword ptr [rdi], esi
-	ret
+.LBB28_2:                               # =>This Inner Loop Header: Depth=1
+	mov	edi, dword ptr [r12 + 4*r14]
+	mov	rsi, r15
+	call	sbu_decrypt_block
+	mov	dword ptr [r13 + 4*r14], eax
+	inc	r14
+	cmp	rbp, r14
+	jne	.LBB28_2
+.LBB28_3:
+	mov	rdi, qword ptr [rsp]            # 8-byte Reload
+	mov	rsi, r13
+	mov	rdx, rbx
+	call	memcpy@PLT
+	mov	rdi, r13
+	add	rsp, 8
+	.cfi_def_cfa_offset 56
+	pop	rbx
+	.cfi_def_cfa_offset 48
+	pop	r12
+	.cfi_def_cfa_offset 40
+	pop	r13
+	.cfi_def_cfa_offset 32
+	pop	r14
+	.cfi_def_cfa_offset 24
+	pop	r15
+	.cfi_def_cfa_offset 16
+	pop	rbp
+	.cfi_def_cfa_offset 8
+	jmp	free@PLT                        # TAILCALL
 .Lfunc_end28:
-	.size	u32_to_be_bytes, .Lfunc_end28-u32_to_be_bytes
+	.size	sbu_decrypt, .Lfunc_end28-sbu_decrypt
 	.cfi_endproc
                                         # -- End function
 	.globl	u32_to_le_bytes                 # -- Begin function u32_to_le_bytes
@@ -2785,6 +4328,31 @@ u32_to_le_bytes:                        # @u32_to_le_bytes
 	ret
 .Lfunc_end29:
 	.size	u32_to_le_bytes, .Lfunc_end29-u32_to_le_bytes
+	.cfi_endproc
+                                        # -- End function
+	.globl	byteswap                        # -- Begin function byteswap
+	.p2align	4, 0x90
+	.type	byteswap,@function
+byteswap:                               # @byteswap
+	.cfi_startproc
+# %bb.0:
+	mov	eax, edi
+	bswap	eax
+	ret
+.Lfunc_end30:
+	.size	byteswap, .Lfunc_end30-byteswap
+	.cfi_endproc
+                                        # -- End function
+	.globl	u32_to_be_bytes                 # -- Begin function u32_to_be_bytes
+	.p2align	4, 0x90
+	.type	u32_to_be_bytes,@function
+u32_to_be_bytes:                        # @u32_to_be_bytes
+	.cfi_startproc
+# %bb.0:
+	movbe	dword ptr [rdi], esi
+	ret
+.Lfunc_end31:
+	.size	u32_to_be_bytes, .Lfunc_end31-u32_to_be_bytes
 	.cfi_endproc
                                         # -- End function
 	.type	.L.str,@object                  # @.str
