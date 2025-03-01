@@ -126,16 +126,486 @@ u32_from_le_bytes:                      # @u32_from_le_bytes
 	.size	u32_from_le_bytes, .Lfunc_end2-u32_from_le_bytes
 	.cfi_endproc
                                         # -- End function
-	.globl	build_packets                   # -- Begin function build_packets
+	.section	.rodata.cst32,"aM",@progbits,32
+	.p2align	5, 0x0                          # -- Begin function build_packets
+.LCPI3_0:
+	.byte	0                               # 0x0
+	.byte	128                             # 0x80
+	.byte	4                               # 0x4
+	.byte	128                             # 0x80
+	.byte	8                               # 0x8
+	.byte	128                             # 0x80
+	.byte	12                              # 0xc
+	.byte	128                             # 0x80
+	.byte	1                               # 0x1
+	.byte	128                             # 0x80
+	.byte	5                               # 0x5
+	.byte	128                             # 0x80
+	.byte	9                               # 0x9
+	.byte	128                             # 0x80
+	.byte	13                              # 0xd
+	.byte	128                             # 0x80
+	.byte	16                              # 0x10
+	.byte	128                             # 0x80
+	.byte	20                              # 0x14
+	.byte	128                             # 0x80
+	.byte	24                              # 0x18
+	.byte	128                             # 0x80
+	.byte	28                              # 0x1c
+	.byte	128                             # 0x80
+	.byte	17                              # 0x11
+	.byte	128                             # 0x80
+	.byte	21                              # 0x15
+	.byte	128                             # 0x80
+	.byte	25                              # 0x19
+	.byte	128                             # 0x80
+	.byte	29                              # 0x1d
+	.byte	128                             # 0x80
+.LCPI3_1:
+	.byte	2                               # 0x2
+	.byte	128                             # 0x80
+	.byte	6                               # 0x6
+	.byte	128                             # 0x80
+	.byte	10                              # 0xa
+	.byte	128                             # 0x80
+	.byte	14                              # 0xe
+	.byte	128                             # 0x80
+	.byte	3                               # 0x3
+	.byte	128                             # 0x80
+	.byte	7                               # 0x7
+	.byte	128                             # 0x80
+	.byte	11                              # 0xb
+	.byte	128                             # 0x80
+	.byte	15                              # 0xf
+	.byte	128                             # 0x80
+	.byte	18                              # 0x12
+	.byte	128                             # 0x80
+	.byte	22                              # 0x16
+	.byte	128                             # 0x80
+	.byte	26                              # 0x1a
+	.byte	128                             # 0x80
+	.byte	30                              # 0x1e
+	.byte	128                             # 0x80
+	.byte	19                              # 0x13
+	.byte	128                             # 0x80
+	.byte	23                              # 0x17
+	.byte	128                             # 0x80
+	.byte	27                              # 0x1b
+	.byte	128                             # 0x80
+	.byte	31                              # 0x1f
+	.byte	128                             # 0x80
+.LCPI3_3:
+	.byte	3                               # 0x3
+	.byte	128                             # 0x80
+	.byte	7                               # 0x7
+	.byte	128                             # 0x80
+	.byte	11                              # 0xb
+	.byte	128                             # 0x80
+	.byte	15                              # 0xf
+	.byte	128                             # 0x80
+	.byte	2                               # 0x2
+	.byte	128                             # 0x80
+	.byte	6                               # 0x6
+	.byte	128                             # 0x80
+	.byte	10                              # 0xa
+	.byte	128                             # 0x80
+	.byte	14                              # 0xe
+	.byte	128                             # 0x80
+	.byte	19                              # 0x13
+	.byte	128                             # 0x80
+	.byte	23                              # 0x17
+	.byte	128                             # 0x80
+	.byte	27                              # 0x1b
+	.byte	128                             # 0x80
+	.byte	31                              # 0x1f
+	.byte	128                             # 0x80
+	.byte	18                              # 0x12
+	.byte	128                             # 0x80
+	.byte	22                              # 0x16
+	.byte	128                             # 0x80
+	.byte	26                              # 0x1a
+	.byte	128                             # 0x80
+	.byte	30                              # 0x1e
+	.byte	128                             # 0x80
+.LCPI3_4:
+	.byte	1                               # 0x1
+	.byte	128                             # 0x80
+	.byte	5                               # 0x5
+	.byte	128                             # 0x80
+	.byte	9                               # 0x9
+	.byte	128                             # 0x80
+	.byte	13                              # 0xd
+	.byte	128                             # 0x80
+	.byte	0                               # 0x0
+	.byte	128                             # 0x80
+	.byte	4                               # 0x4
+	.byte	128                             # 0x80
+	.byte	8                               # 0x8
+	.byte	128                             # 0x80
+	.byte	12                              # 0xc
+	.byte	128                             # 0x80
+	.byte	17                              # 0x11
+	.byte	128                             # 0x80
+	.byte	21                              # 0x15
+	.byte	128                             # 0x80
+	.byte	25                              # 0x19
+	.byte	128                             # 0x80
+	.byte	29                              # 0x1d
+	.byte	128                             # 0x80
+	.byte	16                              # 0x10
+	.byte	128                             # 0x80
+	.byte	20                              # 0x14
+	.byte	128                             # 0x80
+	.byte	24                              # 0x18
+	.byte	128                             # 0x80
+	.byte	28                              # 0x1c
+	.byte	128                             # 0x80
+	.section	.rodata.cst16,"aM",@progbits,16
+	.p2align	4, 0x0
+.LCPI3_2:
+	.byte	0                               # 0x0
+	.byte	4                               # 0x4
+	.byte	1                               # 0x1
+	.byte	5                               # 0x5
+	.byte	2                               # 0x2
+	.byte	6                               # 0x6
+	.byte	3                               # 0x3
+	.byte	7                               # 0x7
+	.byte	8                               # 0x8
+	.byte	12                              # 0xc
+	.byte	9                               # 0x9
+	.byte	13                              # 0xd
+	.byte	10                              # 0xa
+	.byte	14                              # 0xe
+	.byte	11                              # 0xb
+	.byte	15                              # 0xf
+	.text
+	.globl	build_packets
 	.p2align	4, 0x90
 	.type	build_packets,@function
 build_packets:                          # @build_packets
 	.cfi_startproc
 # %bb.0:
-	xor	eax, eax
+	push	rbp
+	.cfi_def_cfa_offset 16
+	push	r15
+	.cfi_def_cfa_offset 24
+	push	r14
+	.cfi_def_cfa_offset 32
+	push	r13
+	.cfi_def_cfa_offset 40
+	push	r12
+	.cfi_def_cfa_offset 48
+	push	rbx
+	.cfi_def_cfa_offset 56
+	sub	rsp, 40
+	.cfi_def_cfa_offset 96
+	.cfi_offset rbx, -56
+	.cfi_offset r12, -48
+	.cfi_offset r13, -40
+	.cfi_offset r14, -32
+	.cfi_offset r15, -24
+	.cfi_offset rbp, -16
+	mov	r13d, r8d
+	mov	ebp, ecx
+                                        # kill: def $esi killed $esi def $rsi
+	mov	qword ptr [rsp + 8], rdi        # 8-byte Spill
+	mov	qword ptr [rsp + 16], rsi       # 8-byte Spill
+	lea	esi, [4*rsi]
+	mov	r15d, 1
+	cmp	esi, edx
+	jle	.LBB3_2
+# %bb.1:
+	mov	ecx, edx
+	lea	eax, [rcx + rsi]
+	dec	eax
+	cdq
+	idiv	ecx
+	mov	r15d, eax
+.LBB3_2:
+	mov	rax, qword ptr [rsp + 16]       # 8-byte Reload
+	add	eax, r15d
+	dec	eax
+	cdq
+	idiv	r15d
+	mov	r12d, eax
+	lea	eax, [r15 + 2*r15]
+	add	eax, esi
+	movsxd	rdi, eax
+	call	malloc@PLT
+	test	r15d, r15d
+	jle	.LBB3_11
+# %bb.3:
+	mov	ecx, r13d
+	shl	rcx, 2
+	mov	qword ptr [rsp + 24], rcx       # 8-byte Spill
+	test	ebp, ebp
+	je	.LBB3_5
+# %bb.4:
+	mov	ecx, ebp
+	add	rcx, rcx
+	mov	qword ptr [rsp + 32], rcx       # 8-byte Spill
+	mov	rsi, rax
+	add	rsi, 3
+	xor	edi, edi
+	vmovdqa	ymm0, ymmword ptr [rip + .LCPI3_0] # ymm0 = [0,128,4,128,8,128,12,128,1,128,5,128,9,128,13,128,16,128,20,128,24,128,28,128,17,128,21,128,25,128,29,128]
+	vmovdqa	ymm1, ymmword ptr [rip + .LCPI3_1] # ymm1 = [2,128,6,128,10,128,14,128,3,128,7,128,11,128,15,128,18,128,22,128,26,128,30,128,19,128,23,128,27,128,31,128]
+	vmovdqa	xmm2, xmmword ptr [rip + .LCPI3_2] # xmm2 = [0,4,1,5,2,6,3,7,8,12,9,13,10,14,11,15]
+	xor	r8d, r8d
+	jmp	.LBB3_19
+	.p2align	4, 0x90
+.LBB3_18:                               #   in Loop: Header=BB3_19 Depth=1
+	add	rsi, 3
+	cmp	r8d, r15d
+	je	.LBB3_11
+.LBB3_19:                               # =>This Loop Header: Depth=1
+                                        #     Child Loop BB3_23 Depth 2
+                                        #     Child Loop BB3_26 Depth 2
+	mov	r14d, r8d
+	lea	r13d, [r14 + 2*r14]
+	movsxd	r11, edi
+	lea	r9, [4*r11]
+	add	r13d, r9d
+	lea	r8d, [r14 + 1]
+	xor	ebp, ebp
+	cmp	r8d, r15d
+	sete	bpl
+	mov	rdx, qword ptr [rsp + 16]       # 8-byte Reload
+	mov	ecx, edx
+	sub	ecx, r11d
+	lea	r10d, [r11 + r12]
+	cmp	r10d, edx
+	cmovle	ecx, r12d
+	mov	ebx, r14d
+	shl	r14d, 5
+	movzx	r10d, cl
+	mov	edx, r10d
+	shr	edx, 5
+	or	edx, r14d
+	shl	ecx, 3
+	or	ebp, ecx
+	movsxd	rcx, r13d
+	shr	ebx, 3
+	and	ebx, 3
+	or	ebx, dword ptr [rsp + 24]       # 4-byte Folded Reload
+	mov	byte ptr [rax + rcx], bl
+	mov	byte ptr [rax + rcx + 1], dl
+	or	ebp, dword ptr [rsp + 32]       # 4-byte Folded Reload
+	mov	byte ptr [rax + rcx + 2], bpl
+	test	r10d, r10d
+	je	.LBB3_18
+# %bb.20:                               #   in Loop: Header=BB3_19 Depth=1
+	cmp	r10d, 8
+	jae	.LBB3_22
+# %bb.21:                               #   in Loop: Header=BB3_19 Depth=1
+	mov	rdi, r11
+	xor	r13d, r13d
+	jmp	.LBB3_25
+	.p2align	4, 0x90
+.LBB3_22:                               #   in Loop: Header=BB3_19 Depth=1
+	mov	r13d, r10d
+	and	r13d, -8
+	lea	rdi, [r11 + r13]
+	mov	rcx, qword ptr [rsp + 8]        # 8-byte Reload
+	lea	r11, [rcx + 4*r11]
+	mov	r14, r9
+	add	r14, rsi
+	lea	ebp, [4*r10]
+	and	ebp, -32
+	xor	ecx, ecx
+	.p2align	4, 0x90
+.LBB3_23:                               #   Parent Loop BB3_19 Depth=1
+                                        # =>  This Inner Loop Header: Depth=2
+	vmovdqu	ymm3, ymmword ptr [r11 + rcx]
+	vpshufb	ymm4, ymm3, ymm0
+	vextracti128	xmm5, ymm4, 1
+	vpackuswb	xmm4, xmm4, xmm5
+	vpshufb	ymm3, ymm3, ymm1
+	vextracti128	xmm5, ymm3, 1
+	vpackuswb	xmm3, xmm3, xmm5
+	vpshufb	xmm4, xmm4, xmm2
+	vpshufb	xmm3, xmm3, xmm2
+	vpunpcklwd	xmm5, xmm4, xmm3        # xmm5 = xmm4[0],xmm3[0],xmm4[1],xmm3[1],xmm4[2],xmm3[2],xmm4[3],xmm3[3]
+	vpunpckhwd	xmm3, xmm4, xmm3        # xmm3 = xmm4[4],xmm3[4],xmm4[5],xmm3[5],xmm4[6],xmm3[6],xmm4[7],xmm3[7]
+	vmovdqu	xmmword ptr [r14 + rcx + 16], xmm3
+	vmovdqu	xmmword ptr [r14 + rcx], xmm5
+	add	rcx, 32
+	cmp	rbp, rcx
+	jne	.LBB3_23
+# %bb.24:                               #   in Loop: Header=BB3_19 Depth=1
+	cmp	r13d, r10d
+	je	.LBB3_18
+.LBB3_25:                               #   in Loop: Header=BB3_19 Depth=1
+	mov	rcx, qword ptr [rsp + 8]        # 8-byte Reload
+	lea	rcx, [rcx + 4*rdi]
+	sub	r10, r13
+	movsxd	rdx, r9d
+	lea	r9, [rdx + 4*r13]
+	add	r9, rsi
+	xor	r11d, r11d
+	.p2align	4, 0x90
+.LBB3_26:                               #   Parent Loop BB3_19 Depth=1
+                                        # =>  This Inner Loop Header: Depth=2
+	mov	edx, dword ptr [rcx + 4*r11]
+	mov	dword ptr [r9 + 4*r11], edx
+	inc	r11
+	cmp	r10, r11
+	jne	.LBB3_26
+# %bb.17:                               #   in Loop: Header=BB3_19 Depth=1
+	add	rdi, r11
+	jmp	.LBB3_18
+.LBB3_5:
+	mov	rdx, rax
+	add	rdx, 3
+	xor	esi, esi
+	vmovdqa	ymm0, ymmword ptr [rip + .LCPI3_3] # ymm0 = [3,128,7,128,11,128,15,128,2,128,6,128,10,128,14,128,19,128,23,128,27,128,31,128,18,128,22,128,26,128,30,128]
+	vmovdqa	ymm1, ymmword ptr [rip + .LCPI3_4] # ymm1 = [1,128,5,128,9,128,13,128,0,128,4,128,8,128,12,128,17,128,21,128,25,128,29,128,16,128,20,128,24,128,28,128]
+	vmovdqa	xmm2, xmmword ptr [rip + .LCPI3_2] # xmm2 = [0,4,1,5,2,6,3,7,8,12,9,13,10,14,11,15]
+	xor	edi, edi
+	jmp	.LBB3_6
+	.p2align	4, 0x90
+.LBB3_10:                               #   in Loop: Header=BB3_6 Depth=1
+	add	rdx, 3
+	cmp	edi, r15d
+	je	.LBB3_11
+.LBB3_6:                                # =>This Loop Header: Depth=1
+                                        #     Child Loop BB3_13 Depth 2
+                                        #     Child Loop BB3_16 Depth 2
+	mov	r13d, edi
+	lea	r14d, [r13 + 2*r13]
+	movsxd	r10, esi
+	lea	r8, [4*r10]
+	add	r14d, r8d
+	lea	edi, [r13 + 1]
+	xor	r11d, r11d
+	cmp	edi, r15d
+	sete	r11b
+	mov	r9, qword ptr [rsp + 16]        # 8-byte Reload
+	mov	ebp, r9d
+	sub	ebp, r10d
+	lea	ecx, [r10 + r12]
+	cmp	ecx, r9d
+	cmovle	ebp, r12d
+	mov	ecx, r13d
+	shl	r13d, 5
+	movzx	r9d, bpl
+	mov	ebx, r9d
+	shr	ebx, 5
+	or	ebx, r13d
+	movsxd	r14, r14d
+	shr	ecx, 3
+	and	ecx, 3
+	or	ecx, dword ptr [rsp + 24]       # 4-byte Folded Reload
+	mov	byte ptr [rax + r14], cl
+	shl	ebp, 3
+	or	r11d, ebp
+	mov	byte ptr [rax + r14 + 1], bl
+	mov	byte ptr [rax + r14 + 2], r11b
+	test	r9d, r9d
+	je	.LBB3_10
+# %bb.7:                                #   in Loop: Header=BB3_6 Depth=1
+	cmp	r9d, 8
+	jae	.LBB3_12
+# %bb.8:                                #   in Loop: Header=BB3_6 Depth=1
+	mov	rsi, r10
+	xor	r11d, r11d
+	jmp	.LBB3_15
+	.p2align	4, 0x90
+.LBB3_12:                               #   in Loop: Header=BB3_6 Depth=1
+	mov	r11d, r9d
+	and	r11d, -8
+	lea	rsi, [r11 + r10]
+	mov	rcx, qword ptr [rsp + 8]        # 8-byte Reload
+	lea	r10, [rcx + 4*r10]
+	mov	r14, r8
+	add	r14, rdx
+	lea	r13d, [4*r9]
+	and	r13d, -32
+	xor	ebp, ebp
+	.p2align	4, 0x90
+.LBB3_13:                               #   Parent Loop BB3_6 Depth=1
+                                        # =>  This Inner Loop Header: Depth=2
+	vmovdqu	ymm3, ymmword ptr [r10 + rbp]
+	vpshufb	ymm4, ymm3, ymm0
+	vextracti128	xmm5, ymm4, 1
+	vpackuswb	xmm4, xmm4, xmm5
+	vpshufb	ymm3, ymm3, ymm1
+	vextracti128	xmm5, ymm3, 1
+	vpackuswb	xmm3, xmm3, xmm5
+	vpshufb	xmm4, xmm4, xmm2
+	vpshufb	xmm3, xmm3, xmm2
+	vpunpcklwd	xmm5, xmm4, xmm3        # xmm5 = xmm4[0],xmm3[0],xmm4[1],xmm3[1],xmm4[2],xmm3[2],xmm4[3],xmm3[3]
+	vpunpckhwd	xmm3, xmm4, xmm3        # xmm3 = xmm4[4],xmm3[4],xmm4[5],xmm3[5],xmm4[6],xmm3[6],xmm4[7],xmm3[7]
+	vmovdqu	xmmword ptr [r14 + rbp + 16], xmm3
+	vmovdqu	xmmword ptr [r14 + rbp], xmm5
+	add	rbp, 32
+	cmp	r13, rbp
+	jne	.LBB3_13
+# %bb.14:                               #   in Loop: Header=BB3_6 Depth=1
+	cmp	r11d, r9d
+	je	.LBB3_10
+.LBB3_15:                               #   in Loop: Header=BB3_6 Depth=1
+	mov	rcx, qword ptr [rsp + 8]        # 8-byte Reload
+	lea	rcx, [rcx + 4*rsi]
+	sub	r9, r11
+	movsxd	r8, r8d
+	lea	r8, [r8 + 4*r11]
+	add	r8, rdx
+	xor	r10d, r10d
+	.p2align	4, 0x90
+.LBB3_16:                               #   Parent Loop BB3_6 Depth=1
+                                        # =>  This Inner Loop Header: Depth=2
+	mov	r11d, dword ptr [rcx + 4*r10]
+	movbe	dword ptr [r8 + 4*r10], r11d
+	inc	r10
+	cmp	r9, r10
+	jne	.LBB3_16
+# %bb.9:                                #   in Loop: Header=BB3_6 Depth=1
+	add	rsi, r10
+	jmp	.LBB3_10
+.LBB3_11:
+	add	rsp, 40
+	.cfi_def_cfa_offset 56
+	pop	rbx
+	.cfi_def_cfa_offset 48
+	pop	r12
+	.cfi_def_cfa_offset 40
+	pop	r13
+	.cfi_def_cfa_offset 32
+	pop	r14
+	.cfi_def_cfa_offset 24
+	pop	r15
+	.cfi_def_cfa_offset 16
+	pop	rbp
+	.cfi_def_cfa_offset 8
+	vzeroupper
 	ret
 .Lfunc_end3:
 	.size	build_packets, .Lfunc_end3-build_packets
+	.cfi_endproc
+                                        # -- End function
+	.globl	u32_to_be_bytes                 # -- Begin function u32_to_be_bytes
+	.p2align	4, 0x90
+	.type	u32_to_be_bytes,@function
+u32_to_be_bytes:                        # @u32_to_be_bytes
+	.cfi_startproc
+# %bb.0:
+	movbe	dword ptr [rdi], esi
+	ret
+.Lfunc_end4:
+	.size	u32_to_be_bytes, .Lfunc_end4-u32_to_be_bytes
+	.cfi_endproc
+                                        # -- End function
+	.globl	u32_to_le_bytes                 # -- Begin function u32_to_le_bytes
+	.p2align	4, 0x90
+	.type	u32_to_le_bytes,@function
+u32_to_le_bytes:                        # @u32_to_le_bytes
+	.cfi_startproc
+# %bb.0:
+	mov	dword ptr [rdi], esi
+	ret
+.Lfunc_end5:
+	.size	u32_to_le_bytes, .Lfunc_end5-u32_to_le_bytes
 	.cfi_endproc
                                         # -- End function
 	.globl	create_arrays                   # -- Begin function create_arrays
@@ -146,8 +616,8 @@ create_arrays:                          # @create_arrays
 # %bb.0:
 	xor	eax, eax
 	ret
-.Lfunc_end4:
-	.size	create_arrays, .Lfunc_end4-create_arrays
+.Lfunc_end6:
+	.size	create_arrays, .Lfunc_end6-create_arrays
 	.cfi_endproc
                                         # -- End function
 	.globl	rotl                            # -- Begin function rotl
@@ -162,8 +632,8 @@ rotl:                                   # @rotl
 	rol	al, cl
                                         # kill: def $al killed $al killed $eax
 	ret
-.Lfunc_end5:
-	.size	rotl, .Lfunc_end5-rotl
+.Lfunc_end7:
+	.size	rotl, .Lfunc_end7-rotl
 	.cfi_endproc
                                         # -- End function
 	.globl	rotr                            # -- Begin function rotr
@@ -178,13 +648,13 @@ rotr:                                   # @rotr
 	ror	al, cl
                                         # kill: def $al killed $al killed $eax
 	ret
-.Lfunc_end6:
-	.size	rotr, .Lfunc_end6-rotr
+.Lfunc_end8:
+	.size	rotr, .Lfunc_end8-rotr
 	.cfi_endproc
                                         # -- End function
 	.section	.rodata.cst16,"aM",@progbits,16
 	.p2align	4, 0x0                          # -- Begin function reverse
-.LCPI7_0:
+.LCPI9_0:
 	.byte	1                               # 0x1
 	.byte	2                               # 0x2
 	.byte	4                               # 0x4
@@ -209,47 +679,47 @@ reverse:                                # @reverse
 	.cfi_startproc
 # %bb.0:
 	vmovd	xmm0, edi
-	vgf2p8affineqb	xmm0, xmm0, xmmword ptr [rip + .LCPI7_0], 0
+	vgf2p8affineqb	xmm0, xmm0, xmmword ptr [rip + .LCPI9_0], 0
 	vmovd	eax, xmm0
 	bswap	eax
 	ret
-.Lfunc_end7:
-	.size	reverse, .Lfunc_end7-reverse
+.Lfunc_end9:
+	.size	reverse, .Lfunc_end9-reverse
 	.cfi_endproc
                                         # -- End function
 	.section	.rodata.cst32,"aM",@progbits,32
 	.p2align	5, 0x0                          # -- Begin function shuffle4
-.LCPI8_0:
+.LCPI10_0:
 	.quad	4                               # 0x4
 	.quad	4                               # 0x4
 	.quad	4                               # 0x4
 	.quad	8                               # 0x8
-.LCPI8_1:
+.LCPI10_1:
 	.quad	8                               # 0x8
 	.quad	8                               # 0x8
 	.quad	8                               # 0x8
 	.quad	12                              # 0xc
-.LCPI8_2:
+.LCPI10_2:
 	.quad	131072                          # 0x20000
 	.quad	262144                          # 0x40000
 	.quad	524288                          # 0x80000
 	.quad	16777216                        # 0x1000000
-.LCPI8_3:
+.LCPI10_3:
 	.quad	512                             # 0x200
 	.quad	1024                            # 0x400
 	.quad	2048                            # 0x800
 	.quad	65536                           # 0x10000
-.LCPI8_4:
+.LCPI10_4:
 	.quad	4096                            # 0x1000
 	.quad	8192                            # 0x2000
 	.quad	16384                           # 0x4000
 	.quad	32768                           # 0x8000
-.LCPI8_5:
+.LCPI10_5:
 	.quad	32                              # 0x20
 	.quad	16                              # 0x10
 	.quad	64                              # 0x40
 	.quad	128                             # 0x80
-.LCPI8_6:
+.LCPI10_6:
 	.quad	1048576                         # 0x100000
 	.quad	2097152                         # 0x200000
 	.quad	4194304                         # 0x400000
@@ -264,17 +734,17 @@ shuffle4:                               # @shuffle4
                                         # kill: def $edi killed $edi def $rdi
 	mov	ecx, edi
 	test	byte ptr [rip + __cpu_model+14], 2
-	jne	.LBB8_2
+	jne	.LBB10_2
 # %bb.1:
 	mov	esi, ecx
 	and	esi, 16
 	shl	esi, 4
 	vmovq	xmm0, rcx
 	vpbroadcastq	ymm1, xmm0
-	vpsllvq	ymm0, ymm1, ymmword ptr [rip + .LCPI8_0]
-	vpsllvq	ymm2, ymm1, ymmword ptr [rip + .LCPI8_1]
-	vpand	ymm2, ymm2, ymmword ptr [rip + .LCPI8_2]
-	vpand	ymm0, ymm0, ymmword ptr [rip + .LCPI8_3]
+	vpsllvq	ymm0, ymm1, ymmword ptr [rip + .LCPI10_0]
+	vpsllvq	ymm2, ymm1, ymmword ptr [rip + .LCPI10_1]
+	vpand	ymm2, ymm2, ymmword ptr [rip + .LCPI10_2]
+	vpand	ymm0, ymm0, ymmword ptr [rip + .LCPI10_3]
 	vpor	ymm0, ymm0, ymm2
 	mov	rdx, rcx
 	shl	rdx, 12
@@ -282,12 +752,12 @@ shuffle4:                               # @shuffle4
 	and	r8d, 33554432
 	vpsrlq	ymm2, ymm1, 12
 	vpsrlq	ymm3, ymm1, 8
-	vpand	ymm3, ymm3, ymmword ptr [rip + .LCPI8_4]
-	vpand	ymm2, ymm2, ymmword ptr [rip + .LCPI8_5]
+	vpand	ymm3, ymm3, ymmword ptr [rip + .LCPI10_4]
+	vpand	ymm2, ymm2, ymmword ptr [rip + .LCPI10_5]
 	vpor	ymm2, ymm2, ymm3
 	vpsrlq	xmm1, xmm1, 4
 	vpbroadcastq	ymm1, xmm1
-	vpand	ymm1, ymm1, ymmword ptr [rip + .LCPI8_6]
+	vpand	ymm1, ymm1, ymmword ptr [rip + .LCPI10_6]
 	mov	eax, ecx
 	and	eax, 1879048192
 	and	edi, -2147483648
@@ -319,7 +789,7 @@ shuffle4:                               # @shuffle4
                                         # kill: def $eax killed $eax killed $rax
 	vzeroupper
 	ret
-.LBB8_2:
+.LBB10_2:
 	mov	eax, 252645135
 	pdep	rdx, rcx, rax
 	shr	ecx, 16
@@ -328,8 +798,8 @@ shuffle4:                               # @shuffle4
 	or	eax, edx
                                         # kill: def $eax killed $eax killed $rax
 	ret
-.Lfunc_end8:
-	.size	shuffle4, .Lfunc_end8-shuffle4
+.Lfunc_end10:
+	.size	shuffle4, .Lfunc_end10-shuffle4
 	.cfi_endproc
                                         # -- End function
 	.globl	pdep                            # -- Begin function pdep
@@ -339,15 +809,15 @@ pdep:                                   # @pdep
 	.cfi_startproc
 # %bb.0:
 	test	byte ptr [rip + __cpu_model+14], 2
-	jne	.LBB9_5
+	jne	.LBB11_5
 # %bb.1:
 	test	rsi, rsi
-	je	.LBB9_2
+	je	.LBB11_2
 # %bb.3:
 	mov	ecx, 1
 	xor	eax, eax
 	.p2align	4, 0x90
-.LBB9_4:                                # =>This Inner Loop Header: Depth=1
+.LBB11_4:                               # =>This Inner Loop Header: Depth=1
 	mov	rdx, rcx
 	and	rdx, rdi
 	blsi	r8, rsi
@@ -356,63 +826,63 @@ pdep:                                   # @pdep
 	or	rax, r8
 	add	rcx, rcx
 	blsr	rsi, rsi
-	jne	.LBB9_4
+	jne	.LBB11_4
 # %bb.6:
 	ret
-.LBB9_5:
+.LBB11_5:
 	pdep	rax, rdi, rsi
 	ret
-.LBB9_2:
+.LBB11_2:
 	xor	eax, eax
 	ret
-.Lfunc_end9:
-	.size	pdep, .Lfunc_end9-pdep
+.Lfunc_end11:
+	.size	pdep, .Lfunc_end11-pdep
 	.cfi_endproc
                                         # -- End function
 	.section	.rodata.cst16,"aM",@progbits,16
 	.p2align	4, 0x0                          # -- Begin function unshuffle4
-.LCPI10_0:
+.LCPI12_0:
 	.quad	8                               # 0x8
 	.quad	4                               # 0x4
-.LCPI10_1:
+.LCPI12_1:
 	.quad	12                              # 0xc
 	.quad	8                               # 0x8
-.LCPI10_2:
+.LCPI12_2:
 	.quad	16                              # 0x10
 	.quad	12                              # 0xc
-.LCPI10_3:
+.LCPI12_3:
 	.quad	32                              # 0x20
 	.quad	32                              # 0x20
-.LCPI10_5:
+.LCPI12_5:
 	.quad	64                              # 0x40
 	.quad	64                              # 0x40
-.LCPI10_6:
+.LCPI12_6:
 	.quad	128                             # 0x80
 	.quad	128                             # 0x80
-.LCPI10_7:
+.LCPI12_7:
 	.quad	256                             # 0x100
 	.quad	256                             # 0x100
-.LCPI10_8:
+.LCPI12_8:
 	.quad	512                             # 0x200
 	.quad	512                             # 0x200
-.LCPI10_9:
+.LCPI12_9:
 	.quad	1024                            # 0x400
 	.quad	1024                            # 0x400
-.LCPI10_10:
+.LCPI12_10:
 	.quad	2048                            # 0x800
 	.quad	2048                            # 0x800
-.LCPI10_11:
+.LCPI12_11:
 	.quad	4096                            # 0x1000
 	.quad	4096                            # 0x1000
-.LCPI10_12:
+.LCPI12_12:
 	.quad	8192                            # 0x2000
 	.quad	8192                            # 0x2000
-.LCPI10_13:
+.LCPI12_13:
 	.quad	16384                           # 0x4000
 	.quad	16384                           # 0x4000
 	.section	.rodata.cst32,"aM",@progbits,32
 	.p2align	5, 0x0
-.LCPI10_4:
+.LCPI12_4:
 	.quad	2                               # 0x2
 	.quad	1                               # 0x1
 	.quad	4                               # 0x4
@@ -426,7 +896,7 @@ unshuffle4:                             # @unshuffle4
 # %bb.0:
 	mov	eax, edi
 	test	byte ptr [rip + __cpu_model+14], 2
-	jne	.LBB10_2
+	jne	.LBB12_2
 # %bb.1:
 	vmovq	xmm0, rax
 	vpbroadcastq	xmm1, xmm0
@@ -436,10 +906,10 @@ unshuffle4:                             # @unshuffle4
 	shr	ecx, 8
 	vmovd	xmm2, ecx
 	mov	edx, ecx
-	vpsrlvq	xmm3, xmm1, xmmword ptr [rip + .LCPI10_0]
+	vpsrlvq	xmm3, xmm1, xmmword ptr [rip + .LCPI12_0]
 	and	edx, 16
-	vpsrlvq	xmm4, xmm1, xmmword ptr [rip + .LCPI10_1]
-	vpsrlvq	xmm1, xmm1, xmmword ptr [rip + .LCPI10_2]
+	vpsrlvq	xmm4, xmm1, xmmword ptr [rip + .LCPI12_1]
+	vpsrlvq	xmm1, xmm1, xmmword ptr [rip + .LCPI12_2]
 	shr	edi, 16
 	and	edi, 32768
 	mov	esi, eax
@@ -449,33 +919,33 @@ unshuffle4:                             # @unshuffle4
 	vpinsrd	xmm2, xmm2, ecx, 2
 	and	ecx, 16
 	or	ecx, esi
-	vpand	ymm0, ymm0, ymmword ptr [rip + .LCPI10_4]
+	vpand	ymm0, ymm0, ymmword ptr [rip + .LCPI12_4]
 	vextracti128	xmm5, ymm0, 1
 	vpor	xmm0, xmm0, xmm5
 	vpshufd	xmm5, xmm0, 238                 # xmm5 = xmm0[2,3,2,3]
 	vpor	xmm0, xmm0, xmm5
-	vpand	xmm5, xmm3, xmmword ptr [rip + .LCPI10_3]
+	vpand	xmm5, xmm3, xmmword ptr [rip + .LCPI12_3]
 	shr	eax, 12
 	and	eax, 32768
 	vmovq	rsi, xmm0
 	or	rsi, rdx
-	vpand	xmm0, xmm2, xmmword ptr [rip + .LCPI10_5]
+	vpand	xmm0, xmm2, xmmword ptr [rip + .LCPI12_5]
 	vpor	xmm0, xmm0, xmm5
-	vpand	xmm2, xmm3, xmmword ptr [rip + .LCPI10_6]
+	vpand	xmm2, xmm3, xmmword ptr [rip + .LCPI12_6]
 	vpor	xmm0, xmm2, xmm0
-	vpand	xmm2, xmm4, xmmword ptr [rip + .LCPI10_7]
+	vpand	xmm2, xmm4, xmmword ptr [rip + .LCPI12_7]
 	vpor	xmm0, xmm2, xmm0
-	vpand	xmm2, xmm4, xmmword ptr [rip + .LCPI10_8]
+	vpand	xmm2, xmm4, xmmword ptr [rip + .LCPI12_8]
 	vpor	xmm0, xmm2, xmm0
-	vpand	xmm2, xmm4, xmmword ptr [rip + .LCPI10_9]
+	vpand	xmm2, xmm4, xmmword ptr [rip + .LCPI12_9]
 	vpor	xmm0, xmm2, xmm0
-	vpand	xmm2, xmm4, xmmword ptr [rip + .LCPI10_10]
+	vpand	xmm2, xmm4, xmmword ptr [rip + .LCPI12_10]
 	vpor	xmm0, xmm2, xmm0
-	vpand	xmm2, xmm1, xmmword ptr [rip + .LCPI10_11]
+	vpand	xmm2, xmm1, xmmword ptr [rip + .LCPI12_11]
 	vpor	xmm0, xmm2, xmm0
-	vpand	xmm2, xmm1, xmmword ptr [rip + .LCPI10_12]
+	vpand	xmm2, xmm1, xmmword ptr [rip + .LCPI12_12]
 	vpor	xmm0, xmm2, xmm0
-	vpand	xmm1, xmm1, xmmword ptr [rip + .LCPI10_13]
+	vpand	xmm1, xmm1, xmmword ptr [rip + .LCPI12_13]
 	vpor	xmm0, xmm1, xmm0
 	vmovq	xmm1, rsi
 	vmovd	xmm2, ecx
@@ -485,8 +955,8 @@ unshuffle4:                             # @unshuffle4
 	vpunpcklqdq	xmm2, xmm2, xmm3        # xmm2 = xmm2[0],xmm3[0]
 	vpor	xmm0, xmm0, xmm2
 	vpor	xmm0, xmm0, xmm1
-	jmp	.LBB10_3
-.LBB10_2:
+	jmp	.LBB12_3
+.LBB12_2:
 	mov	ecx, 4042322160
 	pext	rcx, rax, rcx
 	mov	edx, 252645135
@@ -494,7 +964,7 @@ unshuffle4:                             # @unshuffle4
 	vmovd	xmm0, eax
 	vmovd	xmm1, ecx
 	vpunpcklqdq	xmm0, xmm1, xmm0        # xmm0 = xmm1[0],xmm0[0]
-.LBB10_3:
+.LBB12_3:
 	vmovq	rcx, xmm0
 	shl	ecx, 16
 	vpextrq	rax, xmm0, 1
@@ -502,8 +972,8 @@ unshuffle4:                             # @unshuffle4
                                         # kill: def $eax killed $eax killed $rax
 	vzeroupper
 	ret
-.Lfunc_end10:
-	.size	unshuffle4, .Lfunc_end10-unshuffle4
+.Lfunc_end12:
+	.size	unshuffle4, .Lfunc_end12-unshuffle4
 	.cfi_endproc
                                         # -- End function
 	.globl	pext                            # -- Begin function pext
@@ -513,72 +983,72 @@ pext:                                   # @pext
 	.cfi_startproc
 # %bb.0:
 	test	byte ptr [rip + __cpu_model+14], 2
-	jne	.LBB11_5
+	jne	.LBB13_5
 # %bb.1:
 	test	rsi, rsi
-	je	.LBB11_2
+	je	.LBB13_2
 # %bb.3:
 	mov	ecx, 1
 	xor	eax, eax
 	.p2align	4, 0x90
-.LBB11_4:                               # =>This Inner Loop Header: Depth=1
+.LBB13_4:                               # =>This Inner Loop Header: Depth=1
 	blsi	rdx, rsi
 	and	rdx, rdi
 	cmovne	rdx, rcx
 	or	rax, rdx
 	add	rcx, rcx
 	blsr	rsi, rsi
-	jne	.LBB11_4
+	jne	.LBB13_4
 # %bb.6:
 	ret
-.LBB11_5:
+.LBB13_5:
 	pext	rax, rdi, rsi
 	ret
-.LBB11_2:
+.LBB13_2:
 	xor	eax, eax
 	ret
-.Lfunc_end11:
-	.size	pext, .Lfunc_end11-pext
+.Lfunc_end13:
+	.size	pext, .Lfunc_end13-pext
 	.cfi_endproc
                                         # -- End function
 	.section	.rodata.cst32,"aM",@progbits,32
 	.p2align	5, 0x0                          # -- Begin function shuffle1
-.LCPI12_0:
+.LCPI14_0:
 	.quad	2                               # 0x2
 	.quad	3                               # 0x3
 	.quad	4                               # 0x4
 	.quad	5                               # 0x5
-.LCPI12_1:
+.LCPI14_1:
 	.quad	6                               # 0x6
 	.quad	7                               # 0x7
 	.quad	8                               # 0x8
 	.quad	9                               # 0x9
-.LCPI12_2:
+.LCPI14_2:
 	.quad	4096                            # 0x1000
 	.quad	16384                           # 0x4000
 	.quad	65536                           # 0x10000
 	.quad	262144                          # 0x40000
-.LCPI12_3:
+.LCPI14_3:
 	.quad	16                              # 0x10
 	.quad	64                              # 0x40
 	.quad	256                             # 0x100
 	.quad	1024                            # 0x400
-.LCPI12_4:
+.LCPI14_4:
 	.quad	14                              # 0xe
 	.quad	15                              # 0xf
 	.quad	13                              # 0xd
 	.quad	12                              # 0xc
-.LCPI12_5:
+.LCPI14_5:
 	.quad	11                              # 0xb
 	.quad	10                              # 0xa
 	.quad	9                               # 0x9
 	.quad	8                               # 0x8
-.LCPI12_6:
+.LCPI14_6:
 	.quad	512                             # 0x200
 	.quad	2048                            # 0x800
 	.quad	8192                            # 0x2000
 	.quad	32768                           # 0x8000
-.LCPI12_7:
+.LCPI14_7:
 	.quad	8                               # 0x8
 	.quad	2                               # 0x2
 	.quad	32                              # 0x20
@@ -593,18 +1063,18 @@ shuffle1:                               # @shuffle1
                                         # kill: def $edi killed $edi def $rdi
 	mov	eax, edi
 	test	byte ptr [rip + __cpu_model+14], 2
-	jne	.LBB12_2
+	jne	.LBB14_2
 # %bb.1:
 	mov	edx, eax
 	and	edx, 1
 	lea	esi, [rax + rax]
 	vmovq	xmm0, rax
 	vpbroadcastq	ymm1, xmm0
-	vpsllvq	ymm0, ymm1, ymmword ptr [rip + .LCPI12_0]
-	vpsllvq	ymm2, ymm1, ymmword ptr [rip + .LCPI12_1]
-	vpand	ymm2, ymm2, ymmword ptr [rip + .LCPI12_2]
+	vpsllvq	ymm0, ymm1, ymmword ptr [rip + .LCPI14_0]
+	vpsllvq	ymm2, ymm1, ymmword ptr [rip + .LCPI14_1]
+	vpand	ymm2, ymm2, ymmword ptr [rip + .LCPI14_2]
 	and	esi, 4
-	vpand	ymm0, ymm0, ymmword ptr [rip + .LCPI12_3]
+	vpand	ymm0, ymm0, ymmword ptr [rip + .LCPI14_3]
 	vpor	ymm0, ymm0, ymm2
 	mov	ecx, eax
 	shl	ecx, 10
@@ -628,11 +1098,11 @@ shuffle1:                               # @shuffle1
 	or	edx, esi
 	mov	esi, eax
 	shl	esi, 15
-	vpsrlvq	ymm2, ymm1, ymmword ptr [rip + .LCPI12_4]
-	vpsrlvq	ymm1, ymm1, ymmword ptr [rip + .LCPI12_5]
+	vpsrlvq	ymm2, ymm1, ymmword ptr [rip + .LCPI14_4]
+	vpsrlvq	ymm1, ymm1, ymmword ptr [rip + .LCPI14_5]
 	and	esi, 1073741824
-	vpand	ymm1, ymm1, ymmword ptr [rip + .LCPI12_6]
-	vpand	ymm2, ymm2, ymmword ptr [rip + .LCPI12_7]
+	vpand	ymm1, ymm1, ymmword ptr [rip + .LCPI14_6]
+	vpand	ymm2, ymm2, ymmword ptr [rip + .LCPI14_7]
 	vpor	ymm1, ymm2, ymm1
 	mov	r8d, eax
 	shr	r8d, 7
@@ -680,7 +1150,7 @@ shuffle1:                               # @shuffle1
                                         # kill: def $eax killed $eax killed $rax
 	vzeroupper
 	ret
-.LBB12_2:
+.LBB14_2:
 	mov	ecx, 1431655765
 	pdep	rdx, rax, rcx
 	shr	eax, 16
@@ -689,91 +1159,91 @@ shuffle1:                               # @shuffle1
 	or	eax, edx
                                         # kill: def $eax killed $eax killed $rax
 	ret
-.Lfunc_end12:
-	.size	shuffle1, .Lfunc_end12-shuffle1
+.Lfunc_end14:
+	.size	shuffle1, .Lfunc_end14-shuffle1
 	.cfi_endproc
                                         # -- End function
 	.section	.rodata.cst16,"aM",@progbits,16
 	.p2align	4, 0x0                          # -- Begin function unshuffle1
-.LCPI13_0:
+.LCPI15_0:
 	.quad	3                               # 0x3
 	.quad	2                               # 0x2
-.LCPI13_1:
+.LCPI15_1:
 	.quad	4                               # 0x4
 	.quad	3                               # 0x3
-.LCPI13_2:
+.LCPI15_2:
 	.quad	5                               # 0x5
 	.quad	4                               # 0x4
-.LCPI13_3:
+.LCPI15_3:
 	.quad	6                               # 0x6
 	.quad	5                               # 0x5
-.LCPI13_4:
+.LCPI15_4:
 	.quad	8                               # 0x8
 	.quad	7                               # 0x7
-.LCPI13_5:
+.LCPI15_5:
 	.quad	9                               # 0x9
 	.quad	8                               # 0x8
-.LCPI13_6:
+.LCPI15_6:
 	.quad	10                              # 0xa
 	.quad	9                               # 0x9
-.LCPI13_7:
+.LCPI15_7:
 	.quad	11                              # 0xb
 	.quad	10                              # 0xa
-.LCPI13_8:
+.LCPI15_8:
 	.quad	12                              # 0xc
 	.quad	11                              # 0xb
-.LCPI13_9:
+.LCPI15_9:
 	.quad	13                              # 0xd
 	.quad	12                              # 0xc
-.LCPI13_10:
+.LCPI15_10:
 	.quad	14                              # 0xe
 	.quad	13                              # 0xd
-.LCPI13_11:
+.LCPI15_11:
 	.quad	15                              # 0xf
 	.quad	14                              # 0xe
-.LCPI13_12:
+.LCPI15_12:
 	.quad	32                              # 0x20
 	.quad	32                              # 0x20
-.LCPI13_13:
+.LCPI15_13:
 	.quad	2                               # 0x2
 	.quad	1                               # 0x1
-.LCPI13_14:
+.LCPI15_14:
 	.quad	4                               # 0x4
 	.quad	4                               # 0x4
-.LCPI13_15:
+.LCPI15_15:
 	.quad	8                               # 0x8
 	.quad	8                               # 0x8
-.LCPI13_16:
+.LCPI15_16:
 	.quad	16                              # 0x10
 	.quad	16                              # 0x10
-.LCPI13_17:
+.LCPI15_17:
 	.quad	1                               # 0x1
 	.quad	2                               # 0x2
-.LCPI13_18:
+.LCPI15_18:
 	.quad	64                              # 0x40
 	.quad	64                              # 0x40
-.LCPI13_19:
+.LCPI15_19:
 	.quad	128                             # 0x80
 	.quad	128                             # 0x80
-.LCPI13_20:
+.LCPI15_20:
 	.quad	256                             # 0x100
 	.quad	256                             # 0x100
-.LCPI13_21:
+.LCPI15_21:
 	.quad	512                             # 0x200
 	.quad	512                             # 0x200
-.LCPI13_22:
+.LCPI15_22:
 	.quad	1024                            # 0x400
 	.quad	1024                            # 0x400
-.LCPI13_23:
+.LCPI15_23:
 	.quad	2048                            # 0x800
 	.quad	2048                            # 0x800
-.LCPI13_24:
+.LCPI15_24:
 	.quad	4096                            # 0x1000
 	.quad	4096                            # 0x1000
-.LCPI13_25:
+.LCPI15_25:
 	.quad	8192                            # 0x2000
 	.quad	8192                            # 0x2000
-.LCPI13_26:
+.LCPI15_26:
 	.quad	16384                           # 0x4000
 	.quad	16384                           # 0x4000
 	.text
@@ -785,71 +1255,71 @@ unshuffle1:                             # @unshuffle1
 # %bb.0:
 	mov	eax, edi
 	test	byte ptr [rip + __cpu_model+14], 2
-	jne	.LBB13_2
+	jne	.LBB15_2
 # %bb.1:
 	mov	edx, eax
 	shr	edx, 2
 	vmovq	xmm0, rax
 	vpbroadcastq	xmm8, xmm0
-	vpsrlvq	xmm9, xmm8, xmmword ptr [rip + .LCPI13_0]
-	vpsrlvq	xmm10, xmm8, xmmword ptr [rip + .LCPI13_1]
-	vpsrlvq	xmm11, xmm8, xmmword ptr [rip + .LCPI13_2]
-	vpsrlvq	xmm12, xmm8, xmmword ptr [rip + .LCPI13_3]
+	vpsrlvq	xmm9, xmm8, xmmword ptr [rip + .LCPI15_0]
+	vpsrlvq	xmm10, xmm8, xmmword ptr [rip + .LCPI15_1]
+	vpsrlvq	xmm11, xmm8, xmmword ptr [rip + .LCPI15_2]
+	vpsrlvq	xmm12, xmm8, xmmword ptr [rip + .LCPI15_3]
 	mov	ecx, eax
-	vpsrlvq	xmm7, xmm8, xmmword ptr [rip + .LCPI13_4]
-	vpsrlvq	xmm6, xmm8, xmmword ptr [rip + .LCPI13_5]
-	vpsrlvq	xmm5, xmm8, xmmword ptr [rip + .LCPI13_6]
-	vpsrlvq	xmm4, xmm8, xmmword ptr [rip + .LCPI13_7]
-	vpsrlvq	xmm3, xmm8, xmmword ptr [rip + .LCPI13_8]
-	vpsrlvq	xmm2, xmm8, xmmword ptr [rip + .LCPI13_9]
-	vpsrlvq	xmm1, xmm8, xmmword ptr [rip + .LCPI13_10]
-	vpsrlvq	xmm0, xmm8, xmmword ptr [rip + .LCPI13_11]
+	vpsrlvq	xmm7, xmm8, xmmword ptr [rip + .LCPI15_4]
+	vpsrlvq	xmm6, xmm8, xmmword ptr [rip + .LCPI15_5]
+	vpsrlvq	xmm5, xmm8, xmmword ptr [rip + .LCPI15_6]
+	vpsrlvq	xmm4, xmm8, xmmword ptr [rip + .LCPI15_7]
+	vpsrlvq	xmm3, xmm8, xmmword ptr [rip + .LCPI15_8]
+	vpsrlvq	xmm2, xmm8, xmmword ptr [rip + .LCPI15_9]
+	vpsrlvq	xmm1, xmm8, xmmword ptr [rip + .LCPI15_10]
+	vpsrlvq	xmm0, xmm8, xmmword ptr [rip + .LCPI15_11]
 	shr	ecx, 7
 	shr	edi, 16
 	and	edi, 32768
 	vpsrlq	xmm13, xmm8, 1
-	vpand	xmm12, xmm12, xmmword ptr [rip + .LCPI13_12]
+	vpand	xmm12, xmm12, xmmword ptr [rip + .LCPI15_12]
 	mov	esi, eax
 	shr	esi, 6
 	shr	eax, 15
 	vpinsrq	xmm8, xmm8, rdx, 0
-	vpand	xmm8, xmm8, xmmword ptr [rip + .LCPI13_13]
-	vpand	xmm9, xmm9, xmmword ptr [rip + .LCPI13_14]
-	vpand	xmm10, xmm10, xmmword ptr [rip + .LCPI13_15]
-	vpand	xmm11, xmm11, xmmword ptr [rip + .LCPI13_16]
+	vpand	xmm8, xmm8, xmmword ptr [rip + .LCPI15_13]
+	vpand	xmm9, xmm9, xmmword ptr [rip + .LCPI15_14]
+	vpand	xmm10, xmm10, xmmword ptr [rip + .LCPI15_15]
+	vpand	xmm11, xmm11, xmmword ptr [rip + .LCPI15_16]
 	and	eax, 32768
 	vpor	xmm10, xmm11, xmm10
-	vpand	xmm11, xmm13, xmmword ptr [rip + .LCPI13_17]
+	vpand	xmm11, xmm13, xmmword ptr [rip + .LCPI15_17]
 	vpor	xmm8, xmm11, xmm8
 	vpor	xmm8, xmm9, xmm8
 	vpor	xmm8, xmm10, xmm8
 	vmovd	xmm9, ecx
 	vpinsrd	xmm9, xmm9, esi, 2
-	vpand	xmm9, xmm9, xmmword ptr [rip + .LCPI13_18]
+	vpand	xmm9, xmm9, xmmword ptr [rip + .LCPI15_18]
 	vpor	xmm9, xmm9, xmm12
-	vpand	xmm7, xmm7, xmmword ptr [rip + .LCPI13_19]
+	vpand	xmm7, xmm7, xmmword ptr [rip + .LCPI15_19]
 	vpor	xmm7, xmm9, xmm7
-	vpand	xmm6, xmm6, xmmword ptr [rip + .LCPI13_20]
+	vpand	xmm6, xmm6, xmmword ptr [rip + .LCPI15_20]
 	vpor	xmm7, xmm8, xmm7
-	vpand	xmm5, xmm5, xmmword ptr [rip + .LCPI13_21]
+	vpand	xmm5, xmm5, xmmword ptr [rip + .LCPI15_21]
 	vpor	xmm5, xmm5, xmm6
-	vpand	xmm4, xmm4, xmmword ptr [rip + .LCPI13_22]
+	vpand	xmm4, xmm4, xmmword ptr [rip + .LCPI15_22]
 	vpor	xmm4, xmm4, xmm5
-	vpand	xmm3, xmm3, xmmword ptr [rip + .LCPI13_23]
+	vpand	xmm3, xmm3, xmmword ptr [rip + .LCPI15_23]
 	vpor	xmm3, xmm3, xmm4
-	vpand	xmm2, xmm2, xmmword ptr [rip + .LCPI13_24]
+	vpand	xmm2, xmm2, xmmword ptr [rip + .LCPI15_24]
 	vpor	xmm3, xmm3, xmm7
-	vpand	xmm1, xmm1, xmmword ptr [rip + .LCPI13_25]
+	vpand	xmm1, xmm1, xmmword ptr [rip + .LCPI15_25]
 	vpor	xmm1, xmm1, xmm2
-	vpand	xmm0, xmm0, xmmword ptr [rip + .LCPI13_26]
+	vpand	xmm0, xmm0, xmmword ptr [rip + .LCPI15_26]
 	vpor	xmm0, xmm0, xmm1
 	vmovd	xmm1, edi
 	vmovd	xmm2, eax
 	vpunpcklqdq	xmm1, xmm1, xmm2        # xmm1 = xmm1[0],xmm2[0]
 	vpor	xmm0, xmm0, xmm1
 	vpor	xmm0, xmm0, xmm3
-	jmp	.LBB13_3
-.LBB13_2:
+	jmp	.LBB15_3
+.LBB15_2:
 	mov	ecx, 2863311530
 	pext	rcx, rax, rcx
 	mov	edx, 1431655765
@@ -857,15 +1327,15 @@ unshuffle1:                             # @unshuffle1
 	vmovd	xmm0, eax
 	vmovd	xmm1, ecx
 	vpunpcklqdq	xmm0, xmm1, xmm0        # xmm0 = xmm1[0],xmm0[0]
-.LBB13_3:
+.LBB15_3:
 	vmovq	rcx, xmm0
 	shl	ecx, 16
 	vpextrq	rax, xmm0, 1
 	or	eax, ecx
                                         # kill: def $eax killed $eax killed $rax
 	ret
-.Lfunc_end13:
-	.size	unshuffle1, .Lfunc_end13-unshuffle1
+.Lfunc_end15:
+	.size	unshuffle1, .Lfunc_end15-unshuffle1
 	.cfi_endproc
                                         # -- End function
 	.globl	nth_byte                        # -- Begin function nth_byte
@@ -898,8 +1368,8 @@ nth_byte:                               # @nth_byte
 	shrx	rax, rax, rcx
                                         # kill: def $al killed $al killed $rax
 	ret
-.Lfunc_end14:
-	.size	nth_byte, .Lfunc_end14-nth_byte
+.Lfunc_end16:
+	.size	nth_byte, .Lfunc_end16-nth_byte
 	.cfi_endproc
                                         # -- End function
 	.globl	mod                             # -- Begin function mod
@@ -922,8 +1392,8 @@ mod:                                    # @mod
 	mov	eax, edx
                                         # kill: def $al killed $al killed $ax
 	ret
-.Lfunc_end15:
-	.size	mod, .Lfunc_end15-mod
+.Lfunc_end17:
+	.size	mod, .Lfunc_end17-mod
 	.cfi_endproc
                                         # -- End function
 	.globl	sbu_expand_keys                 # -- Begin function sbu_expand_keys
@@ -936,7 +1406,7 @@ sbu_expand_keys:                        # @sbu_expand_keys
 	xor	ecx, ecx
 	lea	rax, [rip + table]
 	.p2align	4, 0x90
-.LBB16_1:                               # =>This Inner Loop Header: Depth=1
+.LBB18_1:                               # =>This Inner Loop Header: Depth=1
 	mov	edx, dword ptr [rsi + 4*rcx + 4]
 	mov	edi, dword ptr [rsi + 4*rcx]
 	xor	edi, edx
@@ -965,11 +1435,11 @@ sbu_expand_keys:                        # @sbu_expand_keys
 	mov	dword ptr [rsi + 4*rcx + 28], edx
 	add	rcx, 6
 	cmp	rcx, 30
-	jne	.LBB16_1
+	jne	.LBB18_1
 # %bb.2:
 	mov	ecx, 24
 	.p2align	4, 0x90
-.LBB16_3:                               # =>This Inner Loop Header: Depth=1
+.LBB18_3:                               # =>This Inner Loop Header: Depth=1
 	mov	edx, dword ptr [rsi + 4*rcx + 24]
 	mov	edi, dword ptr [rsi + 4*rcx + 28]
 	xor	edi, edx
@@ -1003,16 +1473,16 @@ sbu_expand_keys:                        # @sbu_expand_keys
 	xor	dword ptr [rsi + 4*rcx], edx
 	add	rcx, -6
 	cmp	rcx, -6
-	jne	.LBB16_3
+	jne	.LBB18_3
 # %bb.4:
 	ret
-.Lfunc_end16:
-	.size	sbu_expand_keys, .Lfunc_end16-sbu_expand_keys
+.Lfunc_end18:
+	.size	sbu_expand_keys, .Lfunc_end18-sbu_expand_keys
 	.cfi_endproc
                                         # -- End function
 	.section	.rodata.cst16,"aM",@progbits,16
 	.p2align	4, 0x0                          # -- Begin function scramble_op
-.LCPI17_0:
+.LCPI19_0:
 	.byte	251                             # 0xfb
 	.byte	251                             # 0xfb
 	.zero	1
@@ -1029,7 +1499,7 @@ sbu_expand_keys:                        # @sbu_expand_keys
 	.zero	1
 	.zero	1
 	.zero	1
-.LCPI17_1:
+.LCPI19_1:
 	.byte	3                               # 0x3
 	.byte	3                               # 0x3
 	.zero	1
@@ -1046,7 +1516,7 @@ sbu_expand_keys:                        # @sbu_expand_keys
 	.zero	1
 	.zero	1
 	.zero	1
-.LCPI17_2:
+.LCPI19_2:
 	.byte	253                             # 0xfd
 	.byte	254                             # 0xfe
 	.zero	1
@@ -1063,7 +1533,7 @@ sbu_expand_keys:                        # @sbu_expand_keys
 	.zero	1
 	.zero	1
 	.zero	1
-.LCPI17_3:
+.LCPI19_3:
 	.byte	252                             # 0xfc
 	.byte	252                             # 0xfc
 	.zero	1
@@ -1080,7 +1550,7 @@ sbu_expand_keys:                        # @sbu_expand_keys
 	.zero	1
 	.zero	1
 	.zero	1
-.LCPI17_4:
+.LCPI19_4:
 	.byte	16                              # 0x10
 	.byte	8                               # 0x8
 	.byte	4                               # 0x4
@@ -1097,7 +1567,7 @@ sbu_expand_keys:                        # @sbu_expand_keys
 	.byte	0                               # 0x0
 	.byte	0                               # 0x0
 	.byte	0                               # 0x0
-.LCPI17_5:
+.LCPI19_5:
 	.byte	32                              # 0x20
 	.byte	32                              # 0x20
 	.zero	1
@@ -1114,7 +1584,7 @@ sbu_expand_keys:                        # @sbu_expand_keys
 	.zero	1
 	.zero	1
 	.zero	1
-.LCPI17_6:
+.LCPI19_6:
 	.byte	8                               # 0x8
 	.byte	8                               # 0x8
 	.zero	1
@@ -1132,11 +1602,11 @@ sbu_expand_keys:                        # @sbu_expand_keys
 	.zero	1
 	.zero	1
 	.section	.rodata,"a",@progbits
-.LCPI17_7:
+.LCPI19_7:
 	.byte	251                             # 0xfb
-.LCPI17_8:
+.LCPI19_8:
 	.byte	3                               # 0x3
-.LCPI17_9:
+.LCPI19_9:
 	.byte	252                             # 0xfc
 	.text
 	.globl	scramble_op
@@ -1157,16 +1627,16 @@ scramble_op:                            # @scramble_op
                                         # kill: def $edx killed $edx def $rdx
                                         # kill: def $esi killed $esi def $rsi
 	mov	r9d, edi
-	vpbroadcastb	xmm1, byte ptr [rip + .LCPI17_7] # xmm1 = [251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251]
-	vpbroadcastb	xmm4, byte ptr [rip + .LCPI17_8] # xmm4 = [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3]
+	vpbroadcastb	xmm1, byte ptr [rip + .LCPI19_7] # xmm1 = [251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251]
+	vpbroadcastb	xmm4, byte ptr [rip + .LCPI19_8] # xmm4 = [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3]
 	vmovd	xmm0, esi
 	vpbroadcastb	xmm0, xmm0
-	vpaddb	xmm0, xmm0, xmmword ptr [rip + .LCPI17_2]
+	vpaddb	xmm0, xmm0, xmmword ptr [rip + .LCPI19_2]
 	vpxor	xmm2, xmm2, xmm2
 	vpcmpgtb	xmm3, xmm2, xmm0
 	vpand	xmm3, xmm3, xmm4
 	vpaddb	xmm3, xmm0, xmm3
-	vpbroadcastb	xmm5, byte ptr [rip + .LCPI17_9] # xmm5 = [252,252,252,252,252,252,252,252,252,252,252,252,252,252,252,252]
+	vpbroadcastb	xmm5, byte ptr [rip + .LCPI19_9] # xmm5 = [252,252,252,252,252,252,252,252,252,252,252,252,252,252,252,252]
 	vpand	xmm3, xmm3, xmm5
 	vpsubb	xmm0, xmm0, xmm3
 	vpcmpeqd	xmm3, xmm3, xmm3
@@ -1202,11 +1672,11 @@ scramble_op:                            # @scramble_op
 	vpand	xmm4, xmm4, xmm5
 	vpsubb	xmm4, xmm6, xmm4
 	vpminub	xmm1, xmm4, xmm1
-	vgf2p8affineqb	xmm5, xmm4, xmmword ptr [rip + .LCPI17_4], 0
+	vgf2p8affineqb	xmm5, xmm4, xmmword ptr [rip + .LCPI19_4], 0
 	vpcmpeqb	xmm1, xmm4, xmm1
-	vpandn	xmm1, xmm1, xmmword ptr [rip + .LCPI17_5]
+	vpandn	xmm1, xmm1, xmmword ptr [rip + .LCPI19_5]
 	vpaddb	xmm1, xmm5, xmm1
-	vpaddb	xmm4, xmm1, xmmword ptr [rip + .LCPI17_6]
+	vpaddb	xmm4, xmm1, xmmword ptr [rip + .LCPI19_6]
 	vpmovzxbq	xmm4, xmm4              # xmm4 = xmm4[0],zero,zero,zero,zero,zero,zero,zero,xmm4[1],zero,zero,zero,zero,zero,zero,zero
 	vpmovzxbq	xmm5, xmm1              # xmm5 = xmm1[0],zero,zero,zero,zero,zero,zero,zero,xmm1[1],zero,zero,zero,zero,zero,zero,zero
 	vpsubq	xmm4, xmm4, xmm5
@@ -1261,8 +1731,8 @@ scramble_op:                            # @scramble_op
 	pop	rbp
 	.cfi_def_cfa_offset 8
 	ret
-.Lfunc_end17:
-	.size	scramble_op, .Lfunc_end17-scramble_op
+.Lfunc_end19:
+	.size	scramble_op, .Lfunc_end19-scramble_op
 	.cfi_endproc
                                         # -- End function
 	.globl	scramble                        # -- Begin function scramble
@@ -1341,13 +1811,13 @@ scramble:                               # @scramble
 	pop	rbx
 	.cfi_def_cfa_offset 8
 	ret
-.Lfunc_end18:
-	.size	scramble, .Lfunc_end18-scramble
+.Lfunc_end20:
+	.size	scramble, .Lfunc_end20-scramble
 	.cfi_endproc
                                         # -- End function
 	.section	.rodata.cst16,"aM",@progbits,16
 	.p2align	4, 0x0                          # -- Begin function mash_op
-.LCPI19_0:
+.LCPI21_0:
 	.byte	3                               # 0x3
 	.byte	3                               # 0x3
 	.zero	1
@@ -1364,7 +1834,7 @@ scramble:                               # @scramble
 	.zero	1
 	.zero	1
 	.zero	1
-.LCPI19_1:
+.LCPI21_1:
 	.byte	252                             # 0xfc
 	.byte	252                             # 0xfc
 	.zero	1
@@ -1381,7 +1851,7 @@ scramble:                               # @scramble
 	.zero	1
 	.zero	1
 	.zero	1
-.LCPI19_2:
+.LCPI21_2:
 	.byte	251                             # 0xfb
 	.byte	251                             # 0xfb
 	.zero	1
@@ -1411,14 +1881,14 @@ mash_op:                                # @mash_op
 	vpinsrb	xmm0, xmm0, eax, 1
 	vpxor	xmm1, xmm1, xmm1
 	vpcmpgtb	xmm1, xmm1, xmm0
-	vpand	xmm1, xmm1, xmmword ptr [rip + .LCPI19_0]
+	vpand	xmm1, xmm1, xmmword ptr [rip + .LCPI21_0]
 	vpaddb	xmm1, xmm0, xmm1
-	vpand	xmm1, xmm1, xmmword ptr [rip + .LCPI19_1]
+	vpand	xmm1, xmm1, xmmword ptr [rip + .LCPI21_1]
 	vpsubb	xmm0, xmm0, xmm1
 	vpcmpeqd	xmm1, xmm1, xmm1
 	vpextrb	ecx, xmm0, 1
 	shl	cl, 3
-	vpminub	xmm2, xmm0, xmmword ptr [rip + .LCPI19_2]
+	vpminub	xmm2, xmm0, xmmword ptr [rip + .LCPI21_2]
 	vpcmpeqb	xmm2, xmm0, xmm2
 	vpxor	xmm1, xmm2, xmm1
 	vpmovsxbq	xmm1, xmm1
@@ -1456,8 +1926,8 @@ mash_op:                                # @mash_op
 	shrx	rax, rax, r8
                                         # kill: def $al killed $al killed $rax
 	ret
-.Lfunc_end19:
-	.size	mash_op, .Lfunc_end19-mash_op
+.Lfunc_end21:
+	.size	mash_op, .Lfunc_end21-mash_op
 	.cfi_endproc
                                         # -- End function
 	.globl	mash                            # -- Begin function mash
@@ -1491,13 +1961,13 @@ mash:                                   # @mash
 	and	edi, -16777216
 	or	eax, edi
 	ret
-.Lfunc_end20:
-	.size	mash, .Lfunc_end20-mash
+.Lfunc_end22:
+	.size	mash, .Lfunc_end22-mash
 	.cfi_endproc
                                         # -- End function
 	.section	.rodata.cst8,"aM",@progbits,8
 	.p2align	3, 0x0                          # -- Begin function sbu_encrypt_block
-.LCPI21_0:
+.LCPI23_0:
 	.byte	1                               # 0x1
 	.byte	2                               # 0x2
 	.byte	4                               # 0x4
@@ -1524,7 +1994,7 @@ sbu_encrypt_block:                      # @sbu_encrypt_block
 	mov	rbx, rsi
 	mov	eax, dword ptr [rsi + 124]
 	vmovd	xmm0, edi
-	vpbroadcastq	xmm1, qword ptr [rip + .LCPI21_0] # xmm1 = [1,2,4,8,16,32,64,128,1,2,4,8,16,32,64,128]
+	vpbroadcastq	xmm1, qword ptr [rip + .LCPI23_0] # xmm1 = [1,2,4,8,16,32,64,128,1,2,4,8,16,32,64,128]
 	vmovdqa	xmmword ptr [rsp], xmm1         # 16-byte Spill
 	vgf2p8affineqb	xmm0, xmm0, xmm1, 0
 	vmovd	edi, xmm0
@@ -2616,13 +3086,13 @@ sbu_encrypt_block:                      # @sbu_encrypt_block
 	pop	rbp
 	.cfi_def_cfa_offset 8
 	ret
-.Lfunc_end21:
-	.size	sbu_encrypt_block, .Lfunc_end21-sbu_encrypt_block
+.Lfunc_end23:
+	.size	sbu_encrypt_block, .Lfunc_end23-sbu_encrypt_block
 	.cfi_endproc
                                         # -- End function
 	.section	.rodata.cst16,"aM",@progbits,16
 	.p2align	4, 0x0                          # -- Begin function r_scramble_op
-.LCPI22_0:
+.LCPI24_0:
 	.byte	255                             # 0xff
 	.byte	254                             # 0xfe
 	.zero	1
@@ -2639,7 +3109,7 @@ sbu_encrypt_block:                      # @sbu_encrypt_block
 	.zero	1
 	.zero	1
 	.zero	1
-.LCPI22_1:
+.LCPI24_1:
 	.byte	3                               # 0x3
 	.byte	3                               # 0x3
 	.zero	1
@@ -2656,7 +3126,7 @@ sbu_encrypt_block:                      # @sbu_encrypt_block
 	.zero	1
 	.zero	1
 	.zero	1
-.LCPI22_2:
+.LCPI24_2:
 	.byte	252                             # 0xfc
 	.byte	252                             # 0xfc
 	.zero	1
@@ -2673,7 +3143,7 @@ sbu_encrypt_block:                      # @sbu_encrypt_block
 	.zero	1
 	.zero	1
 	.zero	1
-.LCPI22_3:
+.LCPI24_3:
 	.byte	251                             # 0xfb
 	.byte	251                             # 0xfb
 	.zero	1
@@ -2690,7 +3160,7 @@ sbu_encrypt_block:                      # @sbu_encrypt_block
 	.zero	1
 	.zero	1
 	.zero	1
-.LCPI22_4:
+.LCPI24_4:
 	.byte	16                              # 0x10
 	.byte	8                               # 0x8
 	.byte	4                               # 0x4
@@ -2707,7 +3177,7 @@ sbu_encrypt_block:                      # @sbu_encrypt_block
 	.byte	0                               # 0x0
 	.byte	0                               # 0x0
 	.byte	0                               # 0x0
-.LCPI22_5:
+.LCPI24_5:
 	.byte	32                              # 0x20
 	.byte	32                              # 0x20
 	.zero	1
@@ -2724,7 +3194,7 @@ sbu_encrypt_block:                      # @sbu_encrypt_block
 	.zero	1
 	.zero	1
 	.zero	1
-.LCPI22_6:
+.LCPI24_6:
 	.byte	8                               # 0x8
 	.byte	8                               # 0x8
 	.zero	1
@@ -2742,11 +3212,11 @@ sbu_encrypt_block:                      # @sbu_encrypt_block
 	.zero	1
 	.zero	1
 	.section	.rodata,"a",@progbits
-.LCPI22_7:
+.LCPI24_7:
 	.byte	3                               # 0x3
-.LCPI22_8:
+.LCPI24_8:
 	.byte	252                             # 0xfc
-.LCPI22_9:
+.LCPI24_9:
 	.byte	251                             # 0xfb
 	.text
 	.globl	r_scramble_op
@@ -2776,22 +3246,22 @@ r_scramble_op:                          # @r_scramble_op
 	cmovne	ecx, r9d
 	vmovd	xmm0, esi
 	vpbroadcastb	xmm0, xmm0
-	vpaddb	xmm0, xmm0, xmmword ptr [rip + .LCPI22_0]
+	vpaddb	xmm0, xmm0, xmmword ptr [rip + .LCPI24_0]
 	vpxor	xmm1, xmm1, xmm1
 	vpcmpgtb	xmm3, xmm1, xmm0
-	vpbroadcastb	xmm2, byte ptr [rip + .LCPI22_7] # xmm2 = [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3]
+	vpbroadcastb	xmm2, byte ptr [rip + .LCPI24_7] # xmm2 = [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3]
 	vpand	xmm3, xmm3, xmm2
 	vpaddb	xmm4, xmm0, xmm3
-	vpbroadcastb	xmm3, byte ptr [rip + .LCPI22_8] # xmm3 = [252,252,252,252,252,252,252,252,252,252,252,252,252,252,252,252]
+	vpbroadcastb	xmm3, byte ptr [rip + .LCPI24_8] # xmm3 = [252,252,252,252,252,252,252,252,252,252,252,252,252,252,252,252]
 	vpand	xmm4, xmm4, xmm3
 	vpsubb	xmm4, xmm0, xmm4
-	vpbroadcastb	xmm0, byte ptr [rip + .LCPI22_9] # xmm0 = [251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251]
+	vpbroadcastb	xmm0, byte ptr [rip + .LCPI24_9] # xmm0 = [251,251,251,251,251,251,251,251,251,251,251,251,251,251,251,251]
 	vpminub	xmm5, xmm4, xmm0
-	vgf2p8affineqb	xmm6, xmm4, xmmword ptr [rip + .LCPI22_4], 0
+	vgf2p8affineqb	xmm6, xmm4, xmmword ptr [rip + .LCPI24_4], 0
 	vpcmpeqb	xmm4, xmm4, xmm5
-	vpandn	xmm4, xmm4, xmmword ptr [rip + .LCPI22_5]
+	vpandn	xmm4, xmm4, xmmword ptr [rip + .LCPI24_5]
 	vpaddb	xmm4, xmm6, xmm4
-	vpaddb	xmm5, xmm4, xmmword ptr [rip + .LCPI22_6]
+	vpaddb	xmm5, xmm4, xmmword ptr [rip + .LCPI24_6]
 	vpmovzxbq	xmm5, xmm5              # xmm5 = xmm5[0],zero,zero,zero,zero,zero,zero,zero,xmm5[1],zero,zero,zero,zero,zero,zero,zero
 	vpmovzxbq	xmm6, xmm4              # xmm6 = xmm4[0],zero,zero,zero,zero,zero,zero,zero,xmm4[1],zero,zero,zero,zero,zero,zero,zero
 	vpsubq	xmm4, xmm5, xmm6
@@ -2871,8 +3341,8 @@ r_scramble_op:                          # @r_scramble_op
 	pop	rbp
 	.cfi_def_cfa_offset 8
 	ret
-.Lfunc_end22:
-	.size	r_scramble_op, .Lfunc_end22-r_scramble_op
+.Lfunc_end24:
+	.size	r_scramble_op, .Lfunc_end24-r_scramble_op
 	.cfi_endproc
                                         # -- End function
 	.globl	r_scramble                      # -- Begin function r_scramble
@@ -2951,8 +3421,8 @@ r_scramble:                             # @r_scramble
 	pop	rbx
 	.cfi_def_cfa_offset 8
 	jmp	rcx                             # TAILCALL
-.Lfunc_end23:
-	.size	r_scramble, .Lfunc_end23-r_scramble
+.Lfunc_end25:
+	.size	r_scramble, .Lfunc_end25-r_scramble
 	.cfi_endproc
                                         # -- End function
 	.globl	r_mash                          # -- Begin function r_mash
@@ -2987,8 +3457,8 @@ r_mash:                                 # @r_mash
 	or	eax, ecx
 	or	eax, edx
 	ret
-.Lfunc_end24:
-	.size	r_mash, .Lfunc_end24-r_mash
+.Lfunc_end26:
+	.size	r_mash, .Lfunc_end26-r_mash
 	.cfi_endproc
                                         # -- End function
 	.globl	noop                            # -- Begin function noop
@@ -3040,13 +3510,13 @@ noop:                                   # @noop
 	movzx	eax, al
 	or	eax, ecx
 	ret
-.Lfunc_end25:
-	.size	noop, .Lfunc_end25-noop
+.Lfunc_end27:
+	.size	noop, .Lfunc_end27-noop
 	.cfi_endproc
                                         # -- End function
 	.section	.rodata.cst8,"aM",@progbits,8
 	.p2align	3, 0x0                          # -- Begin function sbu_decrypt_block
-.LCPI26_0:
+.LCPI28_0:
 	.byte	1                               # 0x1
 	.byte	2                               # 0x2
 	.byte	4                               # 0x4
@@ -3133,7 +3603,7 @@ sbu_decrypt_block:                      # @sbu_decrypt_block
 	movzx	eax, al
 	or	eax, r8d
 	vmovd	xmm0, eax
-	vpbroadcastq	xmm1, qword ptr [rip + .LCPI26_0] # xmm1 = [1,2,4,8,16,32,64,128,1,2,4,8,16,32,64,128]
+	vpbroadcastq	xmm1, qword ptr [rip + .LCPI28_0] # xmm1 = [1,2,4,8,16,32,64,128,1,2,4,8,16,32,64,128]
 	vmovdqa	xmmword ptr [rsp], xmm1         # 16-byte Spill
 	vgf2p8affineqb	xmm0, xmm0, xmm1, 0
 	vmovd	eax, xmm0
@@ -4156,8 +4626,8 @@ sbu_decrypt_block:                      # @sbu_decrypt_block
 	pop	rbp
 	.cfi_def_cfa_offset 8
 	ret
-.Lfunc_end26:
-	.size	sbu_decrypt_block, .Lfunc_end26-sbu_decrypt_block
+.Lfunc_end28:
+	.size	sbu_decrypt_block, .Lfunc_end28-sbu_decrypt_block
 	.cfi_endproc
                                         # -- End function
 	.globl	sbu_encrypt                     # -- Begin function sbu_encrypt
@@ -4195,17 +4665,17 @@ sbu_encrypt:                            # @sbu_encrypt
 	mov	rbp, rdx
 	xor	r13d, r13d
 	add	rbp, -4
-	je	.LBB27_2
+	je	.LBB29_2
 	.p2align	4, 0x90
-.LBB27_1:                               # =>This Inner Loop Header: Depth=1
+.LBB29_1:                               # =>This Inner Loop Header: Depth=1
 	mov	edi, dword ptr [r12 + r13]
 	mov	rsi, r14
 	call	sbu_encrypt_block
 	mov	dword ptr [rbx + r13], eax
 	add	r13, 4
 	cmp	r13, rbp
-	jb	.LBB27_1
-.LBB27_2:
+	jb	.LBB29_1
+.LBB29_2:
 	mov	dword ptr [rsp + 12], 0
 	add	r12, r13
 	sub	r15, r13
@@ -4219,7 +4689,7 @@ sbu_encrypt:                            # @sbu_encrypt
 	mov	dword ptr [rbx + r13], eax
 	mov	rax, qword ptr fs:[40]
 	cmp	rax, qword ptr [rsp + 16]
-	jne	.LBB27_4
+	jne	.LBB29_4
 # %bb.3:
 	add	rsp, 24
 	.cfi_def_cfa_offset 56
@@ -4236,11 +4706,11 @@ sbu_encrypt:                            # @sbu_encrypt
 	pop	rbp
 	.cfi_def_cfa_offset 8
 	ret
-.LBB27_4:
+.LBB29_4:
 	.cfi_def_cfa_offset 80
 	call	__stack_chk_fail@PLT
-.Lfunc_end27:
-	.size	sbu_encrypt, .Lfunc_end27-sbu_encrypt
+.Lfunc_end29:
+	.size	sbu_encrypt, .Lfunc_end29-sbu_encrypt
 	.cfi_endproc
                                         # -- End function
 	.globl	sbu_decrypt                     # -- Begin function sbu_decrypt
@@ -4278,22 +4748,22 @@ sbu_decrypt:                            # @sbu_decrypt
 	call	malloc@PLT
 	mov	r13, rax
 	test	rbx, rbx
-	je	.LBB28_3
+	je	.LBB30_3
 # %bb.1:
 	lea	rbp, [rbx - 1]
 	shr	rbp, 2
 	inc	rbp
 	xor	r14d, r14d
 	.p2align	4, 0x90
-.LBB28_2:                               # =>This Inner Loop Header: Depth=1
+.LBB30_2:                               # =>This Inner Loop Header: Depth=1
 	mov	edi, dword ptr [r12 + 4*r14]
 	mov	rsi, r15
 	call	sbu_decrypt_block
 	mov	dword ptr [r13 + 4*r14], eax
 	inc	r14
 	cmp	rbp, r14
-	jne	.LBB28_2
-.LBB28_3:
+	jne	.LBB30_2
+.LBB30_3:
 	mov	rdi, qword ptr [rsp]            # 8-byte Reload
 	mov	rsi, r13
 	mov	rdx, rbx
@@ -4314,20 +4784,8 @@ sbu_decrypt:                            # @sbu_decrypt
 	pop	rbp
 	.cfi_def_cfa_offset 8
 	jmp	free@PLT                        # TAILCALL
-.Lfunc_end28:
-	.size	sbu_decrypt, .Lfunc_end28-sbu_decrypt
-	.cfi_endproc
-                                        # -- End function
-	.globl	u32_to_le_bytes                 # -- Begin function u32_to_le_bytes
-	.p2align	4, 0x90
-	.type	u32_to_le_bytes,@function
-u32_to_le_bytes:                        # @u32_to_le_bytes
-	.cfi_startproc
-# %bb.0:
-	mov	dword ptr [rdi], esi
-	ret
-.Lfunc_end29:
-	.size	u32_to_le_bytes, .Lfunc_end29-u32_to_le_bytes
+.Lfunc_end30:
+	.size	sbu_decrypt, .Lfunc_end30-sbu_decrypt
 	.cfi_endproc
                                         # -- End function
 	.globl	byteswap                        # -- Begin function byteswap
@@ -4339,20 +4797,8 @@ byteswap:                               # @byteswap
 	mov	eax, edi
 	bswap	eax
 	ret
-.Lfunc_end30:
-	.size	byteswap, .Lfunc_end30-byteswap
-	.cfi_endproc
-                                        # -- End function
-	.globl	u32_to_be_bytes                 # -- Begin function u32_to_be_bytes
-	.p2align	4, 0x90
-	.type	u32_to_be_bytes,@function
-u32_to_be_bytes:                        # @u32_to_be_bytes
-	.cfi_startproc
-# %bb.0:
-	movbe	dword ptr [rdi], esi
-	ret
 .Lfunc_end31:
-	.size	u32_to_be_bytes, .Lfunc_end31-u32_to_be_bytes
+	.size	byteswap, .Lfunc_end31-byteswap
 	.cfi_endproc
                                         # -- End function
 	.type	.L.str,@object                  # @.str

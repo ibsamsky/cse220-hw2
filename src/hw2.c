@@ -64,17 +64,55 @@ void print_packet(unsigned char packet[]) {
 unsigned char *build_packets(int data[], int data_length, int max_fragment_size,
                              int endianness, int array_number) {
   (void)data; // This line is only here to avoid compiler issues. Once you
-              // implement the function, please delete this line
-  (void)data_length; // This line is only here to avoid compiler issues. Once
-                     // you implement the function, please delete this line
   (void)max_fragment_size; // This line is only here to avoid compiler issues.
-                           // Once you implement the function, please delete
-                           // this line
-  (void)endianness; // This line is only here to avoid compiler issues. Once you
-                    // implement the function, please delete this line
-  (void)array_number; // This line is only here to avoid compiler issues. Once
-                      // you implement the function, please delete this line
-  return NULL;
+
+  const int BYTES_PER_DATA = sizeof(*data);
+  int num_packets =
+      data_length * BYTES_PER_DATA > max_fragment_size
+          ? ((data_length * BYTES_PER_DATA) + max_fragment_size - 1) /
+                max_fragment_size
+          : 1;
+  int data_per_packet = (data_length + num_packets - 1) / num_packets;
+
+  // 3 bytes per header, 4 bytes per payload item
+  uint8_t *out = malloc((3 * num_packets) + (data_length * BYTES_PER_DATA));
+
+  // header with fragment number 0, last=0, length=0
+  uint8_t hdr1 = array_number << 2;
+  uint8_t hdr2 = 0U;
+  uint8_t hdr3 = endianness << 1;
+
+  int data_written = 0;
+  for (int p = 0; p < num_packets; p++) {
+    size_t packet_start = (3 * p) + (BYTES_PER_DATA * data_written);
+    uint8_t frag = p;
+    uint8_t last = (p + 1 == num_packets) ? 1 : 0;
+    uint8_t length = data_written + data_per_packet > data_length
+                         ? data_length - data_written
+                         : data_per_packet;
+
+    // set header values
+    uint8_t hdr[3] = {
+        (hdr1 | bitsel(frag, 3, 5)),
+        (hdr2 | (bitsel(frag, 0, 3) << 5) | bitsel(length, 5, 10)),
+        (hdr3 | (bitsel(length, 0, 5) << 3) | last)};
+
+    // copy header
+    memcpy(out + packet_start, hdr, 3);
+
+    // copy data
+    for (size_t d = 0; d < length; d++) {
+      uint8_t *data_start = out + packet_start + 3 + (d * BYTES_PER_DATA);
+      if (endianness == 0)
+        u32_to_be_bytes(data_start, data[data_written]);
+      else
+        u32_to_le_bytes(data_start, data[data_written]);
+
+      data_written++;
+    }
+  }
+
+  return out;
 }
 
 int **create_arrays(unsigned char packets[], int array_count,
@@ -240,10 +278,6 @@ block_t sbu_encrypt_block(block_t plain_text, block_t *expanded_keys) {
 }
 
 uint8_t r_scramble_op(block_t B, uint8_t i, block_t keyA, block_t keyB) {
-  // uint8_t B1 = nth_byte(B, i) ^ (nth_byte(B, i - 1) & nth_byte(B, i - 2)) ^
-  //              (~nth_byte(B, i - 1) & nth_byte(B, i - 3)) ^ nth_byte(keyA, i)
-  //              ^ nth_byte(keyB, i);
-  // return rotl(B1, i == 0 ? 2 : ((2 * i) + 1));
   uint8_t B1 = rotr(nth_byte(B, i), i == 0 ? 2 : ((2 * i) + 1));
   return B1 ^ (nth_byte(B, i - 1) & nth_byte(B, i - 2)) ^
          (~nth_byte(B, i - 1) & nth_byte(B, i - 3)) ^ nth_byte(keyA, i) ^
