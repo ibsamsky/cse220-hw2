@@ -28,12 +28,11 @@ print_packet:                           # @print_packet
 	movzx	eax, byte ptr [rdi]
 	mov	esi, eax
 	shr	esi, 2
-	shl	eax, 2
-	and	eax, 12
+	and	eax, 3
 	movzx	ecx, byte ptr [rdi + 1]
 	mov	edx, ecx
 	shr	edx, 5
-	or	edx, eax
+	lea	edx, [rdx + 8*rax]
 	shl	ecx, 5
 	movzx	eax, byte ptr [rdi + 2]
 	mov	r14d, eax
@@ -609,14 +608,618 @@ u32_to_le_bytes:                        # @u32_to_le_bytes
 	.size	u32_to_le_bytes, .Lfunc_end5-u32_to_le_bytes
 	.cfi_endproc
                                         # -- End function
-	.globl	create_arrays                   # -- Begin function create_arrays
+	.section	.rodata.cst16,"aM",@progbits,16
+	.p2align	4, 0x0                          # -- Begin function create_arrays
+.LCPI6_0:
+	.byte	1                               # 0x1
+	.byte	5                               # 0x5
+	.byte	9                               # 0x9
+	.byte	13                              # 0xd
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+.LCPI6_1:
+	.byte	2                               # 0x2
+	.byte	6                               # 0x6
+	.byte	10                              # 0xa
+	.byte	14                              # 0xe
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+.LCPI6_2:
+	.byte	3                               # 0x3
+	.byte	7                               # 0x7
+	.byte	11                              # 0xb
+	.byte	15                              # 0xf
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+	.zero	1
+.LCPI6_3:
+	.byte	1                               # 0x1
+	.byte	5                               # 0x5
+	.byte	9                               # 0x9
+	.byte	13                              # 0xd
+	.byte	0                               # 0x0
+	.byte	0                               # 0x0
+	.byte	0                               # 0x0
+	.byte	0                               # 0x0
+	.byte	0                               # 0x0
+	.byte	0                               # 0x0
+	.byte	0                               # 0x0
+	.byte	0                               # 0x0
+	.byte	0                               # 0x0
+	.byte	0                               # 0x0
+	.byte	0                               # 0x0
+	.byte	0                               # 0x0
+.LCPI6_4:
+	.byte	2                               # 0x2
+	.byte	6                               # 0x6
+	.byte	10                              # 0xa
+	.byte	14                              # 0xe
+	.byte	0                               # 0x0
+	.byte	0                               # 0x0
+	.byte	0                               # 0x0
+	.byte	0                               # 0x0
+	.byte	0                               # 0x0
+	.byte	0                               # 0x0
+	.byte	0                               # 0x0
+	.byte	0                               # 0x0
+	.byte	0                               # 0x0
+	.byte	0                               # 0x0
+	.byte	0                               # 0x0
+	.byte	0                               # 0x0
+.LCPI6_5:
+	.byte	3                               # 0x3
+	.byte	7                               # 0x7
+	.byte	11                              # 0xb
+	.byte	15                              # 0xf
+	.byte	0                               # 0x0
+	.byte	0                               # 0x0
+	.byte	0                               # 0x0
+	.byte	0                               # 0x0
+	.byte	0                               # 0x0
+	.byte	0                               # 0x0
+	.byte	0                               # 0x0
+	.byte	0                               # 0x0
+	.byte	0                               # 0x0
+	.byte	0                               # 0x0
+	.byte	0                               # 0x0
+	.byte	0                               # 0x0
+	.text
+	.globl	create_arrays
 	.p2align	4, 0x90
 	.type	create_arrays,@function
 create_arrays:                          # @create_arrays
 	.cfi_startproc
 # %bb.0:
+	push	rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset rbp, -16
+	mov	rbp, rsp
+	.cfi_def_cfa_register rbp
+	push	r15
+	push	r14
+	push	r13
+	push	r12
+	push	rbx
+	sub	rsp, 136
+	.cfi_offset rbx, -56
+	.cfi_offset r12, -48
+	.cfi_offset r13, -40
+	.cfi_offset r14, -32
+	.cfi_offset r15, -24
+	mov	qword ptr [rbp - 120], rdx      # 8-byte Spill
+	mov	qword ptr [rbp - 80], rdi       # 8-byte Spill
+	mov	rax, qword ptr fs:[40]
+	mov	qword ptr [rbp - 48], rax
+	mov	eax, esi
+	mov	r13, rsp
+	mov	qword ptr [rbp - 104], rax      # 8-byte Spill
+	lea	rax, [2*rax + 15]
+	and	rax, -16
+	sub	r13, rax
+	mov	rsp, r13
+	mov	rcx, rsp
+	sub	rcx, rax
+	mov	qword ptr [rbp - 112], rcx      # 8-byte Spill
+	mov	rsp, rcx
+	mov	rcx, rsp
+	sub	rcx, rax
+	mov	qword ptr [rbp - 88], rcx       # 8-byte Spill
+	mov	rsp, rcx
+	mov	dword ptr [rbp - 52], esi       # 4-byte Spill
+	movsxd	r12, esi
+	lea	r15, [8*r12]
+	mov	rdi, r15
+	call	malloc@PLT
+	mov	qword ptr [rbp - 136], rax      # 8-byte Spill
+	mov	rdi, r15
+	call	malloc@PLT
+	mov	r15, rax
+	test	r12d, r12d
+	jle	.LBB6_3
+# %bb.1:
+	xor	ebx, ebx
+	.p2align	4, 0x90
+.LBB6_2:                                # =>This Inner Loop Header: Depth=1
+	mov	edi, 8
+	call	malloc@PLT
+	mov	qword ptr [r15 + 8*rbx], rax
+	inc	rbx
+	cmp	qword ptr [rbp - 104], rbx      # 8-byte Folded Reload
+	jne	.LBB6_2
+.LBB6_3:
+	lea	rdx, [4*r12]
+	xor	ebx, ebx
+	mov	rdi, qword ptr [rbp - 120]      # 8-byte Reload
+	xor	esi, esi
+	call	memset@PLT
+	add	r12, r12
+	mov	rdi, r13
+	mov	esi, 255
+	mov	rdx, r12
+	call	memset@PLT
+	mov	rdi, qword ptr [rbp - 112]      # 8-byte Reload
+	xor	esi, esi
+	mov	rdx, r12
+	call	memset@PLT
+	mov	rdi, qword ptr [rbp - 88]       # 8-byte Reload
+	xor	esi, esi
+	mov	rdx, r12
+	call	memset@PLT
+	mov	r12, qword ptr [rbp - 104]      # 8-byte Reload
+	mov	eax, r12d
+	and	eax, 3
+	mov	qword ptr [rbp - 168], rax      # 8-byte Spill
+                                        # kill: def $r12d killed $r12d killed $r12 def $r12
+	and	r12d, 2147483644
+	mov	rax, qword ptr [rbp - 80]       # 8-byte Reload
+	add	rax, 6
+	mov	qword ptr [rbp - 152], rax      # 8-byte Spill
+	mov	qword ptr [rbp - 64], r15       # 8-byte Spill
+	mov	qword ptr [rbp - 160], r12      # 8-byte Spill
+	jmp	.LBB6_4
+	.p2align	4, 0x90
+.LBB6_27:                               #   in Loop: Header=BB6_4 Depth=1
+	movzx	ecx, byte ptr [rbp - 96]        # 1-byte Folded Reload
+	lea	rbx, [r9 + 4*rcx]
+	add	rbx, 3
+	test	al, 1
+	mov	r15, r10
+	jne	.LBB6_28
+.LBB6_4:                                # =>This Loop Header: Depth=1
+                                        #     Child Loop BB6_14 Depth 2
+                                        #     Child Loop BB6_17 Depth 2
+                                        #     Child Loop BB6_46 Depth 2
+                                        #     Child Loop BB6_23 Depth 2
+	movsxd	rsi, ebx
+	mov	rdx, qword ptr [rbp - 80]       # 8-byte Reload
+	movzx	eax, byte ptr [rdx + rsi]
+	mov	ebx, eax
+	shr	ebx, 2
+	and	eax, 3
+	movzx	edi, byte ptr [rdx + rsi + 1]
+	mov	ecx, edi
+	shr	ecx, 5
+	lea	r14d, [rcx + 8*rax]
+	movzx	edx, byte ptr [rdx + rsi + 2]
+	test	dl, 1
+	je	.LBB6_6
+# %bb.5:                                #   in Loop: Header=BB6_4 Depth=1
+	mov	word ptr [r13 + 2*rbx], r14w
+.LBB6_6:                                #   in Loop: Header=BB6_4 Depth=1
+	mov	qword ptr [rbp - 72], rsi       # 8-byte Spill
+	mov	rcx, qword ptr [rbp - 112]      # 8-byte Reload
+	movzx	eax, word ptr [rcx + 2*rbx]
+	mov	r12, qword ptr [r15 + 8*rbx]
+	cmp	r14d, eax
+	jbe	.LBB6_8
+# %bb.7:                                #   in Loop: Header=BB6_4 Depth=1
+	lea	rsi, [8*r14 + 8]
+	mov	r15d, edi
+	mov	rdi, r12
+	mov	r12d, edx
+	vzeroupper
+	call	realloc@PLT
+	mov	edx, r12d
+	mov	edi, r15d
+	mov	r12, rax
+	mov	rax, qword ptr [rbp - 64]       # 8-byte Reload
+	mov	qword ptr [rax + 8*rbx], r12
+	mov	rax, qword ptr [rbp - 112]      # 8-byte Reload
+	mov	word ptr [rax + 2*rbx], r14w
+.LBB6_8:                                #   in Loop: Header=BB6_4 Depth=1
+	mov	dword ptr [rbp - 128], edx      # 4-byte Spill
+	mov	dword ptr [rbp - 124], edi      # 4-byte Spill
+	mov	eax, edi
+	and	eax, 31
+	shl	eax, 5
+	mov	ecx, edx
+	shr	ecx, 3
+	mov	qword ptr [rbp - 144], rcx      # 8-byte Spill
+	or	eax, ecx
+	mov	qword ptr [rbp - 96], rax       # 8-byte Spill
+	movzx	r15d, al
+	mov	rax, qword ptr [rbp - 120]      # 8-byte Reload
+	add	dword ptr [rax + 4*rbx], r15d
+	lea	edi, [4*r15 + 4]
+	vzeroupper
+	call	malloc@PLT
+	mov	qword ptr [r12 + 8*r14], rax
+	mov	dword ptr [rax], r15d
+	mov	rcx, qword ptr [rbp - 88]       # 8-byte Reload
+	inc	word ptr [rcx + 2*rbx]
+	mov	rbx, rcx
+	test	r15d, r15d
+	mov	r15, qword ptr [rbp - 168]      # 8-byte Reload
+	mov	r12, qword ptr [rbp - 160]      # 8-byte Reload
+	vmovd	xmm5, dword ptr [rip + .LCPI6_3] # xmm5 = [1,5,9,13,0,0,0,0,0,0,0,0,0,0,0,0]
+	vmovd	xmm6, dword ptr [rip + .LCPI6_4] # xmm6 = [2,6,10,14,0,0,0,0,0,0,0,0,0,0,0,0]
+	vmovd	xmm7, dword ptr [rip + .LCPI6_5] # xmm7 = [3,7,11,15,0,0,0,0,0,0,0,0,0,0,0,0]
+	mov	r9, qword ptr [rbp - 72]        # 8-byte Reload
+	je	.LBB6_18
+# %bb.9:                                #   in Loop: Header=BB6_4 Depth=1
+	mov	rcx, qword ptr [rbp - 80]       # 8-byte Reload
+	lea	rsi, [rcx + r9]
+	add	rsi, 3
+	test	byte ptr [rbp - 128], 2         # 1-byte Folded Reload
+	jne	.LBB6_10
+# %bb.11:                               #   in Loop: Header=BB6_4 Depth=1
+	movzx	ecx, byte ptr [rbp - 96]        # 1-byte Folded Reload
+	cmp	rcx, 8
+	mov	r8, qword ptr [rbp - 144]       # 8-byte Reload
+	jae	.LBB6_13
+# %bb.12:                               #   in Loop: Header=BB6_4 Depth=1
+	xor	edx, edx
+	jmp	.LBB6_16
+	.p2align	4, 0x90
+.LBB6_10:                               #   in Loop: Header=BB6_4 Depth=1
+	add	rax, 4
+	mov	ecx, dword ptr [rbp - 124]      # 4-byte Reload
+	shl	cl, 5
+	add	cl, byte ptr [rbp - 144]        # 1-byte Folded Reload
+	movzx	edx, cl
+	shl	edx, 2
+	mov	rdi, rax
+	call	memcpy@PLT
+	mov	r9, qword ptr [rbp - 72]        # 8-byte Reload
+	jmp	.LBB6_18
+.LBB6_13:                               #   in Loop: Header=BB6_4 Depth=1
+	and	r8d, 7
+	mov	rdx, rcx
+	sub	rdx, r8
+	xor	edi, edi
+	.p2align	4, 0x90
+.LBB6_14:                               #   Parent Loop BB6_4 Depth=1
+                                        # =>  This Inner Loop Header: Depth=2
+	vmovdqu	xmm0, xmmword ptr [rsi + 4*rdi]
+	vmovdqu	xmm1, xmmword ptr [rsi + 4*rdi + 16]
+	vpshufb	xmm2, xmm1, xmm5
+	vpshufb	xmm3, xmm0, xmm5
+	vpunpckldq	xmm2, xmm3, xmm2        # xmm2 = xmm3[0],xmm2[0],xmm3[1],xmm2[1]
+	vpshufb	xmm3, xmm1, xmm6
+	vpshufb	xmm4, xmm0, xmm6
+	vpunpckldq	xmm3, xmm4, xmm3        # xmm3 = xmm4[0],xmm3[0],xmm4[1],xmm3[1]
+	vpshufb	xmm1, xmm1, xmm7
+	vpshufb	xmm0, xmm0, xmm7
+	vpunpckldq	xmm0, xmm0, xmm1        # xmm0 = xmm0[0],xmm1[0],xmm0[1],xmm1[1]
+	vmovdqu	ymm1, ymmword ptr [rsi + 4*rdi]
+	vpslld	ymm1, ymm1, 24
+	vpmovzxbd	ymm2, xmm2              # ymm2 = xmm2[0],zero,zero,zero,xmm2[1],zero,zero,zero,xmm2[2],zero,zero,zero,xmm2[3],zero,zero,zero,xmm2[4],zero,zero,zero,xmm2[5],zero,zero,zero,xmm2[6],zero,zero,zero,xmm2[7],zero,zero,zero
+	vpslld	ymm2, ymm2, 16
+	vpor	ymm1, ymm2, ymm1
+	vpmovzxbd	ymm2, xmm3              # ymm2 = xmm3[0],zero,zero,zero,xmm3[1],zero,zero,zero,xmm3[2],zero,zero,zero,xmm3[3],zero,zero,zero,xmm3[4],zero,zero,zero,xmm3[5],zero,zero,zero,xmm3[6],zero,zero,zero,xmm3[7],zero,zero,zero
+	vpslld	ymm2, ymm2, 8
+	vpmovzxbd	ymm0, xmm0              # ymm0 = xmm0[0],zero,zero,zero,xmm0[1],zero,zero,zero,xmm0[2],zero,zero,zero,xmm0[3],zero,zero,zero,xmm0[4],zero,zero,zero,xmm0[5],zero,zero,zero,xmm0[6],zero,zero,zero,xmm0[7],zero,zero,zero
+	vpor	ymm0, ymm2, ymm0
+	vpor	ymm0, ymm1, ymm0
+	vmovdqu	ymmword ptr [rax + 4*rdi + 4], ymm0
+	add	rdi, 8
+	cmp	rdx, rdi
+	jne	.LBB6_14
+# %bb.15:                               #   in Loop: Header=BB6_4 Depth=1
+	test	r8, r8
+	je	.LBB6_18
+.LBB6_16:                               #   in Loop: Header=BB6_4 Depth=1
+	mov	rsi, qword ptr [rbp - 152]      # 8-byte Reload
+	add	rsi, r9
+	.p2align	4, 0x90
+.LBB6_17:                               #   Parent Loop BB6_4 Depth=1
+                                        # =>  This Inner Loop Header: Depth=2
+	mov	edi, dword ptr [rsi + 4*rdx - 3]
+	movbe	dword ptr [rax + 4*rdx + 4], edi
+	inc	rdx
+	cmp	rcx, rdx
+	jne	.LBB6_17
+.LBB6_18:                               #   in Loop: Header=BB6_4 Depth=1
+	mov	eax, dword ptr [rbp - 52]       # 4-byte Reload
+	test	eax, eax
+	jle	.LBB6_43
+# %bb.19:                               #   in Loop: Header=BB6_4 Depth=1
+	cmp	eax, 4
+	jae	.LBB6_45
+# %bb.20:                               #   in Loop: Header=BB6_4 Depth=1
+	mov	al, 1
+	xor	ecx, ecx
+	mov	r10, qword ptr [rbp - 64]       # 8-byte Reload
+.LBB6_21:                               #   in Loop: Header=BB6_4 Depth=1
+	test	r15, r15
+	je	.LBB6_27
+# %bb.22:                               #   in Loop: Header=BB6_4 Depth=1
+	lea	rdx, [rbx + 2*rcx]
+	lea	rcx, [2*rcx]
+	add	rcx, r13
+	xor	esi, esi
+	jmp	.LBB6_23
+	.p2align	4, 0x90
+.LBB6_25:                               #   in Loop: Header=BB6_23 Depth=2
 	xor	eax, eax
+.LBB6_26:                               #   in Loop: Header=BB6_23 Depth=2
+	inc	rsi
+	cmp	r15, rsi
+	je	.LBB6_27
+.LBB6_23:                               #   Parent Loop BB6_4 Depth=1
+                                        # =>  This Inner Loop Header: Depth=2
+	movzx	edi, word ptr [rcx + 2*rsi]
+	cmp	edi, 65535
+	je	.LBB6_25
+# %bb.24:                               #   in Loop: Header=BB6_23 Depth=2
+	inc	edi
+	movzx	r8d, word ptr [rdx + 2*rsi]
+	cmp	edi, r8d
+	jne	.LBB6_25
+	jmp	.LBB6_26
+	.p2align	4, 0x90
+.LBB6_45:                               #   in Loop: Header=BB6_4 Depth=1
+	mov	al, 1
+	xor	ecx, ecx
+	mov	r10, qword ptr [rbp - 64]       # 8-byte Reload
+	jmp	.LBB6_46
+	.p2align	4, 0x90
+.LBB6_57:                               #   in Loop: Header=BB6_46 Depth=2
+	xor	eax, eax
+.LBB6_58:                               #   in Loop: Header=BB6_46 Depth=2
+	add	rcx, 4
+	cmp	r12, rcx
+	je	.LBB6_21
+.LBB6_46:                               #   Parent Loop BB6_4 Depth=1
+                                        # =>  This Inner Loop Header: Depth=2
+	movzx	edx, word ptr [r13 + 2*rcx]
+	cmp	edx, 65535
+	je	.LBB6_48
+# %bb.47:                               #   in Loop: Header=BB6_46 Depth=2
+	inc	edx
+	movzx	esi, word ptr [rbx + 2*rcx]
+	cmp	edx, esi
+	je	.LBB6_49
+.LBB6_48:                               #   in Loop: Header=BB6_46 Depth=2
+	xor	eax, eax
+.LBB6_49:                               #   in Loop: Header=BB6_46 Depth=2
+	movzx	edx, word ptr [r13 + 2*rcx + 2]
+	cmp	edx, 65535
+	je	.LBB6_51
+# %bb.50:                               #   in Loop: Header=BB6_46 Depth=2
+	inc	edx
+	movzx	esi, word ptr [rbx + 2*rcx + 2]
+	cmp	edx, esi
+	je	.LBB6_52
+.LBB6_51:                               #   in Loop: Header=BB6_46 Depth=2
+	xor	eax, eax
+.LBB6_52:                               #   in Loop: Header=BB6_46 Depth=2
+	movzx	edx, word ptr [r13 + 2*rcx + 4]
+	cmp	edx, 65535
+	je	.LBB6_54
+# %bb.53:                               #   in Loop: Header=BB6_46 Depth=2
+	inc	edx
+	movzx	esi, word ptr [rbx + 2*rcx + 4]
+	cmp	edx, esi
+	je	.LBB6_55
+.LBB6_54:                               #   in Loop: Header=BB6_46 Depth=2
+	xor	eax, eax
+.LBB6_55:                               #   in Loop: Header=BB6_46 Depth=2
+	movzx	edx, word ptr [r13 + 2*rcx + 6]
+	cmp	edx, 65535
+	je	.LBB6_57
+# %bb.56:                               #   in Loop: Header=BB6_46 Depth=2
+	inc	edx
+	movzx	esi, word ptr [rbx + 2*rcx + 6]
+	cmp	edx, esi
+	jne	.LBB6_57
+	jmp	.LBB6_58
+.LBB6_28:
+	cmp	dword ptr [rbp - 52], 0         # 4-byte Folded Reload
+	jle	.LBB6_43
+# %bb.29:
+	xor	r15d, r15d
+	jmp	.LBB6_30
+	.p2align	4, 0x90
+.LBB6_36:                               #   in Loop: Header=BB6_30 Depth=1
+	mov	r15, qword ptr [rbp - 96]       # 8-byte Reload
+	inc	r15
+	cmp	r15, qword ptr [rbp - 104]      # 8-byte Folded Reload
+	je	.LBB6_37
+.LBB6_30:                               # =>This Loop Header: Depth=1
+                                        #     Child Loop BB6_60 Depth 2
+                                        #     Child Loop BB6_35 Depth 2
+	mov	rax, qword ptr [rbp - 120]      # 8-byte Reload
+	movsxd	rdi, dword ptr [rax + 4*r15]
+	shl	rdi, 2
+	vzeroupper
+	call	malloc@PLT
+	mov	rbx, rax
+	mov	rax, qword ptr [rbp - 136]      # 8-byte Reload
+	mov	qword ptr [rax + 8*r15], rbx
+	mov	rax, qword ptr [rbp - 88]       # 8-byte Reload
+	mov	qword ptr [rbp - 96], r15       # 8-byte Spill
+	movzx	edx, word ptr [rax + 2*r15]
+	test	rdx, rdx
+	je	.LBB6_36
+# %bb.31:                               #   in Loop: Header=BB6_30 Depth=1
+	mov	rax, qword ptr [rbp - 64]       # 8-byte Reload
+	mov	rcx, qword ptr [rbp - 96]       # 8-byte Reload
+	mov	r13, qword ptr [rax + 8*rcx]
+	cmp	dx, 4
+	mov	qword ptr [rbp - 80], rdx       # 8-byte Spill
+	jae	.LBB6_59
+# %bb.32:                               #   in Loop: Header=BB6_30 Depth=1
+	xor	r15d, r15d
+	xor	r12d, r12d
+	jmp	.LBB6_33
+	.p2align	4, 0x90
+.LBB6_59:                               #   in Loop: Header=BB6_30 Depth=1
+                                        # kill: def $edx killed $edx killed $rdx def $rdx
+	and	edx, -4
+	mov	qword ptr [rbp - 72], rdx       # 8-byte Spill
+	xor	r15d, r15d
+	xor	r12d, r12d
+	.p2align	4, 0x90
+.LBB6_60:                               #   Parent Loop BB6_30 Depth=1
+                                        # =>  This Inner Loop Header: Depth=2
+	mov	rsi, qword ptr [r13 + 8*r15]
+	movsxd	r14, dword ptr [rsi]
+	movsxd	r12, r12d
+	lea	rdi, [rbx + 4*r12]
+	add	rsi, 4
+	lea	rdx, [4*r14]
+	call	memcpy@PLT
+	add	r14, r12
+	mov	rsi, qword ptr [r13 + 8*r15 + 8]
+	movsxd	r12, dword ptr [rsi]
+	lea	rdi, [rbx + 4*r14]
+	add	rsi, 4
+	lea	rdx, [4*r12]
+	call	memcpy@PLT
+	movsxd	r14, r14d
+	add	r14, r12
+	mov	rsi, qword ptr [r13 + 8*r15 + 16]
+	movsxd	r12, dword ptr [rsi]
+	lea	rdi, [rbx + 4*r14]
+	add	rsi, 4
+	lea	rdx, [4*r12]
+	call	memcpy@PLT
+	movsxd	r14, r14d
+	add	r14, r12
+	mov	rsi, qword ptr [r13 + 8*r15 + 24]
+	movsxd	r12, dword ptr [rsi]
+	lea	rdi, [rbx + 4*r14]
+	add	rsi, 4
+	mov	rdx, r12
+	shl	rdx, 2
+	call	memcpy@PLT
+	add	r12d, r14d
+	add	r15, 4
+	cmp	qword ptr [rbp - 72], r15       # 8-byte Folded Reload
+	jne	.LBB6_60
+.LBB6_33:                               #   in Loop: Header=BB6_30 Depth=1
+	mov	rax, qword ptr [rbp - 80]       # 8-byte Reload
+	and	eax, 3
+	je	.LBB6_36
+# %bb.34:                               #   in Loop: Header=BB6_30 Depth=1
+	lea	rcx, [8*r15]
+	add	rcx, r13
+	mov	qword ptr [rbp - 72], rcx       # 8-byte Spill
+	xor	r13d, r13d
+	.p2align	4, 0x90
+.LBB6_35:                               #   Parent Loop BB6_30 Depth=1
+                                        # =>  This Inner Loop Header: Depth=2
+	mov	rcx, qword ptr [rbp - 72]       # 8-byte Reload
+	mov	rsi, qword ptr [rcx + 8*r13]
+	movsxd	r14, dword ptr [rsi]
+	movsxd	r12, r12d
+	lea	rdi, [rbx + 4*r12]
+	add	rsi, 4
+	mov	r15, rax
+	mov	rdx, r14
+	shl	rdx, 2
+	call	memcpy@PLT
+	mov	rax, r15
+	add	r12d, r14d
+	inc	r13
+	cmp	r15, r13
+	jne	.LBB6_35
+	jmp	.LBB6_36
+.LBB6_37:
+	cmp	dword ptr [rbp - 52], 0         # 4-byte Folded Reload
+	mov	rax, qword ptr [rbp - 88]       # 8-byte Reload
+	jle	.LBB6_43
+# %bb.38:
+	xor	r15d, r15d
+	jmp	.LBB6_39
+	.p2align	4, 0x90
+.LBB6_42:                               #   in Loop: Header=BB6_39 Depth=1
+	mov	rdi, rbx
+	call	free@PLT
+	inc	r15
+	cmp	r15, qword ptr [rbp - 104]      # 8-byte Folded Reload
+	mov	rax, qword ptr [rbp - 88]       # 8-byte Reload
+	je	.LBB6_43
+.LBB6_39:                               # =>This Loop Header: Depth=1
+                                        #     Child Loop BB6_41 Depth 2
+	movzx	r12d, word ptr [rax + 2*r15]
+	mov	rax, qword ptr [rbp - 64]       # 8-byte Reload
+	mov	rbx, qword ptr [rax + 8*r15]
+	test	r12, r12
+	je	.LBB6_42
+# %bb.40:                               #   in Loop: Header=BB6_39 Depth=1
+	xor	r13d, r13d
+	.p2align	4, 0x90
+.LBB6_41:                               #   Parent Loop BB6_39 Depth=1
+                                        # =>  This Inner Loop Header: Depth=2
+	mov	rdi, qword ptr [rbx + 8*r13]
+	call	free@PLT
+	inc	r13
+	cmp	r12, r13
+	jne	.LBB6_41
+	jmp	.LBB6_42
+.LBB6_43:
+	mov	rax, qword ptr fs:[40]
+	cmp	rax, qword ptr [rbp - 48]
+	jne	.LBB6_61
+# %bb.44:
+	mov	rdi, qword ptr [rbp - 64]       # 8-byte Reload
+	vzeroupper
+	call	free@PLT
+	mov	rax, qword ptr [rbp - 136]      # 8-byte Reload
+	lea	rsp, [rbp - 40]
+	pop	rbx
+	pop	r12
+	pop	r13
+	pop	r14
+	pop	r15
+	pop	rbp
+	.cfi_def_cfa rsp, 8
 	ret
+.LBB6_61:
+	.cfi_def_cfa rbp, 16
+	vzeroupper
+	call	__stack_chk_fail@PLT
 .Lfunc_end6:
 	.size	create_arrays, .Lfunc_end6-create_arrays
 	.cfi_endproc

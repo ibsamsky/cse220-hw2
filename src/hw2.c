@@ -1,4 +1,5 @@
 #include <assert.h>
+#include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -39,7 +40,7 @@ typedef struct {
 
 void print_packet(unsigned char packet[]) {
   uint8_t arrn = bitsel(packet[0], 2, 8);
-  uint8_t fragn = bitsel(packet[0], 0, 2) << 2 | bitsel(packet[1], 5, 8);
+  uint8_t fragn = bitsel(packet[0], 0, 2) << 3 | bitsel(packet[1], 5, 8);
   uint8_t length = bitsel(packet[1], 0, 5) << 5 | bitsel(packet[2], 3, 8);
   uint8_t encrypt = bit(packet[2], 2), endian = bit(packet[2], 1),
           last = bit(packet[2], 0);
@@ -63,7 +64,6 @@ void print_packet(unsigned char packet[]) {
 
 unsigned char *build_packets(int data[], int data_length, int max_fragment_size,
                              int endianness, int array_number) {
-
   const int BYTES_PER_DATA = sizeof(*data);
   int num_packets =
       data_length * BYTES_PER_DATA > max_fragment_size
@@ -111,13 +111,113 @@ unsigned char *build_packets(int data[], int data_length, int max_fragment_size,
 
 int **create_arrays(unsigned char packets[], int array_count,
                     int *array_lengths) {
-  (void)packets; // This line is only here to avoid compiler issues. Once you
-                 // implement the function, please delete this line
-  (void)array_count;   // This line is only here to avoid compiler issues. Once
-                       // you implement the function, please delete this line
-  (void)array_lengths; // This line is only here to avoid compiler issues. Once
-                       // you implement the function, please delete this line
-  return NULL;
+  // i think these are reasonably sized
+  uint16_t last_fragn[array_count];
+  uint16_t max_seen_fragn[array_count]; // for realloc
+  uint16_t seen_frags[array_count];
+  int **out = malloc(array_count * sizeof(*out));
+
+  // evil!!!
+  int ***array_data = malloc(array_count * sizeof(*array_data));
+  // initially malloc for 1 frag
+  for (int a = 0; a < array_count; a++)
+    array_data[a] = malloc(1 * sizeof(**array_data));
+
+  // initialize
+  memset(array_lengths, 0, array_count * sizeof(*array_lengths));
+  memset(last_fragn, UINT8_MAX, array_count * sizeof(*last_fragn));
+  memset(max_seen_fragn, 0, array_count * sizeof(*max_seen_fragn));
+  memset(seen_frags, 0, array_count * sizeof(*seen_frags));
+
+  // read packets
+  int p = 0;
+  bool read_all = false;
+  do {
+    uint8_t *packet = packets + p;
+    uint8_t arrn = bitsel(packet[0], 2, 8);
+    uint8_t fragn = bitsel(packet[0], 0, 2) << 3 | bitsel(packet[1], 5, 8);
+    uint8_t length = bitsel(packet[1], 0, 5) << 5 | bitsel(packet[2], 3, 8);
+    uint8_t endian = bit(packet[2], 1), last = bit(packet[2], 0);
+
+    if (1 == last)
+      last_fragn[arrn] = fragn;
+    if (fragn > max_seen_fragn[arrn]) {
+      // make space for new fragment, if necessary
+      array_data[arrn] =
+          realloc(array_data[arrn], (fragn + 1) * sizeof(**array_data));
+      max_seen_fragn[arrn] = fragn;
+    }
+
+    // add frag length to array length
+    array_lengths[arrn] += length;
+
+    // allocate `length` ints of space for this frag, plus 1 int to store its
+    // length
+    array_data[arrn][fragn] = malloc((length + 1) * sizeof(***array_data));
+    array_data[arrn][fragn][0] = length;
+
+    seen_frags[arrn]++;
+
+    // write data to array
+    for (int d = 0; d < length; d++) {
+      uint8_t *dp = packet + HEADER_LEN + (d * sizeof(***array_data));
+      uint32_t data;
+      if (0 == endian)
+        data = u32_from_be_bytes(dp);
+      else
+        data = u32_from_le_bytes(dp);
+
+      // printf("[DEBUG] data=%08X\n", data);
+      array_data[arrn][fragn][d + 1] = data;
+    }
+
+    // printf("[DEBUG] done frag arrn=%d fragn=%d last=%s\n", arrn, fragn,
+    //        last == 1 ? "true" : "false");
+
+    // seen all fragments?
+    bool all = true;
+    for (int a = 0; a < array_count; a++) {
+      if (last_fragn[a] == UINT16_MAX || last_fragn[a] + 1 != seen_frags[a]) {
+        // printf("[DEBUG] SEEN SOME for arrn %d, last=%d, #seen=%d\n", a,
+        //        last_fragn[a], seen_frags[a]);
+        all = false;
+      } else
+        // printf("[DEBUG] SEEN ALL for arrn %d, last=%d, #seen=%d\n", a,
+        //        last_fragn[a], seen_frags[a]);
+        (void)(0);
+    }
+    read_all = all;
+
+    p += HEADER_LEN + (length * sizeof(**out));
+  } while (!read_all);
+
+  // assemble everything!
+  for (int a = 0; a < array_count; a++) {
+    // malloc enough space to hold data
+    out[a] = malloc(array_lengths[a] * sizeof(**out));
+
+    int frag_start = 0;
+    // for each frag, memcpy to array
+    for (int f = 0; f < seen_frags[a]; f++) {
+      int frag_len = array_data[a][f][0];
+      // copy `length` ints to array
+      memcpy(out[a] + frag_start, array_data[a][f] + 1,
+             frag_len * sizeof(***array_data));
+      // next frag starts after this one
+      frag_start += frag_len;
+    }
+
+    // printf("[DEBUG] wrote %d ints to array %d\n", frag_start, a);
+  }
+
+  for (int a = 0; a < array_count; a++) {
+    for (int f = 0; f < seen_frags[a]; f++)
+      free(array_data[a][f]);
+    free(array_data[a]);
+  }
+  free(array_data);
+
+  return out;
 }
 
 // Encryption Code:
